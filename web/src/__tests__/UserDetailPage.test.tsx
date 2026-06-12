@@ -30,7 +30,7 @@ vi.mock('@/hooks/useAuth', () => ({
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (k: string, opts?: Record<string, unknown>) => {
+    t: (k: string) => {
       // If opts is an object with interpolation values, just return the key
       // (avoids React "objects are not valid as child" error)
       return k
@@ -97,7 +97,7 @@ function setupAuthMock(canWrite = true, canDelete = false) {
 }
 
 function setupSelectMock(user: typeof mockUser | null = mockUser, error?: string) {
-  mockAdminSelect.mockImplementation((table: string, opts?: Record<string, unknown>) => {
+  mockAdminSelect.mockImplementation((table: string) => {
     if (table === 'admin_users_view') {
       if (error) return Promise.resolve({ data: null, error })
       return Promise.resolve({ data: user, error: null })

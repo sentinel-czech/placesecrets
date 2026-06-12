@@ -157,10 +157,7 @@ describe('CitiesPage', () => {
     })
 
     // Map is visible by default; click the toggle button to hide it
-    const mapToggle = screen.getByRole('button', { name: '' })
-    // The map toggle button has Map icon; find by closest button with the icon
     const buttons = screen.getAllByRole('button')
-    const toggleBtn = buttons.find(b => b.querySelector('.lucide-map') || b.textContent === '')
     // Simpler approach: click the outline button that isn't Add Country or Add City
     // The map toggle has variant="outline" and size="sm"
     fireEvent.click(buttons[0]) // First button is the map toggle

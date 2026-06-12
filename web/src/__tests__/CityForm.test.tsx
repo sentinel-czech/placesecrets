@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import { CityForm } from '@/components/cities/CityForm'
 import type { City, Country } from '@/lib/supabase/types'
@@ -15,7 +15,7 @@ vi.mock('@/components/shared/MapPicker', () => ({
 }))
 
 vi.mock('@/components/shared/TagInput', () => ({
-  TagInput: ({ value, onChange }: { value: string[]; onChange: (v: string[]) => void }) => (
+  TagInput: ({ value }: { value: string[]; onChange: (v: string[]) => void }) => (
     <div data-testid="tag-input">{(value || []).join(',')}</div>
   ),
 }))
@@ -43,11 +43,11 @@ const mockCity: City = {
 } as City
 
 describe('CityForm', () => {
-  let mockOnSubmit: ReturnType<typeof vi.fn>
+  let mockOnSubmit: Mock<(data: Record<string, unknown>) => Promise<void>>
 
   beforeEach(() => {
     vi.clearAllMocks()
-    mockOnSubmit = vi.fn().mockResolvedValue(undefined)
+    mockOnSubmit = vi.fn<(data: Record<string, unknown>) => Promise<void>>().mockResolvedValue(undefined)
   })
 
   it('renders all fields (name, country, lat, lng, radius, price, active)', () => {

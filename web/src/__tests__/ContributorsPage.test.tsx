@@ -225,7 +225,6 @@ describe('ContributorDetailPage', () => {
     setupDetailMock(makeContributor({ is_verified: true }))
     mockAdminUpdate.mockResolvedValue({ error: null })
     // After toggle, loadData is called again
-    const updatedContributor = makeContributor({ is_verified: false })
 
     renderDetailPage()
 

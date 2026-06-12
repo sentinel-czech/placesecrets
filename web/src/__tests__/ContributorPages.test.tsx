@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 
@@ -174,7 +174,7 @@ describe('AdminProfilePage', () => {
 
   it('shows non-contributor card for non-contributor role', async () => {
     const { useAuthStore } = await import('@/hooks/useAuth')
-    vi.mocked(useAuthStore).mockImplementation((selector?: (s: Record<string, unknown>) => unknown) => {
+    ;(useAuthStore as unknown as Mock).mockImplementation((selector?: (s: Record<string, unknown>) => unknown) => {
       const state = {
         user: { id: 'user-1', email: 'admin@test.com' },
         role: 'editor',
@@ -193,7 +193,7 @@ describe('AdminProfilePage', () => {
   it('saves profile on submit', async () => {
     // Reset useAuth to contributor role (prev test changed it to editor)
     const { useAuthStore } = await import('@/hooks/useAuth')
-    vi.mocked(useAuthStore).mockImplementation((selector?: (s: Record<string, unknown>) => unknown) => {
+    ;(useAuthStore as unknown as Mock).mockImplementation((selector?: (s: Record<string, unknown>) => unknown) => {
       const state = {
         user: { id: 'user-1', email: 'contrib@test.com' },
         role: 'contributor',

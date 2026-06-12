@@ -136,8 +136,8 @@ vi.mock('@/components/account/StatsMap', () => ({
 vi.mock('@/components/account/PoiTypeFilter', () => ({
   PoiTypeFilter: ({ types }: { types: unknown[] }) => (
     <div data-testid="poi-type-filter">
-      {types.map((t: Record<string, unknown>, i: number) => (
-        <span key={i}>{(t.name as Record<string, string>)?.en}</span>
+      {types.map((t: unknown, i: number) => (
+        <span key={i}>{((t as Record<string, unknown>).name as Record<string, string>)?.en}</span>
       ))}
     </div>
   ),

@@ -127,7 +127,6 @@ describe('CityNewPage', () => {
     })
 
     // Fill in the name field (the form has default values for other fields)
-    const nameInput = screen.getByRole('textbox', { name: '' })
     // The name input is the first text input inside the form
     const inputs = document.querySelectorAll('input[type="text"], input:not([type])')
     const nameField = inputs[0] as HTMLInputElement
