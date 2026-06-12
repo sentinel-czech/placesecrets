@@ -66,6 +66,15 @@ function makePermissions() {
   )
 }
 
+// Count checkboxes via a plain DOM query. `screen.getAllByRole('checkbox')`
+// computes the accessibility tree for the entire grid (5x13x3 = 195 inputs plus
+// the surrounding table), which pushed this file's per-test runtime right up to
+// the 5s vitest timeout and made it flaky. A direct querySelector is O(n) and
+// deterministic. RTL auto-cleanup empties document.body between tests.
+function getCheckboxes(): HTMLInputElement[] {
+  return Array.from(document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]'))
+}
+
 describe('AclManagementPage', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -101,7 +110,7 @@ describe('AclManagementPage', () => {
     expect(screen.getByText('dashboard')).toBeInTheDocument()
 
     // Each cell has 3 checkboxes (R, W, D) — 5 roles x 13 resources x 3 = 195
-    const checkboxes = screen.getAllByRole('checkbox')
+    const checkboxes = getCheckboxes()
     expect(checkboxes.length).toBe(5 * 13 * 3)
   })
 
@@ -114,7 +123,7 @@ describe('AclManagementPage', () => {
     })
 
     // Superadmin checkboxes: 13 resources x 3 = 39 disabled checkboxes
-    const allCheckboxes = screen.getAllByRole('checkbox')
+    const allCheckboxes = getCheckboxes()
     // First 3 checkboxes per resource row belong to superadmin (first role column)
     // The table renders per resource row: for each resource, all 5 roles in order
     // superadmin is the first role, so for each resource row indices 0,1,2 are superadmin
@@ -134,7 +143,7 @@ describe('AclManagementPage', () => {
     // Find the editor/cities cell. Editor is the second role, cities is the first resource.
     // Each resource row has 5 roles x 3 checkboxes = 15 checkboxes.
     // editor is index 1 in roles, so checkboxes at positions 3,4,5 (0-based) in first row.
-    const allCheckboxes = screen.getAllByRole('checkbox')
+    const allCheckboxes = getCheckboxes()
     // First resource row (cities): superadmin(0,1,2), editor(3,4,5), viewer(6,7,8), contributor(9,10,11), user(12,13,14)
     const editorRead = allCheckboxes[3] as HTMLInputElement
     const editorWrite = allCheckboxes[4] as HTMLInputElement
@@ -164,7 +173,7 @@ describe('AclManagementPage', () => {
       expect(screen.getByText('cities')).toBeInTheDocument()
     })
 
-    const allCheckboxes = screen.getAllByRole('checkbox')
+    const allCheckboxes = getCheckboxes()
     const editorRead = allCheckboxes[3] as HTMLInputElement
     const editorWrite = allCheckboxes[4] as HTMLInputElement
     const editorDelete = allCheckboxes[5] as HTMLInputElement
@@ -191,7 +200,7 @@ describe('AclManagementPage', () => {
     })
 
     // Toggle editor/cities write (auto-enables read)
-    const allCheckboxes = screen.getAllByRole('checkbox')
+    const allCheckboxes = getCheckboxes()
     const editorWrite = allCheckboxes[4] as HTMLInputElement
     fireEvent.click(editorWrite)
 
