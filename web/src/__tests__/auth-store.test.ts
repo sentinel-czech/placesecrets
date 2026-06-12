@@ -166,7 +166,7 @@ describe('useAuthStore', () => {
     it('resets all state including adminVerified', async () => {
       // Set some state first
       useAuthStore.setState({
-        user: { id: 'u-1' } as any,
+        user: { id: 'u-1' } as unknown as import('@supabase/supabase-js').User,
         role: 'superadmin',
         adminVerified: true,
         contributorId: 'cp-1',

@@ -32,7 +32,7 @@ export default function LoginPage() {
       } else {
         navigate('/account/explore')
       }
-    } catch (err: unknown) {
+    } catch {
       setError(t('auth.invalidCredentials'))
     } finally {
       setLoading(false)

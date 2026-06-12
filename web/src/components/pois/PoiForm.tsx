@@ -57,7 +57,7 @@ function parseCoordinates(input: string): { lat: number; lng: number } | null {
     .replace(/\u00B0/g, '°')   // normalize degree sign
 
   // DMS: 50°04'35.1"N 14°25'47.0"E
-  const dmsRe = /(\d+)\s*°\s*(\d+)\s*['']\s*([\d.]+)\s*["\"]\s*([NSEW])/gi
+  const dmsRe = /(\d+)\s*°\s*(\d+)\s*['']\s*([\d.]+)\s*["]\s*([NSEW])/gi
   const dmsMatches = [...s.matchAll(dmsRe)]
   if (dmsMatches.length >= 2) {
     const parts = dmsMatches.map(m => {
