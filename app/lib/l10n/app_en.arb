@@ -1,0 +1,138 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "HeroDots",
+
+  "navMap": "Map",
+  "navHistory": "History",
+  "navSettings": "Settings",
+
+  "mapCenterOnLocation": "Center on my location",
+  "mapLoadingPois": "Loading points of interest...",
+  "mapNoPoisNearby": "No points of interest nearby",
+  "mapNavigate": "Navigate",
+  "mapShowDetail": "Show detail",
+  "mapDistanceAway": "{distance} away",
+  "@mapDistanceAway": {
+    "placeholders": {
+      "distance": { "type": "String" }
+    }
+  },
+
+  "poiDetailAudioGuide": "Audio Guide",
+  "poiDetailPlayAudio": "Play audio guide",
+  "poiDetailStopAudio": "Stop audio",
+  "poiDetailTtsUnavailable": "Text-to-speech unavailable",
+  "poiDetailPhotos": "Photos",
+  "poiDetailNotes": "My Notes",
+  "poiDetailAddNote": "Add a note...",
+  "poiDetailSaveNote": "Save note",
+  "poiDetailTakePhoto": "Take photo",
+  "poiDetailPremiumLocked": "Premium content",
+  "poiDetailUnlockCity": "Unlock this city",
+  "poiDetailFreeVisitUsed": "Free visit used",
+  "poiDetailVisited": "Visited",
+  "poiDetailNotVisited": "Not visited yet",
+
+  "historyTitle": "Visit History",
+  "historyNoVisits": "No visits yet. Start exploring!",
+  "historySearchHint": "Search visits...",
+  "historyTabList": "List",
+  "historyTabCalendar": "Calendar",
+  "historyExportPdf": "Export to PDF",
+
+  "settingsTitle": "Settings",
+  "settingsLanguage": "Language",
+  "settingsGeofenceRadius": "Geofence radius",
+  "settingsGeofenceRadiusValue": "{meters} meters",
+  "@settingsGeofenceRadiusValue": {
+    "placeholders": {
+      "meters": { "type": "int" }
+    }
+  },
+  "settingsNotifications": "Notifications",
+  "settingsAccount": "Account",
+  "settingsSignIn": "Sign in",
+  "settingsSignOut": "Sign out",
+  "settingsDeleteAccount": "Delete account",
+  "settingsDeleteAccountConfirm": "Are you sure? This will permanently delete all your data.",
+  "settingsPaymentHistory": "Payment history",
+  "settingsNoPayments": "No payments",
+  "settingsAbout": "About",
+  "settingsVersion": "Version {version}",
+  "@settingsVersion": {
+    "placeholders": {
+      "version": { "type": "String" }
+    }
+  },
+
+  "authTitle": "Sign In",
+  "authEmail": "Email",
+  "authPassword": "Password",
+  "authSignInEmail": "Sign in with email",
+  "authSignInGoogle": "Sign in with Google",
+  "authSignInApple": "Sign in with Apple",
+  "authSignUp": "Create account",
+  "authForgotPassword": "Forgot password?",
+  "authAnonymous": "Continue without account",
+
+  "onboardingTitle1": "Discover Places",
+  "onboardingDesc1": "Find interesting points of interest around you with audio guides.",
+  "onboardingTitle2": "Listen & Learn",
+  "onboardingDesc2": "Audio guides play automatically when you approach a place.",
+  "onboardingTitle3": "Keep Your Travel Log",
+  "onboardingDesc3": "Save notes, photos, and export your travel history.",
+  "onboardingNext": "Next",
+  "onboardingGetStarted": "Get Started",
+  "onboardingSkip": "Skip",
+
+  "paymentTitle": "Unlock City",
+  "paymentCityAccess": "Full access to {cityName}",
+  "@paymentCityAccess": {
+    "placeholders": {
+      "cityName": { "type": "String" }
+    }
+  },
+  "paymentPrice": "{price} EUR",
+  "@paymentPrice": {
+    "placeholders": {
+      "price": { "type": "String" }
+    }
+  },
+  "paymentGooglePay": "Pay with Google Pay",
+  "paymentApplePay": "Pay with Apple Pay",
+  "paymentRevolut": "Pay with Revolut",
+  "paymentSuccess": "Payment successful! City unlocked.",
+  "paymentFailed": "Payment failed. Please try again.",
+  "paymentConfirmRevolut": "Did you complete the payment in Revolut?",
+  "paymentYesConfirm": "Yes, I paid",
+  "paymentCancel": "Cancel",
+
+  "exportTitle": "Export Travel Log",
+  "exportDateRange": "Date range",
+  "exportFrom": "From",
+  "exportTo": "To",
+  "exportGeneratePdf": "Generate PDF",
+  "exportShare": "Share",
+  "exportNoVisitsInRange": "No visits in selected range.",
+
+  "errorGeneric": "Something went wrong. Please try again.",
+  "errorNoInternet": "No internet connection.",
+  "errorLocationDisabled": "Location services are disabled.",
+  "errorLocationDenied": "Location permission denied.",
+  "errorNotificationsDisabled": "Notifications are disabled.",
+  "errorNavigationRequiresInternet": "Navigation requires an internet connection.",
+
+  "commonOk": "OK",
+  "commonCancel": "Cancel",
+  "commonSave": "Save",
+  "commonDelete": "Delete",
+  "commonEdit": "Edit",
+  "commonClose": "Close",
+  "commonLoading": "Loading...",
+  "commonRetry": "Retry",
+  "commonYes": "Yes",
+  "commonNo": "No",
+  "commonFree": "Free",
+  "commonPremium": "Premium"
+}

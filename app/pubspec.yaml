@@ -1,0 +1,106 @@
+name: herodots
+description: POI AudioGuide & Travel Log - discover places with audio guides
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State management
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+  hooks_riverpod: ^2.5.1
+  flutter_hooks: ^0.20.5
+
+  # Navigation
+  go_router: ^14.2.0
+
+  # Backend
+  supabase_flutter: ^2.5.0
+
+  # Local database
+  drift: ^2.18.0
+  drift_flutter: ^0.2.1
+
+  # Maps
+  flutter_map: ^7.0.1
+  flutter_map_tile_caching: ^9.1.0
+  latlong2: ^0.9.1
+
+  # Geolocation & geofencing
+  geolocator: ^12.0.0
+  flutter_background_geolocation: ^4.15.0
+
+  # Audio
+  just_audio: ^0.9.39
+  just_audio_background: ^0.0.1-beta.13
+  flutter_tts: ^4.0.2
+  audio_session: ^0.1.21
+
+  # UI components
+  cached_network_image: ^3.3.1
+  photo_view: ^0.14.0
+  table_calendar: ^3.1.2
+  flutter_svg: ^2.0.10+1
+
+  # Payments
+  pay: ^2.0.0
+  url_launcher: ^6.3.0
+
+  # PDF
+  pdf: ^3.11.0
+  printing: ^5.13.1
+
+  # Photography
+  image_picker: ^1.1.2
+  image_cropper: ^8.0.1
+
+  # Notifications
+  firebase_core: ^3.3.0
+  firebase_messaging: ^15.1.0
+  flutter_local_notifications: ^17.2.3
+
+  # Utilities
+  shared_preferences: ^2.3.1
+  intl: ^0.20.2
+  dio: ^5.6.0
+  path_provider: ^2.1.4
+  permission_handler: ^11.3.1
+  uuid: ^4.4.0
+  connectivity_plus: ^6.0.3
+  package_info_plus: ^8.0.0
+  equatable: ^2.0.5
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+  share_plus: ^10.0.0
+  workmanager: ^0.5.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  build_runner: ^2.4.12
+  drift_dev: ^2.18.0
+  riverpod_generator: ^2.4.3
+  freezed: ^2.5.7
+  json_serializable: ^6.8.0
+  mockito: ^5.4.4
+  flutter_launcher_icons: ^0.14.1
+
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/app_icon.png"

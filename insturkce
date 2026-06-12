@@ -1,0 +1,25 @@
+
+----                                                                                         an
+                                                                                         
+Administrace - cities 
+                                                                                         
+udelej tabulku první seznam bude země - druhý seznam bude město nebo místo v zemi, a třetí budou poi místa a budou se zobrazovat po kliknutí .. na zemi místo atp. citi půjde editovat
+poi taky ... 
+
+podobný seznam bude u contributora jen tam uvidí poi v mestech a zemích co vytvářel.. a pokud bude chtít přidat novou poi, zemi mu to nabídne, city nebo místo nebo oblast nabídne nebo vytvoří a pak poi.  
+
+----
+
+settings v superadminovi neumožnuje menit system limits.. 
+Payment Configuration - píše : Failed to load config: Wildcard select not allowed on payment_config; specify columns explicitly
+
+---
+users neumoznue přidat uživatele - jak jsem avizoval dříve jako superadmi musím mít možnost přidat, ověřit / aktivovat  užovatele, mohu mu manualne přiřazovat města či jen poi.. 
+
+---
+pokud deaktivuje nejaky place type - tam kde je použit se zobrazí ale do nových poi se nenabízí 
+
+-- 
+
+zkontroluj  jazykové mutace  zda se že jsou pouze EN a CS - ostatní chybí přeložit
+

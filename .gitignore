@@ -1,0 +1,55 @@
+# === place-secrets monorepo root .gitignore ===
+
+# --- Secrets / environment ---
+.env
+.env.local
+.env.*.local
+*.local
+# Keep tracked: .env.example (template) and .env.production (non-secret build flags only)
+
+# --- Logs ---
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Node / web ---
+node_modules/
+dist/
+dist-ssr/
+.vite/
+coverage/
+
+# --- Flutter / Dart (app/) ---
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+**/build/
+app/.flutter-plugins-dependencies
+*.iml
+
+# --- Supabase local ---
+backend/supabase/.branches/
+backend/supabase/.temp/
+supabase/.branches/
+supabase/.temp/
+
+# --- OS / editor ---
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.swp
+*.swo
+
+# --- Misc ---
+.cache/
+tmp/
+
+# Preserved scaffold repo metadata (web/.git before monorepo unification)
+web/.git-scaffold-backup/

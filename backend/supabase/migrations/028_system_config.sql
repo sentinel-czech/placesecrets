@@ -1,0 +1,9 @@
+-- Add system configuration columns to payment_config
+ALTER TABLE public.payment_config
+  ADD COLUMN IF NOT EXISTS free_pois_per_month INTEGER NOT NULL DEFAULT 1,
+  ADD COLUMN IF NOT EXISTS max_geofences INTEGER NOT NULL DEFAULT 100,
+  ADD COLUMN IF NOT EXISTS max_photo_size_mb INTEGER NOT NULL DEFAULT 10,
+  ADD COLUMN IF NOT EXISTS max_audio_size_mb INTEGER NOT NULL DEFAULT 50,
+  ADD COLUMN IF NOT EXISTS admin_pin_attempts INTEGER NOT NULL DEFAULT 5,
+  ADD COLUMN IF NOT EXISTS admin_pin_lockout_minutes INTEGER NOT NULL DEFAULT 15,
+  ADD COLUMN IF NOT EXISTS receipt_prefix TEXT NOT NULL DEFAULT 'PS-';
