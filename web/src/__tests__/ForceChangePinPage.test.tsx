@@ -53,6 +53,7 @@ function renderPage() {
 
 function setupAuthStore(overrides: Record<string, unknown> = {}) {
   const defaults = {
+    user: { id: 'user-1', email: 'admin@test.com' },
     mustChangePin: true,
     setMustChangePin: mockSetMustChangePin,
     setPermissions: mockSetPermissions,
@@ -113,5 +114,13 @@ describe('ForceChangePinPage', () => {
     renderPage()
 
     expect(mockNavigate).toHaveBeenCalledWith('/admin/dashboard', { replace: true })
+  })
+
+  it('redirects to /login when there is no authenticated session (defense-in-depth)', () => {
+    setupAuthStore({ user: null, mustChangePin: true })
+    renderPage()
+
+    expect(mockNavigate).toHaveBeenCalledWith('/login', { replace: true })
+    expect(screen.queryByPlaceholderText('******')).not.toBeInTheDocument()
   })
 })

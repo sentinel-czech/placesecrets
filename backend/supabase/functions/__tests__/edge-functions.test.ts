@@ -233,6 +233,24 @@ describe('verify-admin-pin validation', () => {
 })
 
 // ============================================================
+// 4b. change-admin-pin must use the same bound as verify-admin-pin
+// (regression: change-admin-pin previously allowed /^\d{6,}$/, which let a
+//  user set a >6-digit PIN that verify-admin-pin /^\d{6}$/ could never accept,
+//  and was an unbounded bcrypt-input DoS vector)
+// ============================================================
+describe('change-admin-pin validation', () => {
+  it('accepts exactly 6 digits via shared PIN_RE', () => {
+    expect(PIN_RE.test('654321')).toBe(true)
+  })
+
+  it('rejects longer-than-6-digit PINs (un-verifiable + DoS)', () => {
+    expect(PIN_RE.test('1234567')).toBe(false)
+    expect(PIN_RE.test('123456789012')).toBe(false)
+    expect(PIN_RE.test('1'.repeat(100))).toBe(false)
+  })
+})
+
+// ============================================================
 // 5. admin-api validation (using shared functions)
 // ============================================================
 describe('admin-api validation', () => {

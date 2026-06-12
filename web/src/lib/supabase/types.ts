@@ -185,7 +185,6 @@ export interface PaymentConfig {
   revolut_username: string | null
   revolut_iban: string | null
   stripe_publishable_key: string | null
-  stripe_secret_key: string | null
   google_pay_merchant_id: string | null
   apple_pay_merchant_id: string | null
   free_pois_per_month: number

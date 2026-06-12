@@ -1,6 +1,7 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import bcrypt from 'https://esm.sh/bcryptjs@2.4.3'
 import { handleAdminCors, getAdminCorsHeaders } from '../_shared/cors.ts'
+import { PIN_RE } from '../_shared/validation.ts'
 
 function json(body: Record<string, unknown>, req: Request, status = 200): Response {
   return new Response(JSON.stringify(body), {
@@ -77,9 +78,11 @@ Deno.serve(async (req) => {
       }
     }
 
-    // Validate new PIN
-    if (!/^\d{6,}$/.test(new_pin)) {
-      return err('PIN must be at least 6 digits', req)
+    // Validate new PIN. Must be exactly 6 digits (shared PIN_RE), consistent with
+    // verify-admin-pin — a longer PIN set here could never be verified at login,
+    // and an unbounded length is also a bcrypt-input DoS vector.
+    if (typeof new_pin !== 'string' || !PIN_RE.test(new_pin)) {
+      return err('PIN must be exactly 6 digits', req)
     }
 
     const newHash = await bcrypt.hash(new_pin, 10)

@@ -51,7 +51,6 @@ const mockConfig = {
   revolut_username: 'placesecrets',
   revolut_iban: 'CZ123456',
   stripe_publishable_key: 'pk_test_xxx',
-  stripe_secret_key: null,
   google_pay_merchant_id: 'gp-123',
   apple_pay_merchant_id: 'ap-123',
   free_pois_per_month: 3,

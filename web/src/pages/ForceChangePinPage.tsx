@@ -17,8 +17,15 @@ export default function ForceChangePinPage() {
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<string[]>([])
   const navigate = useNavigate()
-  const { mustChangePin, setMustChangePin, role, setPermissions } = useAuthStore()
+  const { user, mustChangePin, setMustChangePin, role, setPermissions } = useAuthStore()
   const { t } = useTranslation()
+
+  // Defense-in-depth: this route lives outside AdminGuard (AdminGuard redirects
+  // mustChangePin users here, so nesting it would loop). Still require a session.
+  if (!user) {
+    navigate('/login', { replace: true })
+    return null
+  }
 
   // Redirect away if not in force-change mode
   if (!mustChangePin) {
