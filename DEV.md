@@ -41,3 +41,24 @@ on every push/PR.
 
 Copy `web/.env.example` → `web/.env.local` and fill in `VITE_SUPABASE_URL` /
 `VITE_SUPABASE_ANON_KEY` (the local stack prints these on `supabase start`).
+
+## Production env (must exist before deploy)
+
+Deploying from the built artifacts requires these to be set, or the app/functions
+fail at runtime:
+
+**Web build** (`web/`): `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (anon key only —
+never the service-role key).
+
+**Edge functions** (Supabase project secrets, `supabase secrets set …`):
+
+| Var | Notes |
+|-----|-------|
+| `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | auto-injected by the Supabase Edge runtime |
+| `STRIPE_SECRET_KEY` | Stripe API key |
+| `STRIPE_POI_WEBHOOK_SECRET` | signing secret for `confirm-poi-payment` |
+| `WEBHOOK_SECRET` | signing secret for `payment-webhook` |
+| `RESEND_API_KEY` | transactional email (best-effort) |
+| `APP_URL` | base URL used in emails/links |
+
+Password reset also needs Supabase **Auth → Email templates / SMTP** configured.

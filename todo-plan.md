@@ -83,25 +83,24 @@ Ponecháno jako záznam; položky přeškrtnuté.
 
 ---
 
-## B. Hardening / cleanup — ZBÝVÁ
+## B. Hardening / cleanup
 
-**P1 (před releasem):**
-- Smazat mrtvý top-level `supabase/` (prázdné migrations/functions; kanonický `backend/supabase/`).
-- `reset-db.sh`: potvrzovací prompt (wipe risk); dev creds (`vtm999`/`123456`) ze stdout → README/.env.example.
-- Ověřit env v dodávaných artefaktech (VITE_*, STRIPE_SECRET_KEY, SUPABASE_SERVICE_ROLE_KEY, webhook secret) — start z artefaktů.
-- Live test edge funkcí (`functions serve`): refund bez práv 403, admin-api bez tokenu 401, force-pin bez session /login.
+**P1:**
+- ~~Smazat mrtvý top-level `supabase/`~~ ✅
+- ~~`reset-db.sh` potvrzovací prompt + dev creds → DEV.md~~ ✅
+- ~~Vyjmenovat povinné env v dodávaných artefaktech~~ ✅ (DEV.md „Production env"). **Zbývá:** ověřit při reálném deployi (start z artefaktů).
+- **Zbývá:** live test edge funkcí přes `supabase functions serve` (refund 403 / admin-api 401 / force-pin redirect) — logika ověřena unit testy + DB, ne živým voláním.
 
-**P2 (krátce po):**
-- ~~Vite 8 upgrade~~ ✅ (vyřešilo novou dev-server vite CVE; +plugin-react 6, tailwind 4.3; audit 0). **Zbývá odloženo:** TS 6 (i18next peer `typescript:^5`) a eslint 10 (✗ `typescript-eslint@8`) — revidovat až ekosystém dozraje.
-- Web bundle 2,5 MB v jednom chunku → code-split (dynamic import, `manualChunks` pro jspdf/html2canvas/mapy).
-- Lint dluh (~21 errors, 10 warnings; mimo gate) — opravit / zkonfigurovat; zvážit `npm run lint` do `test.sh`/CI.
-- Edge-fn hardening: UUID validace Stripe metadat (`confirm-poi-payment`), max délka emailu (`invite-contributor`),
-  striktní content-type (`payment-webhook`), sjednotit přímé `pois` zápisy přes `admin-api` (audit log).
-- DB medium: `backup_email` RLS (PII), `payment_receipts` service_role → jen čtení, anon device-id ratingy (mig 009), moderační flag komentářů (042).
+**P2:**
+- ~~Vite 8 upgrade~~ ✅ (nová dev-server CVE; audit 0). **Odloženo:** TS 6 (i18next peer `typescript:^5`) a eslint 10 (✗ `typescript-eslint@8`) — až ekosystém dozraje.
+- ~~Web bundle code-split (2,5 MB → 559 kB main)~~ ✅
+- ~~Lint dluh → 0 errors~~ ✅ (20 warnings ponecháno; CI gate přidán)
+- ~~Edge-fn hardening: UUID metadata (confirm-poi-payment), max délka emailu (invite-contributor)~~ ✅ (content-type v payment-webhook ponechán `includes` — Stripe posílá `; charset=utf-8`).
+- ~~DB medium: ověřeno~~ ✅ — `backup_email` už chráněn RLS „read own profile" (019); `payment_receipts` owner-read + mutace jen service_role; anon device-id rating je záměrně off (009). Žádná migrace netřeba.
 
-**P3 (nice-to-have):**
-- CORS allowlist pro `create-poi-checkout`/`confirm-poi-payment` (bez rozbití nákupu); odstranit `admin.herodots.app`.
-- CI pipeline (`./test.sh` + `npm audit` gate), pre-commit secret-scan hook.
-- Konvence migrací (nepřečíslovávat; forward-only + zápis pořadí). Generovaný PDF v gitu → generovat v CI.
-- Branding HeroDots → place-secrets (balíček `cz.tuma.herodots`, `herodots.iml`, `operator_name` default) — rozhodnout.
-- Flutter závislosti review (mobil). Admin UI pro moderaci hodnocení audio guidů (dnes jen POI recenze).
+**P3:**
+- ~~Odstranit `admin.herodots.app` z CORS allowlistů~~ ✅. Wildcard u `create-poi-checkout`/`confirm-poi-payment` ponechán (chrání JWT/Stripe podpis; allowlist by rozbil veřejný nákup).
+- ~~CI pipeline (`.github/workflows/ci.yml`: lint+tsc+build+test+audit) + secret-scan pre-commit hook~~ ✅
+- ~~Branding `operator_name` HeroDots → PlaceSecrets~~ ✅ (seed + migrace 0446 + generate_docs). **Zbývá (mimo rozsah):** balíček `cz.tuma.herodots` / `herodots.iml` (breaking pro app store — samostatná úloha).
+- **Zbývá:** generovaný PDF v gitu (zvážit generování v CI místo commitování). Konvence migrací: nepřečíslovávat, forward-only (rozhodnuto).
+- **Zbývá:** Flutter závislosti review (mobil). Admin UI pro moderaci hodnocení audio guidů (dnes jen POI recenze).
