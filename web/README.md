@@ -1,73 +1,49 @@
-# React + TypeScript + Vite
+# place-secrets — Admin Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Vite + React 18 + TypeScript + Tailwind admin panel for the place-secrets POI
+AudioGuide platform. Talks to the shared Supabase backend (`../backend/supabase`).
 
-Currently, two official plugins are available:
+## Setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+cp .env.example .env.local   # then fill in VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY
+npm run dev                  # Vite dev server on http://localhost:5173
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Environment variables (see `.env.example`):
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Variable | Purpose |
+|----------|---------|
+| `VITE_SUPABASE_URL` | Supabase project URL |
+| `VITE_SUPABASE_ANON_KEY` | Supabase **anon** (public) key — safe in the browser bundle |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+> The `service_role` key and Stripe secret key are **never** used in the client.
+> All privileged operations go through the `admin-api` Edge Function, which
+> validates the caller's JWT and admin role server-side. The Stripe secret is read
+> only from the `STRIPE_SECRET_KEY` env var inside Edge Functions.
+
+## Scripts
+
+```bash
+npm run dev       # dev server
+npm run build     # type-check (tsc -b) + production build
+npm run preview   # preview the production build
+npm run lint      # eslint
+npm test          # vitest (run once)
 ```
+
+Run the whole project test suite (web + types + edge functions) from the repo root:
+
+```bash
+./test.sh
+```
+
+## Security notes
+
+- Auth/role gating is enforced server-side in Edge Functions; client guards
+  (`AdminGuard`) are UX only. `/admin/force-change-pin` deliberately sits outside
+  `AdminGuard` (AdminGuard redirects `mustChangePin` users to it, so nesting it
+  would loop) and instead checks for a live session itself.
+- Admin PINs are exactly 6 digits, bcrypt-hashed, with brute-force lockout.
+- Keep dependencies clean: `npm audit` should report 0 vulnerabilities.

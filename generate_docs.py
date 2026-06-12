@@ -7,6 +7,7 @@ Generates project-documentation.pdf with:
 """
 
 import datetime
+import os
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.colors import HexColor, white, black, Color
 from reportlab.lib.units import mm, cm
@@ -582,7 +583,7 @@ def header_footer(canvas, doc):
     canvas.saveState()
     canvas.setFont('Helvetica', 7)
     canvas.setFillColor(HexColor('#94A3B8'))
-    canvas.drawString(MARGIN, 12 * mm, "HeroDots / PlaceSecrets — Project Documentation")
+    canvas.drawString(MARGIN, 12 * mm, "place-secrets — Project Documentation")
     canvas.drawRightString(PAGE_W - MARGIN, 12 * mm, f"Page {doc.page}")
     canvas.restoreState()
 
@@ -677,7 +678,7 @@ class SchemaTableFlowable(Flowable):
 # ──────────────────────────────────────────────
 def build_pdf():
     doc = SimpleDocTemplate(
-        "/home/vtm/work/moj/HeroDots/project-documentation.pdf",
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "project-documentation.pdf"),
         pagesize=A4,
         leftMargin=MARGIN, rightMargin=MARGIN,
         topMargin=MARGIN, bottomMargin=MARGIN + 6 * mm,
@@ -687,7 +688,7 @@ def build_pdf():
 
     # ── TITLE PAGE ──
     story.append(Spacer(1, 60 * mm))
-    story.append(Paragraph("HeroDots / PlaceSecrets", styles['TitlePage']))
+    story.append(Paragraph("place-secrets", styles['TitlePage']))
     story.append(Paragraph("Project Documentation", styles['SubTitle']))
     story.append(Spacer(1, 10 * mm))
     story.append(Paragraph(
