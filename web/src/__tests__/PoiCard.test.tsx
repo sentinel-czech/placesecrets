@@ -1,7 +1,8 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { PoiCard, poiHref, type PoiPreview } from '@/components/places/PoiCard'
+import { PoiCard, type PoiPreview } from '@/components/places/PoiCard'
+import { poiHref } from '@/components/places/poi'
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
