@@ -25,7 +25,6 @@ export const ALLOWED_STORAGE_BUCKETS = ['poi-photos', 'audio-guides', 'payment-r
 
 export const ALLOWED_ORIGINS = [
   'https://admin.placesecrets.app',
-  'https://admin.herodots.app',
   'http://localhost:5173',
   'http://localhost:4173',
 ] as const

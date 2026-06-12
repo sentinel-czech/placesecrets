@@ -77,8 +77,8 @@ ON CONFLICT DO NOTHING;
 
 -- Payment config
 UPDATE public.payment_config SET
-  operator_name = 'HeroDots',
-  revolut_username = 'herodots'
+  operator_name = 'PlaceSecrets',
+  revolut_username = 'placesecrets'
 WHERE id = (SELECT id FROM public.payment_config LIMIT 1);
 
 -- Superadmin user for local dev (vtm@placesecrets.cz / vtm999)

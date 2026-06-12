@@ -25,6 +25,18 @@ After `./reset-db.sh`:
 - Superadmin: `vtm@placesecrets.cz` / `vtm999` — admin PIN `123456` (forced change on first admin login)
 - Supabase Studio: http://127.0.0.1:54323
 
+## Secret-scan pre-commit hook
+
+Enable once per clone to block commits that contain obvious secrets
+(`sk_live…`, private keys, service-role JWTs):
+
+```bash
+git config core.hooksPath .githooks
+```
+
+CI (`.github/workflows/ci.yml`) runs lint + `tsc` + build + tests + `npm audit --audit-level=high`
+on every push/PR.
+
 ## Web env
 
 Copy `web/.env.example` → `web/.env.local` and fill in `VITE_SUPABASE_URL` /

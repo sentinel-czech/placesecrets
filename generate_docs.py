@@ -325,7 +325,7 @@ TABLES = [
         "group": "Payments",
         "columns": [
             ("id", "UUID", "PK"),
-            ("operator_name", "TEXT", "NN, DEF 'HeroDots'"),
+            ("operator_name", "TEXT", "NN, DEF 'PlaceSecrets'"),
             ("revolut_username", "TEXT", ""),
             ("revolut_iban", "TEXT", ""),
             ("stripe_publishable_key", "TEXT", ""),

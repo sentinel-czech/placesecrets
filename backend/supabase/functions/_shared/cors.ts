@@ -1,6 +1,5 @@
 const ALLOWED_ORIGINS = [
   'https://admin.placesecrets.app',
-  'https://admin.herodots.app',
   'http://localhost:5173',
   'http://localhost:4173',
 ]

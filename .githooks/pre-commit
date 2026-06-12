@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Secret-scan pre-commit hook. Enable once with:
+#   git config core.hooksPath .githooks
+# Blocks commits that introduce obvious secrets in staged changes.
+
+set -euo pipefail
+
+# Only scan added/changed lines in staged text files.
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$staged" ] && exit 0
+
+patterns='sk_live_[A-Za-z0-9]{20,}|sk_test_[A-Za-z0-9]{20,}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|SUPABASE_SERVICE_ROLE_KEY=ey[A-Za-z0-9_.-]+|eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}'
+
+found=0
+while IFS= read -r file; do
+  # skip lockfiles / binaries / this hook
+  case "$file" in
+    *package-lock.json|*.png|*.jpg|*.jpeg|*.pdf|*.svg|.githooks/*) continue ;;
+  esac
+  if git show ":$file" 2>/dev/null | grep -nEq "$patterns"; then
+    echo "✖ Potential secret in staged file: $file"
+    git show ":$file" | grep -nE "$patterns" | sed 's/\(.\{120\}\).*/\1…/' | head -3
+    found=1
+  fi
+done <<< "$staged"
+
+if [ "$found" -ne 0 ]; then
+  echo ""
+  echo "Commit blocked. Remove the secret or, if it is a false positive, commit with --no-verify."
+  exit 1
+fi

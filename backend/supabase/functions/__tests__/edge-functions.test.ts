@@ -441,12 +441,12 @@ describe('CORS configuration', () => {
     expect(getOriginHeader(null)).toBe('https://admin.placesecrets.app')
   })
 
-  it('allowed origins list is complete', () => {
+  it('allowed origins list is complete (legacy herodots origin removed)', () => {
     expect(ALLOWED_ORIGINS).toContain('https://admin.placesecrets.app')
-    expect(ALLOWED_ORIGINS).toContain('https://admin.herodots.app')
+    expect(ALLOWED_ORIGINS).not.toContain('https://admin.herodots.app')
     expect(ALLOWED_ORIGINS).toContain('http://localhost:5173')
     expect(ALLOWED_ORIGINS).toContain('http://localhost:4173')
-    expect(ALLOWED_ORIGINS.length).toBe(4)
+    expect(ALLOWED_ORIGINS.length).toBe(3)
   })
 })
 
