@@ -38,6 +38,6 @@ cd "$SCRIPT_DIR/web"
 npm install --silent 2>/dev/null
 echo ""
 echo "  Web portal: http://localhost:5173"
-echo "  Login:      vtm@placesecrets.cz / vtm999 (PIN: 123456)"
+echo "  Local seed login: see DEV.md"
 echo ""
 exec npm run dev
