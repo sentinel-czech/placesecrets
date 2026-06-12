@@ -27,16 +27,19 @@ Funkční jádro (ověřeno):
 
 ---
 
-## A. Free verze — K IMPLEMENTACI
+## A. Free verze — HOTOVO ✅ (tento průchod, commit `feat(web): free-version browsing…`)
 
-### A1. Společná `PoiCard` (základ náhledů)
+Vše dole dodáno a otestováno (web 293 testů, edge 70, `search_pois` ověřeno přes `supabase db reset`).
+Ponecháno jako záznam; položky přeškrtnuté.
+
+### ~~A1. Společná `PoiCard` (základ náhledů)~~ ✅
 - Nová `web/src/components/places/PoiCard.tsx`: foto (`photo_urls[0]` / placeholder), název dle jazyka,
   perex snippet, hvězdičky (`avg_rating`/`total_ratings`), access badge, odkaz `/{country}/{citySlug}/{slug}`.
 - Vytáhnout duplikovanou logiku z `components/account/PlaceDetailSheet.tsx` a featured karet `pages/LandingPage.tsx`;
   obě přepojit na `PoiCard` (landing pak s **reálnými fotkami**, ne natvrdo příklady).
 - Reuse: `Badge`, `Star` (lucide), jazyk `i18n.language.substring(0,2)`.
 
-### A2. Vyhledávání míst (po přihlášení)
+### ~~A2. Vyhledávání míst (po přihlášení) — migrace 0445 search_pois~~ ✅
 - **DB**: migrace `0445_search_pois.sql` — RPC `search_pois(p_query text, p_limit int default 30)`,
   `SECURITY DEFINER SET search_path = public`, `GRANT EXECUTE TO anon, authenticated`. ILIKE přes
   `name->>lang`, `aliases`, perex, název města; jen `is_active = true`; řazení relevance + `avg_rating`.
@@ -46,7 +49,7 @@ Funkční jádro (ověřeno):
   Debounced input → `supabase.rpc('search_pois', { p_query })`, výsledky = grid `PoiCard`.
   Reuse debounce z `pages/cities/CitiesPage.tsx`.
 
-### A3. Katalog procházení — města → místa
+### ~~A3. Katalog procházení — města → místa~~ ✅
 - **Katalog měst**: `web/src/pages/account/CitiesCatalogPage.tsx` + route `/account/cities`.
   `supabase.from('cities').select(...).eq('is_active', true)` (RLS dovoluje anon read — viz `LandingPage.tsx:38`).
   Grid karet měst (název, země, počet míst).
@@ -55,7 +58,7 @@ Funkční jádro (ověřeno):
   Grid `PoiCard`; detail reuse veřejné route `/:countryCode/:citySlug/:poiSlug`.
 - Fallback: kdyby RLS nestačil, doplnit RPC `list_published_cities()` / `list_city_pois(city_id)`.
 
-### A4. Reset zapomenutého hesla (kritické)
+### ~~A4. Reset zapomenutého hesla~~ ✅
 - `web/src/pages/ForgotPasswordPage.tsx` + route `/forgot-password` (public):
   `supabase.auth.resetPasswordForEmail(email, { redirectTo: origin + '/reset-password' })`.
 - `web/src/pages/ResetPasswordPage.tsx` + route `/reset-password` (public): zachytit `PASSWORD_RECOVERY`
@@ -63,15 +66,15 @@ Funkční jádro (ověřeno):
 - Odkaz „Zapomenuté heslo?" v `pages/LoginPage.tsx`. Vzor: `AccountProfilePage` (volá `auth.updateUser`).
 - Env: vyžaduje Auth e-mailové šablony/SMTP v Supabase — ověřit v prostředí.
 
-### A5. Sjednocení navigace
+### ~~A5. Sjednocení navigace~~ ✅
 - `components/layout/AccountShell.tsx`: globální search box (→ `/account/search`) + odkazy Explore / Katalog / Hledat.
   `LandingPage` CTA → `/account/cities`. Konzistentní `PoiCard` všude.
 
-### A6. (volitelné) Submit hodnocení místa
+### ~~A6. Submit hodnocení místa~~ ✅
 - Do `PlaceDetailPage` (tab Rating) formulář hvězdy+komentář, upsert do `poi_ratings` (RLS to dovoluje).
   Volitelné — hodnocení audio guidů už funguje.
 
-### A7. (volitelné) Resend potvrzovacího e-mailu
+### ~~A7. Resend potvrzovacího e-mailu~~ ✅
 - Tlačítko na success `RegisterPage` → `supabase.auth.resend({ type: 'signup', email })`.
 
 ### Testy k A
@@ -89,7 +92,7 @@ Funkční jádro (ověřeno):
 - Live test edge funkcí (`functions serve`): refund bez práv 403, admin-api bez tokenu 401, force-pin bez session /login.
 
 **P2 (krátce po):**
-- Dep majory (vite 8 / TS 6 / eslint 10) — **odloženo**: peer-blocked (i18next `typescript:^5`, `@tailwindcss/vite@4.2.1` drží vite ^7, eslint 10 ✗ `typescript-eslint@8`). Revidovat až ekosystém dozraje.
+- ~~Vite 8 upgrade~~ ✅ (vyřešilo novou dev-server vite CVE; +plugin-react 6, tailwind 4.3; audit 0). **Zbývá odloženo:** TS 6 (i18next peer `typescript:^5`) a eslint 10 (✗ `typescript-eslint@8`) — revidovat až ekosystém dozraje.
 - Web bundle 2,5 MB v jednom chunku → code-split (dynamic import, `manualChunks` pro jspdf/html2canvas/mapy).
 - Lint dluh (~21 errors, 10 warnings; mimo gate) — opravit / zkonfigurovat; zvážit `npm run lint` do `test.sh`/CI.
 - Edge-fn hardening: UUID validace Stripe metadat (`confirm-poi-payment`), max délka emailu (`invite-contributor`),
