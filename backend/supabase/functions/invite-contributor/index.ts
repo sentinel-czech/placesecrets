@@ -43,6 +43,8 @@ Deno.serve(async (req) => {
     const { email, display_name } = await req.json()
     if (!email || typeof email !== 'string') return adminErrorResponse('Email required', req)
     if (!display_name || typeof display_name !== 'string') return adminErrorResponse('Display name required', req)
+    // RFC 5321 caps an email address at 254 chars; reject oversized input early.
+    if (email.length > 254 || display_name.length > 200) return adminErrorResponse('Invalid input', req)
 
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
     if (!emailRegex.test(email)) return adminErrorResponse('Invalid email format', req)

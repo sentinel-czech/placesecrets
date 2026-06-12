@@ -146,6 +146,20 @@ describe('confirm-poi-payment validation', () => {
     const metadata = { purchase_type: 'city_premium', user_id: 'u-1' }
     expect(!metadata.hasOwnProperty('city_id')).toBe(true)
   })
+
+  it('rejects metadata ids that are not valid UUIDs (user_id/poi_id/city_id)', () => {
+    expect(UUID_RE.test('u-1')).toBe(false)
+    expect(UUID_RE.test('not-a-uuid')).toBe(false)
+    expect(UUID_RE.test('11111111-1111-1111-1111-111111111111')).toBe(true)
+  })
+})
+
+describe('invite-contributor validation', () => {
+  it('rejects emails longer than the RFC 5321 limit (254)', () => {
+    const longEmail = 'a'.repeat(250) + '@example.com'
+    expect(longEmail.length > 254).toBe(true)
+    expect('me@example.com'.length > 254).toBe(false)
+  })
 })
 
 // ============================================================

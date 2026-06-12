@@ -1,6 +1,7 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import Stripe from 'https://esm.sh/stripe@14'
 import { corsHeaders, handleCors, jsonResponse, errorResponse } from '../_shared/cors.ts'
+import { UUID_RE } from '../_shared/validation.ts'
 
 Deno.serve(async (req) => {
   const corsResp = handleCors(req)
@@ -45,6 +46,9 @@ Deno.serve(async (req) => {
       console.error('Missing metadata:', { userId, purchaseType })
       return errorResponse('Missing metadata', 400)
     }
+    if (!UUID_RE.test(userId)) {
+      return errorResponse('Invalid user_id in metadata', 400)
+    }
 
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL')!,
@@ -56,8 +60,8 @@ Deno.serve(async (req) => {
 
     if (purchaseType === 'poi') {
       const poiId = metadata.poi_id
-      if (!poiId) {
-        return errorResponse('Missing poi_id in metadata', 400)
+      if (!poiId || !UUID_RE.test(poiId)) {
+        return errorResponse('Invalid poi_id in metadata', 400)
       }
 
       const { error } = await supabase.from('user_poi_purchases').upsert({
@@ -74,8 +78,8 @@ Deno.serve(async (req) => {
       }
     } else if (purchaseType === 'city_premium') {
       const cityId = metadata.city_id
-      if (!cityId) {
-        return errorResponse('Missing city_id in metadata', 400)
+      if (!cityId || !UUID_RE.test(cityId)) {
+        return errorResponse('Invalid city_id in metadata', 400)
       }
 
       const { error } = await supabase.from('user_city_premium_purchases').upsert({
