@@ -11,6 +11,8 @@ import { AccountShell } from '@/components/layout/AccountShell'
 import LandingPage from '@/pages/LandingPage'
 import LoginPage from '@/pages/LoginPage'
 import RegisterPage from '@/pages/RegisterPage'
+import ForgotPasswordPage from '@/pages/ForgotPasswordPage'
+import ResetPasswordPage from '@/pages/ResetPasswordPage'
 import AdminPinPage from '@/pages/AdminPinPage'
 import ForceChangePinPage from '@/pages/ForceChangePinPage'
 import UnauthorizedPage from '@/pages/UnauthorizedPage'
@@ -44,6 +46,9 @@ import AdminProfilePage from '@/pages/AdminProfilePage'
 import AccountExplorePage from '@/pages/account/AccountExplorePage'
 import AccountHistoryPage from '@/pages/account/AccountHistoryPage'
 import AccountProfilePage from '@/pages/account/AccountProfilePage'
+import SearchPage from '@/pages/account/SearchPage'
+import CitiesCatalogPage from '@/pages/account/CitiesCatalogPage'
+import CityPlacesPage from '@/pages/account/CityPlacesPage'
 
 export default function App() {
   const initialize = useAuthStore(s => s.initialize)
@@ -59,6 +64,8 @@ export default function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
         <Route path="/register/contributor" element={<ContributorRegisterPage />} />
         <Route path="/:countryCode/:citySlug/:poiSlug" element={<PlaceDetailPage />} />
@@ -99,6 +106,9 @@ export default function App() {
         <Route element={<AccountGuard />}>
           <Route element={<AccountShell />}>
             <Route path="/account/explore" element={<AccountExplorePage />} />
+            <Route path="/account/search" element={<SearchPage />} />
+            <Route path="/account/cities" element={<CitiesCatalogPage />} />
+            <Route path="/account/cities/:countryCode/:citySlug" element={<CityPlacesPage />} />
             <Route path="/account/history" element={<AccountHistoryPage />} />
             <Route path="/account/profile" element={<AccountProfilePage />} />
             <Route path="/admin-pin" element={<AdminPinPage />} />

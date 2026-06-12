@@ -89,6 +89,21 @@ vi.mock('@/lib/supabase/client', () => ({
   supabase: {
     auth: { getSession: vi.fn().mockResolvedValue({ data: { session: null } }) },
     from: vi.fn(() => mockChainable),
+    rpc: vi.fn().mockResolvedValue({
+      data: [{
+        id: 'p1',
+        name: { en: 'Test Place', cs: 'Test Place' },
+        slug: 'test-place',
+        perex: { en: 'A nice place' },
+        access_level: 'public',
+        avg_rating: 4.5,
+        total_ratings: 10,
+        photo_urls: [],
+        city_slug: 'prague',
+        country_code: 'CZ',
+      }],
+      error: null,
+    }),
   },
 }))
 
@@ -160,11 +175,11 @@ describe('LandingPage', () => {
     expect(screen.getByText(/App Store/i)).toBeInTheDocument()
   })
 
-  it('renders featured places section', () => {
+  it('renders featured places section with places from search_pois', async () => {
     renderPage()
 
     expect(screen.getByText(/Featured Places/i)).toBeInTheDocument()
-    expect(screen.getByText('Karlův most')).toBeInTheDocument()
+    expect(await screen.findByText('Test Place')).toBeInTheDocument()
   })
 
   it('renders social auth buttons', () => {

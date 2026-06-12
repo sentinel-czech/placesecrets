@@ -1,10 +1,11 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '@/hooks/useAuth'
-import { Compass, History, LogOut, Settings, Shield, Receipt, Menu, MapPin } from 'lucide-react'
+import { Compass, History, LogOut, Settings, Shield, Receipt, Menu, MapPin, LayoutGrid, Search } from 'lucide-react'
 import { Logo } from '@/components/brand/Logo'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -21,10 +22,20 @@ export function AccountShell() {
   const { t } = useTranslation()
   const [mobileOpen, setMobileOpen] = useState(false)
 
+  const [search, setSearch] = useState('')
+
   const accountNav = [
     { to: '/account/explore', icon: Compass, label: t('nav.explore') },
+    { to: '/account/cities', icon: LayoutGrid, label: t('nav.catalog', 'Browse') },
+    { to: '/account/search', icon: Search, label: t('nav.search', 'Search') },
     { to: '/account/history', icon: History, label: t('nav.myHistory') },
   ]
+
+  function submitSearch(e: React.FormEvent) {
+    e.preventDefault()
+    const q = search.trim()
+    navigate(q ? `/account/search?q=${encodeURIComponent(q)}` : '/account/search')
+  }
   const isAdmin = role && ['superadmin', 'editor', 'viewer'].includes(role)
   const isContributor = role === 'contributor'
 
@@ -158,7 +169,15 @@ export function AccountShell() {
             <Menu className="h-5 w-5" />
           </Button>
 
-          <div className="hidden md:block" />
+          <form onSubmit={submitSearch} className="hidden md:block relative w-full max-w-xs">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder={t('places.searchPlaceholder', 'Search places, cities…')}
+              className="pl-9 h-9"
+            />
+          </form>
 
           <div className="flex items-center gap-3">
             <span className="hidden md:block max-w-[200px] truncate text-sm text-muted-foreground">

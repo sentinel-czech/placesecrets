@@ -118,6 +118,13 @@ export default function PlaceDetailPage() {
   const [ratingSubmitting, setRatingSubmitting] = useState(false)
   const [ratingError, setRatingError] = useState('')
 
+  // POI-level rating (separate from per-audio-guide rating)
+  const [poiRating, setPoiRating] = useState(0)
+  const [poiComment, setPoiComment] = useState('')
+  const [poiRatingSubmitting, setPoiRatingSubmitting] = useState(false)
+  const [poiRatingError, setPoiRatingError] = useState('')
+  const [poiRated, setPoiRated] = useState(false)
+
   // Reviews state (lazy-loaded on Rating tab activation)
   const [reviews, setReviews] = useState<PoiReview[]>([])
   const [reviewsTotalCount, setReviewsTotalCount] = useState(0)
@@ -371,6 +378,26 @@ export default function PlaceDetailPage() {
     setUserRatings(prev => new Map(prev).set(ratingDialogGuide!.id, pendingRating))
     setRatingDialogGuide(null)
     refetchPoi()
+  }
+
+  async function submitPoiRating() {
+    if (!user || !poi || poiRating < 1) return
+    setPoiRatingSubmitting(true)
+    setPoiRatingError('')
+    const { error: upsertErr } = await supabase.from('poi_ratings').upsert(
+      { poi_id: poi.poi_id, user_id: user.id, rating: poiRating, comment: poiComment.trim() || null, lang_code: lang },
+      { onConflict: 'poi_id,user_id' }
+    )
+    setPoiRatingSubmitting(false)
+    if (upsertErr) {
+      setPoiRatingError(upsertErr.message || t('common.error', 'An error occurred'))
+      return
+    }
+    setPoiRated(true)
+    setPoiComment('')
+    refetchPoi()
+    hasLoadedReviews.current = true
+    fetchReviews(0)
   }
 
   return (
@@ -687,6 +714,44 @@ export default function PlaceDetailPage() {
                       </div>
                     ) : (
                       <p className="text-sm text-muted-foreground">{t('placeDetail.noReviews', 'No reviews yet')}</p>
+                    )}
+
+                    {/* Rate this place (logged-in users) */}
+                    {user && (
+                      <div className="space-y-3 rounded-lg border p-4">
+                        {poiRated ? (
+                          <p className="text-sm text-primary">{t('places.ratingThanks', 'Thanks for your rating!')}</p>
+                        ) : (
+                          <>
+                            <p className="text-sm font-medium">{t('places.rateThisPlace', 'Rate this place')}</p>
+                            <div className="flex gap-1">
+                              {Array.from({ length: 5 }).map((_, i) => (
+                                <button
+                                  key={i}
+                                  type="button"
+                                  onClick={() => setPoiRating(i + 1)}
+                                  className="p-0.5 transition-transform hover:scale-110"
+                                  aria-label={`${i + 1}`}
+                                >
+                                  <Star className={`h-7 w-7 ${i < poiRating ? 'text-yellow-500 fill-yellow-500' : 'text-muted-foreground/30'}`} />
+                                </button>
+                              ))}
+                            </div>
+                            <textarea
+                              value={poiComment}
+                              onChange={e => setPoiComment(e.target.value)}
+                              maxLength={1000}
+                              rows={2}
+                              placeholder={t('places.commentPlaceholder', 'Add a comment (optional)')}
+                              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                            />
+                            {poiRatingError && <p className="text-sm text-destructive">{poiRatingError}</p>}
+                            <Button size="sm" onClick={submitPoiRating} disabled={poiRating < 1 || poiRatingSubmitting}>
+                              {t('places.submitRating', 'Submit rating')}
+                            </Button>
+                          </>
+                        )}
+                      </div>
                     )}
 
                     {/* Reviews list */}

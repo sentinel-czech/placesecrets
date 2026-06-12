@@ -35,7 +35,23 @@
     "signingIn": "Přihlašování...",
     "signIn": "Přihlásit se",
     "noAccount": "Nemáte účet?",
-    "createOne": "Vytvořte si jej"
+    "createOne": "Vytvořte si jej",
+    "forgotPassword": "Zapomenuté heslo?",
+    "forgotPasswordTitle": "Obnovení hesla",
+    "forgotPasswordDesc": "Zadejte e-mail a pošleme vám odkaz pro obnovení.",
+    "forgotPasswordSent": "Pokud e-mail existuje, poslali jsme odkaz pro obnovení. Zkontrolujte schránku.",
+    "sendResetLink": "Poslat odkaz",
+    "backToLogin": "Zpět na přihlášení",
+    "resetPasswordTitle": "Zvolte nové heslo",
+    "resetPasswordOpenLink": "Otevřete tuto stránku z odkazu v e-mailu.",
+    "newPassword": "Nové heslo",
+    "confirmPassword": "Potvrzení hesla",
+    "passwordMin8": "Heslo musí mít alespoň 8 znaků.",
+    "passwordMismatch": "Hesla se neshodují.",
+    "updatePassword": "Změnit heslo",
+    "passwordResetSuccess": "Heslo změněno. Přihlaste se prosím.",
+    "resendConfirmation": "Poslat potvrzovací e-mail znovu",
+    "confirmationResent": "Potvrzovací e-mail odeslán."
   },
   "landing": {
     "tagline": "Audio průvodce a cestovní deník",
@@ -247,7 +263,9 @@
     "accountSettings": "Nastavení účtu",
     "receipts": "Účtenky",
     "explore": "Prozkoumat",
-    "myHistory": "Moje historie"
+    "myHistory": "Moje historie",
+    "catalog": "Procházet",
+    "search": "Hledat"
   },
   "admin": {
     "cities": {
@@ -753,5 +771,24 @@
     "register": "Zaregistrovat se",
     "haveAccount": "Máte účet?",
     "signIn": "Přihlaste se"
+  },
+  "places": {
+    "search": "Hledat místa",
+    "searchPlaceholder": "Hledat místa, města…",
+    "noResults": "Žádná místa nenalezena.",
+    "catalog": "Procházet města",
+    "noCities": "Zatím žádná města.",
+    "cityNotFound": "Město nenalezeno.",
+    "noPlacesInCity": "V tomto městě zatím nejsou místa.",
+    "rateThisPlace": "Ohodnotit místo",
+    "yourRating": "Vaše hodnocení",
+    "submitRating": "Odeslat hodnocení",
+    "ratingThanks": "Děkujeme za hodnocení!",
+    "access": {
+      "public": "Veřejné",
+      "registered": "Registrovaní",
+      "city_access": "Městská karta",
+      "premium_poi": "Prémium"
+    }
   }
 }

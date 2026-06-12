@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { SocialAuthButtons } from '@/components/auth/SocialAuthButtons'
 import { useAuthStore } from '@/hooks/useAuth'
 import { supabase } from '@/lib/supabase/client'
+import { PoiCard, type PoiPreview } from '@/components/places/PoiCard'
 import { PublicHeader } from '@/components/layout/PublicHeader'
 import { PublicFooter } from '@/components/layout/PublicFooter'
 
@@ -31,15 +32,18 @@ export default function LandingPage() {
   const navigate = useNavigate()
   const [cityCount, setCityCount] = useState(0)
   const [poiCount, setPoiCount] = useState(0)
+  const [featured, setFeatured] = useState<PoiPreview[]>([])
 
   useEffect(() => {
     async function loadStats() {
-      const [citiesRes, poisRes] = await Promise.all([
+      const [citiesRes, poisRes, featRes] = await Promise.all([
         supabase.from('cities').select('id', { count: 'exact', head: true }).eq('is_active', true),
         supabase.from('pois').select('id', { count: 'exact', head: true }).eq('is_active', true),
+        supabase.rpc('search_pois', { p_query: null, p_limit: 6 }),
       ])
       if (citiesRes.count) setCityCount(citiesRes.count)
       if (poisRes.count) setPoiCount(poisRes.count)
+      if (featRes.data) setFeatured(featRes.data as PoiPreview[])
     }
     loadStats()
   }, [])
@@ -171,86 +175,21 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                name: 'Karlův most',
-                nameEn: 'Charles Bridge',
-                city: 'Prague',
-                rating: 4.8,
-                reviews: 237,
-                access: 'city_access',
-                desc: 'Medieval stone bridge crossing the Vltava river, adorned with 30 baroque statues.',
-              },
-              {
-                name: 'Katedrála sv. Bartoloměje',
-                nameEn: 'St. Bartholomew Cathedral',
-                city: 'Plzeň',
-                rating: 4.6,
-                reviews: 89,
-                access: 'public',
-                desc: 'Gothic cathedral with one of the tallest church steeples in Central Europe at 102.6m.',
-              },
-              {
-                name: 'Katedrála sv. Petra a Pavla',
-                nameEn: 'Cathedral of St. Peter and Paul',
-                city: 'Brno',
-                rating: 4.7,
-                reviews: 152,
-                access: 'premium_poi',
-                desc: 'Dominant landmark of Brno, a national cultural monument on Petrov hill.',
-              },
-            ].map(poi => (
-              <div key={poi.name} className="overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10 transition-all hover:shadow-lg hover:-translate-y-0.5">
-                <div className="relative h-40 bg-gradient-to-br from-primary/20 via-primary/10 to-[#B8960C]/20">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <MapPin className="h-12 w-12 text-primary/30" />
-                  </div>
-                  <div className="absolute bottom-3 right-3">
-                    {poi.access === 'public' && (
-                      <span className="inline-flex items-center rounded-full bg-green-600/90 px-3 py-1 text-xs font-semibold text-white">{t('landing.free')}</span>
-                    )}
-                    {poi.access === 'city_access' && (
-                      <span className="inline-flex items-center rounded-full bg-orange-500/90 px-3 py-1 text-xs font-semibold text-white">{t('landing.cityPass')}</span>
-                    )}
-                    {poi.access === 'premium_poi' && (
-                      <span className="inline-flex items-center rounded-full bg-amber-500/90 px-3 py-1 text-xs font-semibold text-white">{t('landing.premium')}</span>
-                    )}
-                  </div>
-                </div>
+          {featured.length > 0 && (
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {featured.map(p => (
+                <PoiCard key={p.id} poi={p} />
+              ))}
+            </div>
+          )}
 
-                <div className="p-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <h3 className="font-bold text-foreground">{poi.name}</h3>
-                      <p className="text-xs text-muted-foreground">{poi.nameEn}</p>
-                    </div>
-                    <div className="flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1">
-                      <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-                      <span className="text-sm font-semibold text-foreground">{poi.rating}</span>
-                    </div>
-                  </div>
-
-                  <div className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
-                    <MapPin className="h-3 w-3" />
-                    <span>{poi.city}</span>
-                    <span className="mx-0.5">·</span>
-                    <span>{poi.reviews} {t('landing.reviews')}</span>
-                  </div>
-
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground line-clamp-2">{poi.desc}</p>
-
-                  <div className="mt-4">
-                    <Link to="/login">
-                      <Button size="sm" variant="outline" className="w-full gap-2">
-                        <Headphones className="h-3.5 w-3.5" />
-                        {t('landing.listenToGuide')}
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div className="mt-10 flex justify-center">
+            <Link to={user ? '/account/cities' : '/login'}>
+              <Button size="lg" variant="outline" className="gap-2">
+                {t('landing.browseAll', 'Browse all places')}
+                <ArrowRight className="h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

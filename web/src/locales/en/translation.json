@@ -35,7 +35,23 @@
     "signingIn": "Signing in...",
     "signIn": "Sign in",
     "noAccount": "Don't have an account?",
-    "createOne": "Create one"
+    "createOne": "Create one",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordTitle": "Reset your password",
+    "forgotPasswordDesc": "Enter your email and we will send you a reset link.",
+    "forgotPasswordSent": "If that email exists, we sent a reset link. Check your inbox.",
+    "sendResetLink": "Send reset link",
+    "backToLogin": "Back to sign in",
+    "resetPasswordTitle": "Choose a new password",
+    "resetPasswordOpenLink": "Open this page from the reset link in your email.",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "passwordMin8": "Password must be at least 8 characters.",
+    "passwordMismatch": "Passwords do not match.",
+    "updatePassword": "Update password",
+    "passwordResetSuccess": "Password updated. Please sign in.",
+    "resendConfirmation": "Resend confirmation email",
+    "confirmationResent": "Confirmation email sent."
   },
   "landing": {
     "tagline": "Audio Guide & Travel Log",
@@ -247,7 +263,9 @@
     "accountSettings": "Account Settings",
     "receipts": "Receipts",
     "explore": "Explore",
-    "myHistory": "My History"
+    "myHistory": "My History",
+    "catalog": "Browse",
+    "search": "Search"
   },
   "admin": {
     "cities": {
@@ -753,5 +771,24 @@
     "register": "Register",
     "haveAccount": "Have an account?",
     "signIn": "Sign in"
+  },
+  "places": {
+    "search": "Search places",
+    "searchPlaceholder": "Search places, cities…",
+    "noResults": "No places found.",
+    "catalog": "Browse cities",
+    "noCities": "No cities available yet.",
+    "cityNotFound": "City not found.",
+    "noPlacesInCity": "No places in this city yet.",
+    "rateThisPlace": "Rate this place",
+    "yourRating": "Your rating",
+    "submitRating": "Submit rating",
+    "ratingThanks": "Thanks for your rating!",
+    "access": {
+      "public": "Public",
+      "registered": "Registered",
+      "city_access": "City pass",
+      "premium_poi": "Premium"
+    }
   }
 }

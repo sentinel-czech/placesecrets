@@ -24,7 +24,16 @@ export default function RegisterPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [resending, setResending] = useState(false)
+  const [resent, setResent] = useState(false)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+
+  async function handleResend() {
+    setResending(true)
+    await supabase.auth.resend({ type: 'signup', email })
+    setResending(false)
+    setResent(true)
+  }
 
   useEffect(() => {
     if (!handle) { setHandleError(''); return }
@@ -104,10 +113,19 @@ export default function RegisterPage() {
               {t('handle.confirmationSent', { email })}
             </CardDescription>
           </CardHeader>
-          <CardContent className="text-center">
-            <Link to="/login">
-              <Button variant="outline" className="mt-2">{t('handle.backToLogin')}</Button>
-            </Link>
+          <CardContent className="text-center space-y-3">
+            {resent ? (
+              <p className="text-sm text-muted-foreground">{t('auth.confirmationResent', 'Confirmation email sent.')}</p>
+            ) : (
+              <Button variant="ghost" size="sm" onClick={handleResend} disabled={resending}>
+                {resending ? t('common.loading') : t('auth.resendConfirmation', 'Resend confirmation email')}
+              </Button>
+            )}
+            <div>
+              <Link to="/login">
+                <Button variant="outline" className="mt-2">{t('handle.backToLogin')}</Button>
+              </Link>
+            </div>
           </CardContent>
         </Card>
       </div>
