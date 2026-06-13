@@ -41,6 +41,7 @@ import PaymentDetailPage from '@/pages/payments/PaymentDetailPage'
 import ContributorsPage from '@/pages/contributors/ContributorsPage'
 import ContributorDetailPage from '@/pages/contributors/ContributorDetailPage'
 import HallOfFamePage from '@/pages/hall-of-fame/HallOfFamePage'
+import ModerationPage from '@/pages/ModerationPage'
 import SettingsPage from '@/pages/SettingsPage'
 import LandingConfigPage from '@/pages/LandingConfigPage'
 import AclManagementPage from '@/pages/AclManagementPage'
@@ -104,6 +105,7 @@ export default function App() {
             <Route path="/admin/contributors" element={<ContributorsPage />} />
             <Route path="/admin/contributors/:id" element={<ContributorDetailPage />} />
             <Route path="/admin/hall-of-fame" element={<HallOfFamePage />} />
+            <Route path="/admin/moderation" element={<ModerationPage />} />
             <Route path="/admin/settings" element={<SettingsPage />} />
             <Route path="/admin/landing" element={<LandingConfigPage />} />
             <Route path="/admin/acl" element={<AclManagementPage />} />

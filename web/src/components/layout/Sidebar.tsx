@@ -81,6 +81,7 @@ export function Sidebar() {
   const communityNav: NavItem[] = [
     { to: '/admin/contributors', icon: UserCheck, label: t('nav.contributors'), resource: 'contributors' },
     { to: '/admin/hall-of-fame', icon: Award, label: t('nav.hallOfFame'), resource: 'hall_of_fame' },
+    { to: '/admin/moderation', icon: Shield, label: t('nav.moderation', 'Moderation'), resource: 'pois' },
     { to: '/admin/acl', icon: Shield, label: t('nav.aclManagement', 'Access Control'), resource: 'acl' },
     { to: '/admin/settings', icon: Settings, label: t('nav.settings'), resource: 'settings' },
     { to: '/admin/landing', icon: Layout, label: t('nav.landing', 'Landing page'), resource: 'settings' },
