@@ -183,21 +183,86 @@ function SettingsTab() {
   const [handleError, setHandleError] = useState('')
   const [handleChecking, setHandleChecking] = useState(false)
   const [handleLoading, setHandleLoading] = useState(false)
+  const [marketingOptIn, setMarketingOptIn] = useState(false)
+  const [marketingLoading, setMarketingLoading] = useState(false)
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
+  const [avatarUploading, setAvatarUploading] = useState(false)
+  const [resendLoading, setResendLoading] = useState(false)
+  const [resent, setResent] = useState(false)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const emailVerified = !!(user as { email_confirmed_at?: string } | null)?.email_confirmed_at
 
   useEffect(() => {
     if (!user) return
     supabase
       .from('user_profiles')
-      .select('language, backup_email, display_name')
+      .select('language, backup_email, display_name, marketing_consent_at, avatar_url')
       .eq('user_id', user.id)
       .maybeSingle()
       .then(({ data }) => {
         if (data?.language) setSelectedLang(data.language)
         if (data?.backup_email) setBackupEmail(data.backup_email)
         if (data?.display_name) setHandle(data.display_name)
+        setMarketingOptIn(!!data?.marketing_consent_at)
+        setAvatarUrl((data?.avatar_url as string | null) ?? null)
       })
   }, [user])
+
+  async function handleResendVerification() {
+    if (!user?.email) return
+    setResendLoading(true)
+    const { error } = await supabase.auth.resend({ type: 'signup', email: user.email })
+    setResendLoading(false)
+    if (error) { toast.error(error.message) } else { setResent(true); toast.success(t('user.profile.verificationSent', 'Verification email sent.')) }
+  }
+
+  async function handleMarketingToggle(checked: boolean) {
+    if (!user) return
+    setMarketingLoading(true)
+    const { error } = await supabase
+      .from('user_profiles')
+      .upsert({ user_id: user.id, marketing_consent_at: checked ? new Date().toISOString() : null }, { onConflict: 'user_id' })
+    setMarketingLoading(false)
+    if (error) { toast.error(t('common.error')) } else { setMarketingOptIn(checked) }
+  }
+
+  async function handleExportData() {
+    if (!user) return
+    const tables = ['user_profiles', 'user_access', 'payment_receipts', 'poi_ratings', 'user_poi_purchases', 'user_city_premium_purchases']
+    const out: Record<string, unknown> = { exported_at: new Date().toISOString(), user_id: user.id, email: user.email }
+    for (const tbl of tables) {
+      const { data } = await supabase.from(tbl).select('*').eq('user_id', user.id)
+      out[tbl] = data ?? []
+    }
+    const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `placesecrets-data-${user.id}.json`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  async function handleAvatarUpload(file: File | undefined) {
+    if (!user || !file) return
+    setAvatarUploading(true)
+    try {
+      const ext = (file.name.split('.').pop() || 'jpg').toLowerCase()
+      const path = `${user.id}/avatar.${ext}`
+      const { error: upErr } = await supabase.storage.from('avatars').upload(path, file, { upsert: true })
+      if (upErr) throw upErr
+      const { data: pub } = supabase.storage.from('avatars').getPublicUrl(path)
+      const publicUrl = `${pub.publicUrl}?t=${Date.now()}`
+      const { error } = await supabase.from('user_profiles').upsert({ user_id: user.id, avatar_url: publicUrl }, { onConflict: 'user_id' })
+      if (error) throw error
+      setAvatarUrl(publicUrl)
+      toast.success(t('user.profile.avatarUpdated', 'Profile photo updated'))
+    } catch {
+      toast.error(t('common.error'))
+    } finally {
+      setAvatarUploading(false)
+    }
+  }
 
   useEffect(() => {
     if (!handle || handle === storeDisplayName) { setHandleError(''); return }
@@ -397,6 +462,88 @@ function SettingsTab() {
               {backupEmailLoading ? t('common.loading') : t('common.save')}
             </Button>
           </form>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>{t('user.profile.avatar', 'Profile photo')}</CardTitle>
+          <CardDescription>{t('user.profile.avatarDesc', 'Shown on your profile.')}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center gap-4">
+            {avatarUrl ? (
+              <img src={avatarUrl} alt="" className="h-16 w-16 rounded-full object-cover" />
+            ) : (
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted text-lg font-medium">
+                {user?.email?.substring(0, 2).toUpperCase() || '??'}
+              </div>
+            )}
+            <label className="cursor-pointer">
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                disabled={avatarUploading}
+                onChange={e => handleAvatarUpload(e.target.files?.[0])}
+              />
+              <span className="inline-flex items-center rounded-md border px-3 py-1.5 text-sm hover:bg-muted">
+                {avatarUploading ? t('common.loading') : t('user.profile.uploadAvatar', 'Upload photo')}
+              </span>
+            </label>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>{t('user.profile.emailVerification', 'Email verification')}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {emailVerified ? (
+            <p className="text-sm text-green-600">{t('user.profile.emailVerified', 'Your email is verified.')}</p>
+          ) : (
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-sm text-amber-600">{t('user.profile.emailNotVerified', 'Your email is not verified yet.')}</p>
+              {resent ? (
+                <span className="text-sm text-muted-foreground">{t('auth.confirmationResent', 'Confirmation email sent.')}</span>
+              ) : (
+                <Button variant="outline" size="sm" onClick={handleResendVerification} disabled={resendLoading}>
+                  {resendLoading ? t('common.loading') : t('user.profile.resendVerification', 'Resend email')}
+                </Button>
+              )}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>{t('user.profile.marketing', 'Email preferences')}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={marketingOptIn}
+              disabled={marketingLoading}
+              onChange={e => handleMarketingToggle(e.target.checked)}
+            />
+            {t('user.profile.marketingOptIn', 'Send me product news and tips (you can opt out anytime).')}
+          </label>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>{t('user.profile.dataExport', 'Export my data')}</CardTitle>
+          <CardDescription>{t('user.profile.dataExportDesc', 'Download a copy of your account data (GDPR).')}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Button variant="outline" onClick={handleExportData}>
+            <Download className="mr-2 h-4 w-4" />
+            {t('user.profile.downloadData', 'Download JSON')}
+          </Button>
         </CardContent>
       </Card>
 
