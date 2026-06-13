@@ -20,6 +20,8 @@ export function AccessGrantModal({ open, onClose, userId, onGranted }: AccessGra
   const [cities, setCities] = useState<City[]>([])
   const [cityId, setCityId] = useState('')
   const [loading, setLoading] = useState(false)
+  const [validUntil, setValidUntil] = useState('')
+  const [countryCode, setCountryCode] = useState('')
 
   // POI access state
   const [poiCityId, setPoiCityId] = useState('')
@@ -30,7 +32,7 @@ export function AccessGrantModal({ open, onClose, userId, onGranted }: AccessGra
   useEffect(() => {
     if (open) {
       adminSelect('cities', {
-        select: 'id, name',
+        select: 'id, name, country_code',
         order: { column: 'name' },
       }).then(({ data }) => {
         if (data) setCities(data as City[])
@@ -65,6 +67,7 @@ export function AccessGrantModal({ open, onClose, userId, onGranted }: AccessGra
       city_id: cityId,
       payment_method: 'admin_grant',
       amount_eur: 0,
+      valid_until: validUntil || null,
     }, 'user_id,city_id')
 
     if (uaError) {
@@ -109,6 +112,25 @@ export function AccessGrantModal({ open, onClose, userId, onGranted }: AccessGra
     onClose()
   }
 
+  async function handleGrantCountry() {
+    if (!countryCode) return
+    setLoading(true)
+    const { error } = await adminUpsert('user_country_purchases', {
+      user_id: userId,
+      country_code: countryCode,
+      payment_method: 'admin_grant',
+      price_paid: 0,
+      valid_until: validUntil || null,
+    }, 'user_id,country_code')
+    if (error) { toast.error(error); setLoading(false); return }
+    setLoading(false)
+    toast.success(t('admin.users.accessGranted'))
+    onGranted()
+    onClose()
+  }
+
+  const countries = Array.from(new Set(cities.map(c => c.country_code).filter(Boolean)))
+
   // Get a display name for a POI (prefer English, fallback to first available)
   function getPoiName(poi: Poi): string {
     if (!poi.name) return poi.id
@@ -125,6 +147,7 @@ export function AccessGrantModal({ open, onClose, userId, onGranted }: AccessGra
         <Tabs defaultValue="city">
           <TabsList className="w-full">
             <TabsTrigger value="city">{t('admin.users.cityAccess')}</TabsTrigger>
+            <TabsTrigger value="country">{t('admin.users.countryAccess', 'Country')}</TabsTrigger>
             <TabsTrigger value="poi">{t('admin.users.poiAccess')}</TabsTrigger>
           </TabsList>
 
@@ -142,10 +165,39 @@ export function AccessGrantModal({ open, onClose, userId, onGranted }: AccessGra
                   {cities.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                 </select>
               </div>
+              <div className="space-y-2">
+                <Label>{t('admin.users.validUntil', 'Valid until (optional)')}</Label>
+                <input type="date" value={validUntil} onChange={e => setValidUntil(e.target.value)}
+                  className="w-full rounded-md border px-3 py-2 text-sm" />
+              </div>
             </div>
             <DialogFooter className="mt-4">
               <Button variant="outline" onClick={onClose}>{t('common.cancel')}</Button>
               <Button onClick={handleGrantCity} disabled={!cityId || loading}>
+                {loading ? t('common.loading') : t('admin.users.grantAccess')}
+              </Button>
+            </DialogFooter>
+          </TabsContent>
+
+          <TabsContent value="country" className="mt-4">
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label>{t('admin.users.countryAccess', 'Country')}</Label>
+                <select value={countryCode} onChange={e => setCountryCode(e.target.value)}
+                  className="w-full rounded-md border px-3 py-2 text-sm" aria-label={t('admin.users.countryAccess', 'Country')}>
+                  <option value="">—</option>
+                  {countries.map(cc => <option key={cc} value={cc}>{cc}</option>)}
+                </select>
+              </div>
+              <div className="space-y-2">
+                <Label>{t('admin.users.validUntil', 'Valid until (optional)')}</Label>
+                <input type="date" value={validUntil} onChange={e => setValidUntil(e.target.value)}
+                  className="w-full rounded-md border px-3 py-2 text-sm" />
+              </div>
+            </div>
+            <DialogFooter className="mt-4">
+              <Button variant="outline" onClick={onClose}>{t('common.cancel')}</Button>
+              <Button onClick={handleGrantCountry} disabled={!countryCode || loading}>
                 {loading ? t('common.loading') : t('admin.users.grantAccess')}
               </Button>
             </DialogFooter>

@@ -188,6 +188,8 @@ export interface PaymentConfig {
   google_pay_merchant_id: string | null
   apple_pay_merchant_id: string | null
   free_pois_per_month: number
+  free_count: number
+  free_period: string
   max_geofences: number
   max_photo_size_mb: number
   max_audio_size_mb: number

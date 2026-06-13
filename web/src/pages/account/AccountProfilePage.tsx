@@ -14,6 +14,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Shield, Mail, Calendar, Download, Receipt, Hash, AtSign, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
+import { MyAccessCard } from '@/components/account/MyAccessCard'
 
 const TAB_NAMES = ['settings', 'purchases', 'admin'] as const
 type TabName = typeof TAB_NAMES[number]
@@ -381,6 +382,8 @@ function SettingsTab() {
 
   return (
     <div className="space-y-6">
+      <MyAccessCard />
+
       <Card>
         <CardHeader>
           <CardTitle>{t('handle.handle')}</CardTitle>

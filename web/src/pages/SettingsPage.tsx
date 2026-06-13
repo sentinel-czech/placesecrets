@@ -25,7 +25,7 @@ export default function SettingsPage() {
   useEffect(() => {
     let cancelled = false
     adminSelect('payment_config', {
-      select: 'id, operator_name, revolut_username, revolut_iban, stripe_publishable_key, google_pay_merchant_id, apple_pay_merchant_id, free_pois_per_month, max_geofences, max_photo_size_mb, max_audio_size_mb, admin_pin_attempts, admin_pin_lockout_minutes, receipt_prefix',
+      select: 'id, operator_name, revolut_username, revolut_iban, stripe_publishable_key, google_pay_merchant_id, apple_pay_merchant_id, free_pois_per_month, free_count, free_period, max_geofences, max_photo_size_mb, max_audio_size_mb, admin_pin_attempts, admin_pin_lockout_minutes, receipt_prefix',
       single: true,
     }).then(({ data, error: err }) => {
       if (cancelled) return
@@ -45,6 +45,8 @@ export default function SettingsPage() {
       google_pay_merchant_id: config.google_pay_merchant_id,
       apple_pay_merchant_id: config.apple_pay_merchant_id,
       free_pois_per_month: config.free_pois_per_month,
+      free_count: config.free_count,
+      free_period: config.free_period,
       max_geofences: config.max_geofences,
       max_photo_size_mb: config.max_photo_size_mb,
       max_audio_size_mb: config.max_audio_size_mb,
@@ -58,7 +60,7 @@ export default function SettingsPage() {
 
   function updateField(field: keyof PaymentConfig, value: string) {
     if (!config) return
-    const numericFields = ['free_pois_per_month', 'max_geofences', 'max_photo_size_mb', 'max_audio_size_mb', 'admin_pin_attempts', 'admin_pin_lockout_minutes']
+    const numericFields = ['free_pois_per_month', 'free_count', 'max_geofences', 'max_photo_size_mb', 'max_audio_size_mb', 'admin_pin_attempts', 'admin_pin_lockout_minutes']
     if (numericFields.includes(field)) {
       setConfig({ ...config, [field]: parseInt(value, 10) || 0 })
     } else {
@@ -91,6 +93,20 @@ export default function SettingsPage() {
                 <Label>{t('settings.freePoisPerMonth')}</Label>
                 <Input type="number" min="0" value={config?.free_pois_per_month ?? 1}
                   onChange={e => updateField('free_pois_per_month', e.target.value)} disabled={!canWritePayments} />
+              </div>
+              <div className="space-y-2">
+                <Label>{t('settings.freeCount', 'Free audios')}</Label>
+                <Input type="number" min="0" value={config?.free_count ?? 1}
+                  onChange={e => updateField('free_count', e.target.value)} disabled={!canWritePayments} />
+              </div>
+              <div className="space-y-2">
+                <Label>{t('settings.freePeriod', 'Free period')}</Label>
+                <select value={config?.free_period ?? 'day'}
+                  onChange={e => updateField('free_period', e.target.value)} disabled={!canWritePayments}
+                  className="w-full rounded-md border px-3 py-2 text-sm">
+                  <option value="day">{t('settings.perDay', 'per day')}</option>
+                  <option value="month">{t('settings.perMonth', 'per month')}</option>
+                </select>
               </div>
               <div className="space-y-2">
                 <Label>{t('settings.maxGeofences')}</Label>
