@@ -42,6 +42,7 @@ import ContributorsPage from '@/pages/contributors/ContributorsPage'
 import ContributorDetailPage from '@/pages/contributors/ContributorDetailPage'
 import HallOfFamePage from '@/pages/hall-of-fame/HallOfFamePage'
 import SettingsPage from '@/pages/SettingsPage'
+import LandingConfigPage from '@/pages/LandingConfigPage'
 import AclManagementPage from '@/pages/AclManagementPage'
 
 import MyPoisPage from '@/pages/my-pois/MyPoisPage'
@@ -104,6 +105,7 @@ export default function App() {
             <Route path="/admin/contributors/:id" element={<ContributorDetailPage />} />
             <Route path="/admin/hall-of-fame" element={<HallOfFamePage />} />
             <Route path="/admin/settings" element={<SettingsPage />} />
+            <Route path="/admin/landing" element={<LandingConfigPage />} />
             <Route path="/admin/acl" element={<AclManagementPage />} />
             <Route path="/admin/my-pois" element={<MyPoisPage />} />
             <Route path="/admin/my-pois/new" element={<MyPoiEditorPage />} />

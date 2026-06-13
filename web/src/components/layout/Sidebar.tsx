@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import {
   LayoutDashboard, Building2, Users, CreditCard,
   Award, Settings, Tag, UserCheck, LogOut, Crown, ExternalLink,
-  FileText, Shield, User
+  FileText, Shield, User, Layout
 } from 'lucide-react'
 import { Logo } from '@/components/brand/Logo'
 import { cn } from '@/lib/utils'
@@ -83,6 +83,7 @@ export function Sidebar() {
     { to: '/admin/hall-of-fame', icon: Award, label: t('nav.hallOfFame'), resource: 'hall_of_fame' },
     { to: '/admin/acl', icon: Shield, label: t('nav.aclManagement', 'Access Control'), resource: 'acl' },
     { to: '/admin/settings', icon: Settings, label: t('nav.settings'), resource: 'settings' },
+    { to: '/admin/landing', icon: Layout, label: t('nav.landing', 'Landing page'), resource: 'settings' },
   ]
 
   const profileNav: NavItem[] = [

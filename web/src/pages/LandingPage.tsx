@@ -27,23 +27,29 @@ const TESTIMONIALS = [
 ]
 
 export default function LandingPage() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { user } = useAuthStore()
   const navigate = useNavigate()
   const [cityCount, setCityCount] = useState(0)
   const [poiCount, setPoiCount] = useState(0)
   const [featured, setFeatured] = useState<PoiPreview[]>([])
+  const [cfg, setCfg] = useState<Record<string, Record<string, string>> | null>(null)
+  const lang = i18n.language?.substring(0, 2) || 'en'
+  // Admin-editable landing content with i18n fallback.
+  const cms = (key: string, fallback: string) => cfg?.[key]?.[lang] || cfg?.[key]?.en || fallback
 
   useEffect(() => {
     async function loadStats() {
-      const [citiesRes, poisRes, featRes] = await Promise.all([
+      const [citiesRes, poisRes, featRes, cfgRes] = await Promise.all([
         supabase.from('cities').select('id', { count: 'exact', head: true }).eq('is_active', true),
         supabase.from('pois').select('id', { count: 'exact', head: true }).eq('is_active', true),
         supabase.rpc('search_pois', { p_query: null, p_limit: 6 }),
+        supabase.from('landing_config').select('*').maybeSingle(),
       ])
       if (citiesRes.count) setCityCount(citiesRes.count)
       if (poisRes.count) setPoiCount(poisRes.count)
       if (featRes.data) setFeatured(featRes.data as PoiPreview[])
+      if (cfgRes.data) setCfg(cfgRes.data as Record<string, Record<string, string>>)
     }
     loadStats()
   }, [])
@@ -67,18 +73,18 @@ export default function LandingPage() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium backdrop-blur-sm">
               <Headphones className="h-4 w-4" />
-              {t('landing.tagline')}
+              {cms('tagline', t('landing.tagline'))}
             </div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              {t('landing.heroTitle1')}{' '}
+              {cms('hero_title_1', t('landing.heroTitle1'))}{' '}
               <span className="bg-gradient-to-r from-[#2D6A4F] to-[#40916C] bg-clip-text text-transparent">
-                {t('landing.heroTitle2')}
+                {cms('hero_title_2', t('landing.heroTitle2'))}
               </span>
               <br />
-              {t('landing.heroTitle3')}
+              {cms('hero_title_3', t('landing.heroTitle3'))}
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-white/70 sm:text-xl">
-              {t('landing.heroSubtitle')}
+              {cms('hero_subtitle', t('landing.heroSubtitle'))}
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
               <a href="#explore">

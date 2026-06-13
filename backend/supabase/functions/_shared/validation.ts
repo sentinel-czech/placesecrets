@@ -12,6 +12,7 @@ export const ALLOWED_TABLES = [
   'payment_receipts', 'user_access', 'contributor_profiles', 'payment_config',
   'free_visit_log', 'poi_premium_content', 'user_poi_purchases',
   'user_city_premium_purchases', 'user_country_purchases', 'user_all_purchases',
+  'landing_config',
 ] as const
 
 export const READ_ONLY_TABLES = ['admin_users_view', 'admin_stats', 'user_all_purchases'] as const
