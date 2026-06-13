@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../data/repositories/ratings_repository.dart';
 import '../../../domain/models/poi_rating.dart';
@@ -23,6 +24,11 @@ class _RatingWidgetState extends ConsumerState<RatingWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // Ratings are for signed-in users only.
+    if (Supabase.instance.client.auth.currentUser == null) {
+      return const _SignInToRateWidget();
+    }
+
     final existing = ref.watch(myPoiRatingProvider(widget.poiId));
     if (existing.valueOrNull != null) {
       return _AlreadyRatedWidget(rating: existing.value!.rating);
@@ -164,6 +170,25 @@ class _RatingWidgetState extends ConsumerState<RatingWidget> {
       }
     }
   }
+}
+
+class _SignInToRateWidget extends StatelessWidget {
+  const _SignInToRateWidget();
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: Row(children: [
+          Icon(Icons.lock_outline, size: 18, color: Theme.of(context).colorScheme.outline),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              'Sign in to rate this place.',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
+        ]),
+      );
 }
 
 class _ThankYouWidget extends StatelessWidget {

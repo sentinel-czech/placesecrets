@@ -3,7 +3,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../app/providers.dart';
-import '../../core/services/device_service.dart';
 import '../../domain/models/poi_rating.dart';
 import '../local/app_database.dart';
 
@@ -12,6 +11,13 @@ part 'ratings_repository.g.dart';
 @riverpod
 RatingsRepository ratingsRepository(RatingsRepositoryRef ref) =>
     RatingsRepository(Supabase.instance.client, ref.watch(appDatabaseProvider));
+
+/// Thrown when a rating is attempted without being signed in.
+class RatingAuthRequiredException implements Exception {
+  const RatingAuthRequiredException();
+  @override
+  String toString() => 'You must be signed in to rate.';
+}
 
 class RatingsRepository {
   final SupabaseClient _supabase;
@@ -26,19 +32,21 @@ class RatingsRepository {
   }) async {
     assert(rating >= 1 && rating <= 5);
 
+    // Ratings are only for logged-in users (one rating per user per place).
     final userId = _supabase.auth.currentUser?.id;
-    final deviceId = userId == null ? await DeviceService.getOrCreateDeviceId() : null;
+    if (userId == null) {
+      throw const RatingAuthRequiredException();
+    }
 
     await _supabase.from('poi_ratings').upsert(
       {
         'poi_id': poiId,
         'user_id': userId,
-        'device_id': deviceId,
         'rating': rating,
         'reason': ratingReasonToString(reason),
         'lang_code': langCode,
       },
-      onConflict: userId != null ? 'poi_id,user_id' : 'poi_id,device_id',
+      onConflict: 'poi_id,user_id',
     );
 
     await _db.upsertLocalRating(RatedPoisTableCompanion(
@@ -65,12 +73,14 @@ class RatingsRepository {
     }
 
     final userId = _supabase.auth.currentUser?.id;
-    final deviceId = userId == null ? await DeviceService.getOrCreateDeviceId() : null;
+    if (userId == null) return null;
 
-    final query = _supabase.from('poi_ratings').select().eq('poi_id', poiId);
-    final result = userId != null
-        ? await query.eq('user_id', userId).maybeSingle()
-        : await query.eq('device_id', deviceId!).maybeSingle();
+    final result = await _supabase
+        .from('poi_ratings')
+        .select()
+        .eq('poi_id', poiId)
+        .eq('user_id', userId)
+        .maybeSingle();
 
     return result != null ? PoiRating.fromJson(result) : null;
   }
