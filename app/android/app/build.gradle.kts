@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "cz.tuma.herodots"
+    namespace = "cz.tuma.placesecrets"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "cz.tuma.herodots"
+        applicationId = "cz.tuma.placesecrets"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 23

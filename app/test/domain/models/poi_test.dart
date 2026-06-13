@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/domain/models/poi.dart';
+import 'package:placesecrets/domain/models/poi.dart';
 
 Poi _makePoi({
   Map<String, String>? name,

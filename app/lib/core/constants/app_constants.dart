@@ -1,9 +1,9 @@
 abstract class AppConstants {
-  static const appId = 'cz.tuma.herodots';
+  static const appId = 'cz.tuma.placesecrets';
 
   // Notifications
-  static const notificationChannelId = 'cz.tuma.herodots.poi_nearby';
-  static const audioChannelId = 'cz.tuma.herodots.audio';
+  static const notificationChannelId = 'cz.tuma.placesecrets.poi_nearby';
+  static const audioChannelId = 'cz.tuma.placesecrets.audio';
 
   // Map
   static const defaultZoom = 14.0;
@@ -30,5 +30,5 @@ abstract class AppConstants {
   static const prefOnboardingDone = 'pref_onboarding_done';
 
   // Local photo storage
-  static const privatePhotosDir = 'herodots/photos';
+  static const privatePhotosDir = 'placesecrets/photos';
 }

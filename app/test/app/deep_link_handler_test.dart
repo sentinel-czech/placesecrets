@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/app/deep_link_handler.dart';
+import 'package:placesecrets/app/deep_link_handler.dart';
 
 void main() {
   group('DeepLinkHandler.resolveUri', () {

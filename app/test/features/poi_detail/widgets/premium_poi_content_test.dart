@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/domain/models/poi.dart';
-import 'package:herodots/domain/models/poi_premium_content.dart';
-import 'package:herodots/features/poi_detail/widgets/premium_poi_content.dart';
+import 'package:placesecrets/domain/models/poi.dart';
+import 'package:placesecrets/domain/models/poi_premium_content.dart';
+import 'package:placesecrets/features/poi_detail/widgets/premium_poi_content.dart';
 
 Poi _makePoi({String id = 'poi-1'}) => Poi(
       id: id,

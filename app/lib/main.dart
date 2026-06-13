@@ -31,8 +31,8 @@ Future<void> main() async {
   );
 
   await JustAudioBackground.init(
-    androidNotificationChannelId: 'cz.tuma.herodots.audio',
-    androidNotificationChannelName: 'HeroDots AudioGuide',
+    androidNotificationChannelId: 'cz.tuma.placesecrets.audio',
+    androidNotificationChannelName: 'PlaceSecrets AudioGuide',
     androidNotificationOngoing: true,
     androidStopForegroundOnPause: true,
   );
@@ -49,17 +49,17 @@ Future<void> main() async {
     }
   }
 
-  runApp(const ProviderScope(child: HeroDotsApp()));
+  runApp(const ProviderScope(child: PlaceSecretsApp()));
 }
 
-class HeroDotsApp extends ConsumerWidget {
-  const HeroDotsApp({super.key});
+class PlaceSecretsApp extends ConsumerWidget {
+  const PlaceSecretsApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
-      title: 'HeroDots',
+      title: 'PlaceSecrets',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),

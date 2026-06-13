@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/domain/models/city.dart';
+import 'package:placesecrets/domain/models/city.dart';
 
 void main() {
   group('City.fromJson', () {

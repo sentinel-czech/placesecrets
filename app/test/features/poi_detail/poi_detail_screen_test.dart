@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/domain/models/poi.dart';
+import 'package:placesecrets/domain/models/poi.dart';
 
 // PoiDetailScreen loads data from Supabase in initState, which makes it
 // difficult to test directly in widget tests. Instead we test the core

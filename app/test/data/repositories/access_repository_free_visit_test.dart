@@ -1,6 +1,6 @@
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/data/local/app_database.dart';
+import 'package:placesecrets/data/local/app_database.dart';
 
 /// Tests for AccessRepository free visit logic.
 /// The canUseFreeVisit method only uses the local Drift DB,

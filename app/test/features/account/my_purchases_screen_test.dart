@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/features/account/my_purchases_screen.dart';
-import 'package:herodots/features/poi_detail/providers/poi_access_provider.dart';
+import 'package:placesecrets/features/account/my_purchases_screen.dart';
+import 'package:placesecrets/features/poi_detail/providers/poi_access_provider.dart';
 
 /// Completers that never complete, used to keep providers in loading state
 /// without creating pending timers.

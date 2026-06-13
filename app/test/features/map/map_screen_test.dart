@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/domain/models/poi.dart';
+import 'package:placesecrets/domain/models/poi.dart';
 
 // FlutterMap cannot be tested directly in widget tests. We test the UI
 // elements (AppBar, filter chips, FAB) via a simplified replica of

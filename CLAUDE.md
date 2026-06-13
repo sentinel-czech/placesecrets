@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-HeroDots is a POI (Point of Interest) AudioGuide & Travel Log application consisting of two parts:
+PlaceSecrets is a POI (Point of Interest) AudioGuide & Travel Log application consisting of two parts:
 
 1. **Mobile App** (`specification-prompts.md`) — Flutter/Dart app for Android & iOS
 2. **Admin Panel** (`spec-prompts-admin.md`) — Vite + React 18 + TypeScript + Tailwind CSS SPA
@@ -18,7 +18,7 @@ All specifications are written in **Czech**. When implementing features, follow 
 ## Architecture
 
 ### Mobile App (Flutter)
-- **Package:** `cz.tuma.herodots`
+- **Package:** `cz.tuma.placesecrets`
 - **State management:** Riverpod (with code generation via `riverpod_generator`)
 - **Navigation:** GoRouter
 - **Local DB:** Drift (SQLite)
@@ -31,7 +31,7 @@ All specifications are written in **Czech**. When implementing features, follow 
 
 ### Admin Panel (React)
 - **Stack:** Vite + React 18 + TypeScript + Tailwind CSS
-- **Deploy target:** Netlify/Vercel static build at `admin.herodots.app`
+- **Deploy target:** Netlify/Vercel static build at `admin.placesecrets.app`
 - **Supabase access:** Uses `service_role` key directly (behind auth guard)
 - No SSR, no Next.js, no Express — pure SPA
 
@@ -46,7 +46,7 @@ All specifications are written in **Czech**. When implementing features, follow 
 
 ### Flutter Mobile App
 ```bash
-flutter create --org cz.tuma --project-name herodots --platforms android,ios herodots
+flutter create --org cz.tuma --project-name placesecrets --platforms android,ios placesecrets
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs  # generate Drift, Riverpod, Freezed, JSON code
 flutter run

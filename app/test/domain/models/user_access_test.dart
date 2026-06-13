@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/domain/models/user_access.dart';
+import 'package:placesecrets/domain/models/user_access.dart';
 
 void main() {
   group('UserAccess.fromJson', () {

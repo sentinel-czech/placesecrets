@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/domain/models/poi_premium_content.dart';
+import 'package:placesecrets/domain/models/poi_premium_content.dart';
 
 void main() {
   group('PoiPremiumContent.fromJson', () {

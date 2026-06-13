@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/domain/models/contributor_profile.dart';
-import 'package:herodots/features/hall_of_fame/hall_of_fame_provider.dart';
-import 'package:herodots/features/hall_of_fame/hall_of_fame_screen.dart';
+import 'package:placesecrets/domain/models/contributor_profile.dart';
+import 'package:placesecrets/features/hall_of_fame/hall_of_fame_provider.dart';
+import 'package:placesecrets/features/hall_of_fame/hall_of_fame_screen.dart';
 
 // HistoryScreen and ExportScreen depend on AppDatabase via providers.
 // To avoid the pre-existing Drift codegen issue, we test via simplified

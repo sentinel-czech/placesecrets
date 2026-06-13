@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/domain/models/contributor_profile.dart';
+import 'package:placesecrets/domain/models/contributor_profile.dart';
 
 ContributorProfile _makeProfile({
   double? avgRating,

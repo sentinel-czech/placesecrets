@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/features/onboarding/onboarding_screen.dart';
+import 'package:placesecrets/features/onboarding/onboarding_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Widget _wrap() {

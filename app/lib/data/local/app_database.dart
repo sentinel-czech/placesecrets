@@ -51,7 +51,7 @@ class AppDatabase extends _$AppDatabase {
       );
 
   static QueryExecutor _openConnection() {
-    return driftDatabase(name: 'herodots_local_db');
+    return driftDatabase(name: 'placesecrets_local_db');
   }
 
   // ---- VisitedPois queries ----

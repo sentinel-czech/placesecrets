@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/data/local/app_database.dart';
+import 'package:placesecrets/data/local/app_database.dart';
 
 /// Tests for PoiRepository.getPoiAccessOffline logic.
 /// Uses real in-memory Drift DB (the method only touches _db, not Supabase).

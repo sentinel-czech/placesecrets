@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/domain/models/poi.dart';
-import 'package:herodots/features/map/widgets/poi_bottom_sheet.dart';
+import 'package:placesecrets/domain/models/poi.dart';
+import 'package:placesecrets/features/map/widgets/poi_bottom_sheet.dart';
 
 Poi _makePoi({
   String? name,

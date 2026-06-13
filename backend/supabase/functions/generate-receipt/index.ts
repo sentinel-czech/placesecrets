@@ -72,7 +72,7 @@ serve(async (req: Request) => {
       `Amount: ${Number(r.amount_eur).toFixed(2)} ${r.currency}`,
       `Payment method: ${r.payment_method}`,
       r.transaction_id ? `Transaction ID: ${r.transaction_id}` : '',
-      '', 'PlaceSecrets - cz.tuma.herodots',
+      '', 'PlaceSecrets - cz.tuma.placesecrets',
     ]
 
     const content = lines.filter(Boolean).join('\n')

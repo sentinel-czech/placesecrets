@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart' hide isNotNull, isNull;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/data/local/app_database.dart';
+import 'package:placesecrets/data/local/app_database.dart';
 
 void main() {
   group('AppDatabase schema', () {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/features/auth/auth_screen.dart';
-import 'package:herodots/features/auth/providers/auth_providers.dart';
+import 'package:placesecrets/features/auth/auth_screen.dart';
+import 'package:placesecrets/features/auth/providers/auth_providers.dart';
 
 Widget _wrap({bool isAnonymous = false}) {
   return ProviderScope(

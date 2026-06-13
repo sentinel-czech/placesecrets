@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
             Icon(Icons.explore, size: 80),
             SizedBox(height: 16),
             Text(
-              'HeroDots',
+              'PlaceSecrets',
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 24),

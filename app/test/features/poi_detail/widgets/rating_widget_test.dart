@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:herodots/data/repositories/ratings_repository.dart';
-import 'package:herodots/domain/models/poi_rating.dart';
-import 'package:herodots/features/poi_detail/providers/ratings_provider.dart';
-import 'package:herodots/features/poi_detail/widgets/rating_widget.dart';
+import 'package:placesecrets/data/repositories/ratings_repository.dart';
+import 'package:placesecrets/domain/models/poi_rating.dart';
+import 'package:placesecrets/features/poi_detail/providers/ratings_provider.dart';
+import 'package:placesecrets/features/poi_detail/widgets/rating_widget.dart';
 
 /// A minimal fake that implements the interface without extending the real class.
 class FakeRatingsRepository implements RatingsRepository {

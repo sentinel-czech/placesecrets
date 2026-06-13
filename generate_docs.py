@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-HeroDots / PlaceSecrets — Project Documentation Generator
+PlaceSecrets / PlaceSecrets — Project Documentation Generator
 Generates project-documentation.pdf with:
   Section 1: Database Schema UML Diagram
   Section 2: Use Case Inventory
@@ -1022,6 +1022,6 @@ if __name__ == "__main__":
     # Breakdown by app
     print()
     print("  BY APP:")
-    print(f"    Flutter (HeroDots mobile):    {uc_flutter}")
+    print(f"    Flutter (PlaceSecrets mobile):    {uc_flutter}")
     print(f"    React (PlaceSecrets admin):   {uc_react}")
     print("=" * 60)
