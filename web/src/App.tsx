@@ -15,6 +15,9 @@ import ForgotPasswordPage from '@/pages/ForgotPasswordPage'
 import ResetPasswordPage from '@/pages/ResetPasswordPage'
 import TermsPage from '@/pages/legal/TermsPage'
 import PrivacyPage from '@/pages/legal/PrivacyPage'
+import AboutPage from '@/pages/legal/AboutPage'
+import ContactPage from '@/pages/legal/ContactPage'
+import FaqPage from '@/pages/legal/FaqPage'
 import AdminPinPage from '@/pages/AdminPinPage'
 import ForceChangePinPage from '@/pages/ForceChangePinPage'
 import UnauthorizedPage from '@/pages/UnauthorizedPage'
@@ -70,6 +73,9 @@ export default function App() {
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/faq" element={<FaqPage />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
         <Route path="/register/contributor" element={<ContributorRegisterPage />} />
         <Route path="/:countryCode/:citySlug/:poiSlug" element={<PlaceDetailPage />} />

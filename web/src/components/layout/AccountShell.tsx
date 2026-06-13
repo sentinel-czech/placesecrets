@@ -6,6 +6,7 @@ import { Logo } from '@/components/brand/Logo'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -180,6 +181,7 @@ export function AccountShell() {
           </form>
 
           <div className="flex items-center gap-3">
+            <LanguageSwitcher />
             <span className="hidden md:block max-w-[200px] truncate text-sm text-muted-foreground">
               {user?.email}
             </span>
