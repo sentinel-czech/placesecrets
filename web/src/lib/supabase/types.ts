@@ -187,6 +187,8 @@ export interface PaymentConfig {
   stripe_publishable_key: string | null
   google_pay_merchant_id: string | null
   apple_pay_merchant_id: string | null
+  comgate_merchant: string | null
+  country_price_eur: number | null
   free_pois_per_month: number
   free_count: number
   free_period: string

@@ -5,6 +5,7 @@ import { supabase } from '@/lib/supabase/client'
 import { useAuthStore } from '@/hooks/useAuth'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { BuyButton } from '@/components/places/BuyButton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { MapPicker } from '@/components/shared/MapPicker'
 import {
@@ -653,11 +654,16 @@ export default function PlaceDetailPage() {
                       </div>
                     )}
 
-                    {/* Premium price notice */}
+                    {/* Premium price notice + buy */}
                     {poi.poi_access_level === 'premium_poi' && poi.poi_premium_price && (
-                      <p className="text-sm font-medium text-primary">
-                        {t('placeDetail.premiumContent', 'Premium content available')} &mdash; &euro;{poi.poi_premium_price.toFixed(2)}
-                      </p>
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium text-primary">
+                          {t('placeDetail.premiumContent', 'Premium content available')} &mdash; &euro;{poi.poi_premium_price.toFixed(2)}
+                        </p>
+                        {!hasAudioAccess && (
+                          <BuyButton purchaseType="poi" poiId={poi.poi_id} price={poi.poi_premium_price} />
+                        )}
+                      </div>
                     )}
 
                     {/* Map + GPS coordinates */}

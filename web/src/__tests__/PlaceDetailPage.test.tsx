@@ -119,7 +119,7 @@ describe('PlaceDetailPage', () => {
     renderPage('prague', 'premium-poi')
 
     await waitFor(() => {
-      expect(screen.getByText(/€4\.99/)).toBeInTheDocument()
+      expect(screen.getAllByText(/€4\.99/).length).toBeGreaterThan(0)
     })
   })
 

@@ -25,7 +25,7 @@ export default function SettingsPage() {
   useEffect(() => {
     let cancelled = false
     adminSelect('payment_config', {
-      select: 'id, operator_name, revolut_username, revolut_iban, stripe_publishable_key, google_pay_merchant_id, apple_pay_merchant_id, free_pois_per_month, free_count, free_period, max_geofences, max_photo_size_mb, max_audio_size_mb, admin_pin_attempts, admin_pin_lockout_minutes, receipt_prefix',
+      select: 'id, operator_name, revolut_username, revolut_iban, stripe_publishable_key, google_pay_merchant_id, apple_pay_merchant_id, free_pois_per_month, free_count, free_period, max_geofences, max_photo_size_mb, max_audio_size_mb, admin_pin_attempts, admin_pin_lockout_minutes, receipt_prefix, comgate_merchant, country_price_eur',
       single: true,
     }).then(({ data, error: err }) => {
       if (cancelled) return
@@ -44,6 +44,8 @@ export default function SettingsPage() {
       stripe_publishable_key: config.stripe_publishable_key,
       google_pay_merchant_id: config.google_pay_merchant_id,
       apple_pay_merchant_id: config.apple_pay_merchant_id,
+      comgate_merchant: config.comgate_merchant,
+      country_price_eur: config.country_price_eur,
       free_pois_per_month: config.free_pois_per_month,
       free_count: config.free_count,
       free_period: config.free_period,
@@ -61,7 +63,10 @@ export default function SettingsPage() {
   function updateField(field: keyof PaymentConfig, value: string) {
     if (!config) return
     const numericFields = ['free_pois_per_month', 'free_count', 'max_geofences', 'max_photo_size_mb', 'max_audio_size_mb', 'admin_pin_attempts', 'admin_pin_lockout_minutes']
-    if (numericFields.includes(field)) {
+    const floatFields = ['country_price_eur']
+    if (floatFields.includes(field)) {
+      setConfig({ ...config, [field]: value === '' ? null : (parseFloat(value) || 0) })
+    } else if (numericFields.includes(field)) {
       setConfig({ ...config, [field]: parseInt(value, 10) || 0 })
     } else {
       setConfig({ ...config, [field]: value })
@@ -181,6 +186,19 @@ export default function SettingsPage() {
                 <div className="space-y-2">
                   <Label>{t('settings.applePayMerchantId')}</Label>
                   <Input value={config.apple_pay_merchant_id || ''} onChange={e => updateField('apple_pay_merchant_id', e.target.value)} disabled={!canWritePayments} />
+                </div>
+                <div className="space-y-2">
+                  <Label>{t('settings.comgateMerchant', 'Comgate merchant ID')}</Label>
+                  <Input value={config.comgate_merchant || ''} onChange={e => updateField('comgate_merchant', e.target.value)} disabled={!canWritePayments} />
+                </div>
+                <div className="space-y-2">
+                  <Label>{t('settings.comgateSecret', 'Comgate secret')}</Label>
+                  <Input disabled value="********" placeholder={t('settings.comgateSecretManaged', 'Managed via env (COMGATE_SECRET)')} />
+                  <p className="text-xs text-muted-foreground">{t('settings.comgateSecretDesc', 'Set COMGATE_MERCHANT / COMGATE_SECRET as function secrets.')}</p>
+                </div>
+                <div className="space-y-2">
+                  <Label>{t('settings.countryPrice', 'Country price (€)')}</Label>
+                  <Input type="number" step="0.01" min="0" value={config.country_price_eur ?? ''} onChange={e => updateField('country_price_eur', e.target.value)} disabled={!canWritePayments} />
                 </div>
               </div>
               {canWritePayments && <Button onClick={saveConfig}>{t('settings.saveConfig')}</Button>}

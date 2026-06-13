@@ -55,6 +55,14 @@ verify_jwt = false
 [functions.admin-api]
 verify_jwt = false
 
+# comgate-create validates the Bearer token in code; comgate-webhook is called
+# server-to-server by Comgate (no JWT) and verifies the shared secret instead.
+[functions.comgate-create]
+verify_jwt = false
+
+[functions.comgate-webhook]
+verify_jwt = false
+
 [analytics]
 enabled = false
 port = 54327

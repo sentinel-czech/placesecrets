@@ -4,7 +4,7 @@ export const DEVICE_ID_RE = /^[a-zA-Z0-9_-]{1,128}$/
 export const VALID_COLUMN_NAME = /^[a-zA-Z_][a-zA-Z0-9_]*$/
 export const VALID_ON_CONFLICT = /^[a-zA-Z_][a-zA-Z0-9_]*(,[a-zA-Z_][a-zA-Z0-9_]*)*$/
 
-export const VALID_PAYMENT_METHODS = ['stripe', 'google_pay', 'apple_pay', 'revolut', 'admin_grant'] as const
+export const VALID_PAYMENT_METHODS = ['stripe', 'google_pay', 'apple_pay', 'revolut', 'comgate', 'admin_grant'] as const
 export const VALID_PURCHASE_TYPES = ['poi', 'city_premium'] as const
 
 export const ALLOWED_TABLES = [
@@ -19,7 +19,7 @@ export const READ_ONLY_TABLES = ['admin_users_view', 'admin_stats', 'user_all_pu
 
 export const BLOCKED_COLUMNS: Record<string, string[]> = {
   admin_users: ['pin_hash', 'pin_attempts', 'pin_locked_until'],
-  payment_config: ['stripe_secret_key'],
+  payment_config: ['stripe_secret_key', 'comgate_secret'],
 }
 
 export const ALLOWED_STORAGE_BUCKETS = ['poi-photos', 'audio-guides', 'payment-receipts', 'premium-audio'] as const

@@ -117,8 +117,8 @@ describe('SettingsPage', () => {
     expect(screen.getByDisplayValue('pk_test_xxx')).toBeInTheDocument()
     expect(screen.getByDisplayValue('gp-123')).toBeInTheDocument()
     expect(screen.getByDisplayValue('ap-123')).toBeInTheDocument()
-    // Stripe secret key should be masked
-    expect(screen.getByDisplayValue('********')).toBeInTheDocument()
+    // Stripe + Comgate secrets should be masked
+    expect(screen.getAllByDisplayValue('********').length).toBeGreaterThan(0)
   })
 
   it('save calls adminUpdate for payment_config', async () => {

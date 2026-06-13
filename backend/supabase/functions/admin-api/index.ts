@@ -17,7 +17,7 @@ const ALLOWED_TABLES = [
 // Sensitive columns that must never be returned via select or written via insert/update/upsert
 const BLOCKED_COLUMNS: Record<string, string[]> = {
   admin_users: ['pin_hash', 'pin_attempts', 'pin_locked_until'],
-  payment_config: ['stripe_secret_key'],
+  payment_config: ['stripe_secret_key', 'comgate_secret'],
   user_profiles: ['user_id', 'user_number'],
 }
 
