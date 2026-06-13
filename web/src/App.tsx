@@ -13,6 +13,8 @@ import LoginPage from '@/pages/LoginPage'
 import RegisterPage from '@/pages/RegisterPage'
 import ForgotPasswordPage from '@/pages/ForgotPasswordPage'
 import ResetPasswordPage from '@/pages/ResetPasswordPage'
+import TermsPage from '@/pages/legal/TermsPage'
+import PrivacyPage from '@/pages/legal/PrivacyPage'
 import AdminPinPage from '@/pages/AdminPinPage'
 import ForceChangePinPage from '@/pages/ForceChangePinPage'
 import UnauthorizedPage from '@/pages/UnauthorizedPage'
@@ -66,6 +68,8 @@ export default function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
         <Route path="/register/contributor" element={<ContributorRegisterPage />} />
         <Route path="/:countryCode/:citySlug/:poiSlug" element={<PlaceDetailPage />} />

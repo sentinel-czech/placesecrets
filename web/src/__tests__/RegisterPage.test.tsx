@@ -56,6 +56,8 @@ function fillForm(overrides: { email?: string; password?: string; confirm?: stri
   fireEvent.change(screen.getByLabelText('user.profile.confirmPassword'), {
     target: { value: confirm ?? password },
   })
+  // Required consent checkbox (Terms + Privacy)
+  fireEvent.click(screen.getByRole('checkbox'))
 }
 
 describe('RegisterPage', () => {
@@ -270,7 +272,12 @@ describe('RegisterPage', () => {
     await waitFor(() => {
       expect(mockFrom).toHaveBeenCalledWith('user_profiles')
       expect(mockUpsert).toHaveBeenCalledWith(
-        { user_id: 'user-789', display_name: 'myhandle' },
+        expect.objectContaining({
+          user_id: 'user-789',
+          display_name: 'myhandle',
+          terms_accepted_at: expect.any(String),
+          privacy_accepted_at: expect.any(String),
+        }),
         { onConflict: 'user_id' }
       )
     })

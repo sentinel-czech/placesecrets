@@ -24,6 +24,7 @@ export default function RegisterPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [agreed, setAgreed] = useState(false)
   const [resending, setResending] = useState(false)
   const [resent, setResent] = useState(false)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
@@ -59,6 +60,11 @@ export default function RegisterPage() {
     e.preventDefault()
     setError('')
 
+    if (!agreed) {
+      setError(t('auth.mustAgree', 'You must agree to the Terms of Service and Privacy Policy.'))
+      return
+    }
+
     if (password !== confirmPassword) {
       setError(t('user.profile.passwordMismatch'))
       return
@@ -82,10 +88,16 @@ export default function RegisterPage() {
       const { data, error: signUpError } = await supabase.auth.signUp({ email, password })
       if (signUpError) throw signUpError
 
-      if (handle && data.user) {
+      if (data.user) {
+        const now = new Date().toISOString()
         await supabase
           .from('user_profiles')
-          .upsert({ user_id: data.user.id, display_name: handle }, { onConflict: 'user_id' })
+          .upsert({
+            user_id: data.user.id,
+            ...(handle ? { display_name: handle } : {}),
+            terms_accepted_at: now,
+            privacy_accepted_at: now,
+          }, { onConflict: 'user_id' })
       }
 
       setSuccess(true)
@@ -200,8 +212,22 @@ export default function RegisterPage() {
                 required
               />
             </div>
+            <label className="flex items-start gap-2 text-xs text-muted-foreground">
+              <input
+                type="checkbox"
+                checked={agreed}
+                onChange={e => setAgreed(e.target.checked)}
+                className="mt-0.5"
+              />
+              <span>
+                {t('auth.agreePrefix', 'I agree to the')}{' '}
+                <Link to="/terms" target="_blank" className="font-medium text-primary hover:underline">{t('footer.terms', 'Terms of Service')}</Link>
+                {' '}{t('auth.agreeAnd', 'and')}{' '}
+                <Link to="/privacy" target="_blank" className="font-medium text-primary hover:underline">{t('footer.privacy', 'Privacy Policy')}</Link>.
+              </span>
+            </label>
             {error && <p className="text-sm text-destructive">{error}</p>}
-            <Button type="submit" className="w-full" disabled={loading || !!handleError}>
+            <Button type="submit" className="w-full" disabled={loading || !!handleError || !agreed}>
               {loading ? t('common.loading') : t('handle.register')}
             </Button>
           </form>

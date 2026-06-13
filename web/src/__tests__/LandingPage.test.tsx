@@ -25,7 +25,7 @@ vi.mock('@/hooks/useAuth', () => ({
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (k: string) => {
+    t: (k: string, d?: string) => {
       const map: Record<string, string> = {
         'landing.tagline': 'Audio-guided discovery',
         'landing.heroTitle1': 'Discover the',
@@ -70,7 +70,7 @@ vi.mock('react-i18next', () => ({
         'landing.appStore': 'App Store',
         'landing.comingSoon': 'Coming soon',
       }
-      return map[k] || k
+      return map[k] || d || k
     },
     i18n: { language: 'en' },
   }),

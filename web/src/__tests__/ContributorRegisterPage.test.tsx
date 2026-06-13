@@ -83,6 +83,7 @@ describe('ContributorRegisterPage', () => {
     fireEvent.change(passwordInput, {
       target: { value: 'securepass123' },
     })
+    fireEvent.click(screen.getByRole('checkbox'))
     fireEvent.click(screen.getByRole('button', { name: 'handle.register' }))
 
     await waitFor(() => {
@@ -115,6 +116,7 @@ describe('ContributorRegisterPage', () => {
     fireEvent.change(passwordInput, {
       target: { value: 'password123' },
     })
+    fireEvent.click(screen.getByRole('checkbox'))
     fireEvent.click(screen.getByRole('button', { name: 'handle.register' }))
 
     await waitFor(() => {

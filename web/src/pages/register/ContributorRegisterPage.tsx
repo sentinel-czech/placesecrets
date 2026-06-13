@@ -19,6 +19,7 @@ export default function ContributorRegisterPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
+  const [agreed, setAgreed] = useState(false)
   const { t } = useTranslation()
   const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
@@ -45,6 +46,7 @@ export default function ContributorRegisterPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
+    if (!agreed) { setError(t('auth.mustAgree', 'You must agree to the Terms of Service and Privacy Policy.')); return }
     if (!email || !password || !handle) { setError(t('handle.allFieldsRequired')); return }
     if (!HANDLE_REGEX.test(handle)) { setError(t('handle.invalid')); return }
     if (handleError) return
@@ -57,9 +59,12 @@ export default function ContributorRegisterPage() {
       if (!data.user) throw new Error('Registration failed')
 
       // Write handle to user_profiles (trigger syncs to contributor_profiles)
-      await supabase
-        .from('user_profiles')
-        .upsert({ user_id: data.user.id, display_name: handle }, { onConflict: 'user_id' })
+      {
+        const now = new Date().toISOString()
+        await supabase
+          .from('user_profiles')
+          .upsert({ user_id: data.user.id, display_name: handle, terms_accepted_at: now, privacy_accepted_at: now }, { onConflict: 'user_id' })
+      }
 
       // Create contributor profile with same handle
       const { error: profileError } = await supabase.from('contributor_profiles').insert({
@@ -85,7 +90,7 @@ export default function ContributorRegisterPage() {
               <CheckCircle className="h-10 w-10 text-primary" />
             </div>
             <CardTitle className="text-2xl">{t('common.success')}</CardTitle>
-            <CardDescription>Your contributor account has been created.</CardDescription>
+            <CardDescription>{t('contributorRegister.created', 'Your contributor account has been created.')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-start gap-2 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 p-4 text-sm">
@@ -115,8 +120,8 @@ export default function ContributorRegisterPage() {
           <div className="flex justify-center mb-2">
             <MapPin className="h-10 w-10 text-primary" />
           </div>
-          <CardTitle className="text-2xl">Become a Contributor</CardTitle>
-          <CardDescription>Join PlaceSecrets and share your local knowledge</CardDescription>
+          <CardTitle className="text-2xl">{t('contributorRegister.title', 'Become a Contributor')}</CardTitle>
+          <CardDescription>{t('contributorRegister.subtitle', 'Join PlaceSecrets and share your local knowledge')}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -147,8 +152,17 @@ export default function ContributorRegisterPage() {
               <Label>{t('common.password')}</Label>
               <Input type="password" value={password} onChange={e => setPassword(e.target.value)} required minLength={8} />
             </div>
+            <label className="flex items-start gap-2 text-xs text-muted-foreground">
+              <input type="checkbox" checked={agreed} onChange={e => setAgreed(e.target.checked)} className="mt-0.5" />
+              <span>
+                {t('auth.agreePrefix', 'I agree to the')}{' '}
+                <Link to="/terms" target="_blank" className="font-medium text-primary hover:underline">{t('footer.terms', 'Terms of Service')}</Link>
+                {' '}{t('auth.agreeAnd', 'and')}{' '}
+                <Link to="/privacy" target="_blank" className="font-medium text-primary hover:underline">{t('footer.privacy', 'Privacy Policy')}</Link>.
+              </span>
+            </label>
             {error && <p className="text-sm text-destructive">{error}</p>}
-            <Button type="submit" className="w-full" disabled={loading || !!handleError}>
+            <Button type="submit" className="w-full" disabled={loading || !!handleError || !agreed}>
               {loading ? t('common.loading') : t('handle.register')}
             </Button>
           </form>

@@ -410,9 +410,10 @@ export default function PlaceDetailPage() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={shareUrl} />
         {photos[0] && <meta property="og:image" content={photos[0]} />}
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content={photos[0] ? 'summary_large_image' : 'summary'} />
         <meta name="twitter:title" content={`${name} — PlaceSecrets`} />
         <meta name="twitter:description" content={metaDesc} />
+        {photos[0] && <meta name="twitter:image" content={photos[0]} />}
       </Helmet>
 
       <div className="min-h-screen flex flex-col">
