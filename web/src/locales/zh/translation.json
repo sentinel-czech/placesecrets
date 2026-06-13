@@ -35,7 +35,26 @@
     "signingIn": "登录中...",
     "signIn": "登录",
     "noAccount": "没有账户？",
-    "createOne": "立即创建"
+    "createOne": "立即创建",
+    "forgotPassword": "忘记密码？",
+    "forgotPasswordTitle": "重置密码",
+    "forgotPasswordDesc": "输入邮箱，我们将发送重置链接。",
+    "forgotPasswordSent": "如果该邮箱存在，我们已发送重置链接。请查收。",
+    "sendResetLink": "发送链接",
+    "backToLogin": "返回登录",
+    "resetPasswordTitle": "设置新密码",
+    "resetPasswordOpenLink": "请通过邮件中的链接打开此页面。",
+    "newPassword": "新密码",
+    "confirmPassword": "确认密码",
+    "passwordMin8": "密码至少需要 8 个字符。",
+    "passwordMismatch": "两次密码不一致。",
+    "updatePassword": "更新密码",
+    "passwordResetSuccess": "密码已更新，请登录。",
+    "resendConfirmation": "重新发送确认邮件",
+    "confirmationResent": "确认邮件已发送。",
+    "agreePrefix": "我同意",
+    "agreeAnd": "和",
+    "mustAgree": "您必须同意服务条款和隐私政策。"
   },
   "landing": {
     "tagline": "语音导览与旅行日记",
@@ -80,7 +99,8 @@
     "googlePlay": "Google Play",
     "downloadOnThe": "下载于",
     "appStore": "App Store",
-    "comingSoon": "即将推出"
+    "comingSoon": "即将推出",
+    "browseAll": "浏览所有地点"
   },
   "adminProfile": {
     "displayName": "显示名称",
@@ -247,7 +267,12 @@
     "accountSettings": "账户设置",
     "receipts": "收据",
     "explore": "探索",
-    "myHistory": "我的历史"
+    "myHistory": "我的历史",
+    "catalog": "浏览",
+    "search": "搜索",
+    "landing": "首页",
+    "moderation": "审核",
+    "myDashboard": "我的面板"
   },
   "admin": {
     "cities": {
@@ -338,7 +363,9 @@
       "selectCity": "选择城市...",
       "selectPoi": "选择地点...",
       "accessGranted": "城市访问权已授予",
-      "poiAccessGranted": "兴趣点访问权已授予"
+      "poiAccessGranted": "兴趣点访问权已授予",
+      "countryAccess": "国家",
+      "validUntil": "有效期至（可选）"
     },
     "dashboard": {
       "sectionUsers": "用户",
@@ -462,6 +489,18 @@
       "places": "个地点",
       "ratings": "条评分",
       "score": "分数"
+    },
+    "landing": {
+      "title": "首页内容",
+      "desc": "按语言编辑首页文本。空白字段使用默认值。"
+    },
+    "moderation": {
+      "title": "审核",
+      "desc": "隐藏或删除不当的地点评价。",
+      "empty": "没有需要审核的评论。",
+      "hidden": "已隐藏",
+      "hide": "隐藏",
+      "show": "显示"
     }
   },
   "contributor": {
@@ -576,7 +615,21 @@
       "goToAdmin": "前往管理面板",
       "purchasesTab": "我的购买",
       "adminTab": "管理面板",
-      "settingsTab": "账户设置"
+      "settingsTab": "账户设置",
+      "avatar": "头像",
+      "avatarDesc": "显示在您的个人资料中。",
+      "uploadAvatar": "上传照片",
+      "avatarUpdated": "头像已更新",
+      "emailVerification": "邮箱验证",
+      "emailVerified": "您的邮箱已验证。",
+      "emailNotVerified": "您的邮箱尚未验证。",
+      "resendVerification": "重新发送邮件",
+      "verificationSent": "验证邮件已发送。",
+      "marketing": "邮件偏好",
+      "marketingOptIn": "向我发送产品资讯和提示（可随时取消）。",
+      "dataExport": "导出我的数据",
+      "dataExportDesc": "下载您的账户数据副本（GDPR）。",
+      "downloadData": "下载 JSON"
     },
     "history": {
       "title": "我的历史",
@@ -622,7 +675,11 @@
     "newPinRequired": "需要新 PIN",
     "pinChangeFailed": "更改 PIN 失败",
     "pinChanged": "PIN 已更改",
-    "changingPin": "正在更改..."
+    "changingPin": "正在更改...",
+    "freeCount": "免费音频数",
+    "freePeriod": "免费周期",
+    "perDay": "每天",
+    "perMonth": "每月"
   },
   "poiForm": {
     "basicInfo": "基本信息",
@@ -665,7 +722,10 @@
     "coordParserPlaceholder": "例如 50.0764, 14.2536",
     "parse": "解析",
     "parseError": "无法识别坐标",
-    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'"
+    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'",
+    "name": "名称",
+    "description": "描述",
+    "language": "语言"
   },
   "cityForm": {
     "aliases": "城市别名",
@@ -753,5 +813,59 @@
     "register": "注册",
     "haveAccount": "已有账户？",
     "signIn": "登录"
+  },
+  "places": {
+    "search": "搜索地点",
+    "searchPlaceholder": "搜索地点、城市…",
+    "noResults": "未找到地点。",
+    "catalog": "浏览城市",
+    "noCities": "暂无城市。",
+    "cityNotFound": "未找到城市。",
+    "noPlacesInCity": "该城市暂无地点。",
+    "rateThisPlace": "评价此地点",
+    "submitRating": "提交评价",
+    "ratingThanks": "感谢您的评价！",
+    "commentPlaceholder": "添加评论（可选）",
+    "access": {
+      "public": "公开",
+      "registered": "注册用户",
+      "city_access": "城市通票",
+      "premium_poi": "高级"
+    },
+    "yourRating": "您的评价"
+  },
+  "footer": {
+    "tagline": "您的个人音频导览，讲述每个地点背后的故事。",
+    "explore": "探索",
+    "map": "地图",
+    "howItWorks": "运作方式",
+    "downloadApp": "下载应用",
+    "becomeContributor": "成为贡献者",
+    "legal": "法律",
+    "about": "关于",
+    "faq": "常见问题",
+    "privacy": "隐私政策",
+    "terms": "服务条款",
+    "contact": "联系",
+    "rights": "版权所有。"
+  },
+  "legal": {
+    "draftNotice": "草稿 — 模板文本，上线前须经律师审核。",
+    "lastUpdated": "最后更新"
+  },
+  "access": {
+    "myAccess": "我的访问权限",
+    "myAccessDesc": "您当前可访问的内容。",
+    "nothingPurchased": "您还没有购买地点 — 适用免费访问。",
+    "freeUsage": "本{{period}}免费",
+    "period": {
+      "day": "天",
+      "month": "月"
+    }
+  },
+  "contributorRegister": {
+    "title": "成为贡献者",
+    "subtitle": "加入 PlaceSecrets，分享您的本地知识",
+    "created": "您的贡献者账户已创建。"
   }
 }

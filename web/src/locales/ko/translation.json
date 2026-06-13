@@ -35,7 +35,26 @@
     "signingIn": "로그인 중...",
     "signIn": "로그인",
     "noAccount": "계정이 없으신가요?",
-    "createOne": "계정 만들기"
+    "createOne": "계정 만들기",
+    "forgotPassword": "비밀번호를 잊으셨나요?",
+    "forgotPasswordTitle": "비밀번호 재설정",
+    "forgotPasswordDesc": "이메일을 입력하면 재설정 링크를 보내드립니다.",
+    "forgotPasswordSent": "해당 이메일이 있으면 재설정 링크를 보냈습니다. 받은편지함을 확인하세요.",
+    "sendResetLink": "링크 보내기",
+    "backToLogin": "로그인으로 돌아가기",
+    "resetPasswordTitle": "새 비밀번호 설정",
+    "resetPasswordOpenLink": "이메일의 링크에서 이 페이지를 여세요.",
+    "newPassword": "새 비밀번호",
+    "confirmPassword": "비밀번호 확인",
+    "passwordMin8": "비밀번호는 8자 이상이어야 합니다.",
+    "passwordMismatch": "비밀번호가 일치하지 않습니다.",
+    "updatePassword": "비밀번호 변경",
+    "passwordResetSuccess": "비밀번호가 변경되었습니다. 로그인하세요.",
+    "resendConfirmation": "확인 이메일 재전송",
+    "confirmationResent": "확인 이메일을 보냈습니다.",
+    "agreePrefix": "다음에 동의합니다:",
+    "agreeAnd": "및",
+    "mustAgree": "이용약관과 개인정보 처리방침에 동의해야 합니다."
   },
   "landing": {
     "tagline": "오디오 가이드 & 여행 기록",
@@ -80,7 +99,8 @@
     "googlePlay": "Google Play",
     "downloadOnThe": "다운로드",
     "appStore": "App Store",
-    "comingSoon": "곧 출시"
+    "comingSoon": "곧 출시",
+    "browseAll": "모든 장소 보기"
   },
   "adminProfile": {
     "displayName": "표시 이름",
@@ -247,7 +267,12 @@
     "accountSettings": "계정 설정",
     "receipts": "영수증",
     "explore": "탐색",
-    "myHistory": "내 기록"
+    "myHistory": "내 기록",
+    "catalog": "둘러보기",
+    "search": "검색",
+    "landing": "랜딩 페이지",
+    "moderation": "검토",
+    "myDashboard": "내 대시보드"
   },
   "admin": {
     "cities": {
@@ -338,7 +363,9 @@
       "selectCity": "도시 선택...",
       "selectPoi": "장소 선택...",
       "accessGranted": "도시 접근권이 부여되었습니다",
-      "poiAccessGranted": "관심 지점 접근권이 부여되었습니다"
+      "poiAccessGranted": "관심 지점 접근권이 부여되었습니다",
+      "countryAccess": "국가",
+      "validUntil": "유효 기간 (선택)"
     },
     "dashboard": {
       "sectionUsers": "사용자",
@@ -462,6 +489,18 @@
       "places": "장소",
       "ratings": "평점",
       "score": "점수"
+    },
+    "landing": {
+      "title": "랜딩 페이지 콘텐츠",
+      "desc": "언어별로 홈페이지 문구를 편집하세요. 빈 칸은 기본값을 사용합니다."
+    },
+    "moderation": {
+      "title": "검토",
+      "desc": "부적절한 리뷰를 숨기거나 삭제합니다.",
+      "empty": "검토할 댓글이 없습니다.",
+      "hidden": "숨김",
+      "hide": "숨기기",
+      "show": "표시"
     }
   },
   "contributor": {
@@ -576,7 +615,21 @@
       "goToAdmin": "관리자 패널로 이동",
       "purchasesTab": "내 구매",
       "adminTab": "관리자 패널",
-      "settingsTab": "계정 설정"
+      "settingsTab": "계정 설정",
+      "avatar": "프로필 사진",
+      "avatarDesc": "프로필에 표시됩니다.",
+      "uploadAvatar": "사진 업로드",
+      "avatarUpdated": "프로필 사진이 변경되었습니다",
+      "emailVerification": "이메일 인증",
+      "emailVerified": "이메일이 인증되었습니다.",
+      "emailNotVerified": "이메일이 아직 인증되지 않았습니다.",
+      "resendVerification": "이메일 재전송",
+      "verificationSent": "인증 이메일을 보냈습니다.",
+      "marketing": "이메일 설정",
+      "marketingOptIn": "제품 소식과 팁을 보내주세요 (언제든 해지 가능).",
+      "dataExport": "내 데이터 내보내기",
+      "dataExportDesc": "계정 데이터 사본을 다운로드합니다 (GDPR).",
+      "downloadData": "JSON 다운로드"
     },
     "history": {
       "title": "내 기록",
@@ -622,7 +675,11 @@
     "newPinRequired": "새 PIN이 필요합니다",
     "pinChangeFailed": "PIN 변경 실패",
     "pinChanged": "PIN이 변경되었습니다",
-    "changingPin": "변경 중..."
+    "changingPin": "변경 중...",
+    "freeCount": "무료 오디오 수",
+    "freePeriod": "무료 주기",
+    "perDay": "하루당",
+    "perMonth": "한 달당"
   },
   "poiForm": {
     "basicInfo": "기본 정보",
@@ -665,7 +722,10 @@
     "coordParserPlaceholder": "예: 50.0764, 14.2536",
     "parse": "파싱",
     "parseError": "좌표를 인식할 수 없습니다",
-    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'"
+    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'",
+    "name": "이름",
+    "description": "설명",
+    "language": "언어"
   },
   "cityForm": {
     "aliases": "도시 별칭",
@@ -753,5 +813,59 @@
     "register": "가입하기",
     "haveAccount": "계정이 있으신가요?",
     "signIn": "로그인"
+  },
+  "places": {
+    "search": "장소 검색",
+    "searchPlaceholder": "장소, 도시 검색…",
+    "noResults": "장소를 찾을 수 없습니다.",
+    "catalog": "도시 둘러보기",
+    "noCities": "아직 도시가 없습니다.",
+    "cityNotFound": "도시를 찾을 수 없습니다.",
+    "noPlacesInCity": "이 도시에는 아직 장소가 없습니다.",
+    "rateThisPlace": "이 장소 평가",
+    "submitRating": "평가 제출",
+    "ratingThanks": "평가해 주셔서 감사합니다!",
+    "commentPlaceholder": "댓글 추가 (선택)",
+    "access": {
+      "public": "공개",
+      "registered": "가입자",
+      "city_access": "도시 패스",
+      "premium_poi": "프리미엄"
+    },
+    "yourRating": "내 평가"
+  },
+  "footer": {
+    "tagline": "모든 장소의 숨은 이야기를 들려주는 개인 오디오 가이드.",
+    "explore": "둘러보기",
+    "map": "지도",
+    "howItWorks": "이용 방법",
+    "downloadApp": "앱 다운로드",
+    "becomeContributor": "기여자 되기",
+    "legal": "법적 고지",
+    "about": "소개",
+    "faq": "자주 묻는 질문",
+    "privacy": "개인정보 처리방침",
+    "terms": "이용약관",
+    "contact": "문의",
+    "rights": "모든 권리 보유."
+  },
+  "legal": {
+    "draftNotice": "초안 — 템플릿 문구, 출시 전 변호사 검토 필요.",
+    "lastUpdated": "최종 업데이트"
+  },
+  "access": {
+    "myAccess": "내 이용 권한",
+    "myAccessDesc": "현재 이용 가능한 항목.",
+    "nothingPurchased": "구매한 장소가 없습니다 — 무료 이용이 적용됩니다.",
+    "freeUsage": "이번 {{period}} 무료",
+    "period": {
+      "day": "일",
+      "month": "월"
+    }
+  },
+  "contributorRegister": {
+    "title": "기여자 되기",
+    "subtitle": "PlaceSecrets에 참여해 현지 지식을 공유하세요",
+    "created": "기여자 계정이 생성되었습니다."
   }
 }

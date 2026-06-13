@@ -51,7 +51,10 @@
     "updatePassword": "Update password",
     "passwordResetSuccess": "Password updated. Please sign in.",
     "resendConfirmation": "Resend confirmation email",
-    "confirmationResent": "Confirmation email sent."
+    "confirmationResent": "Confirmation email sent.",
+    "agreePrefix": "I agree to the",
+    "agreeAnd": "and",
+    "mustAgree": "You must agree to the Terms of Service and Privacy Policy."
   },
   "landing": {
     "tagline": "Audio Guide & Travel Log",
@@ -96,7 +99,8 @@
     "googlePlay": "Google Play",
     "downloadOnThe": "Download on the",
     "appStore": "App Store",
-    "comingSoon": "Coming soon"
+    "comingSoon": "Coming soon",
+    "browseAll": "Browse all places"
   },
   "adminProfile": {
     "displayName": "Display Name",
@@ -265,7 +269,10 @@
     "explore": "Explore",
     "myHistory": "My History",
     "catalog": "Browse",
-    "search": "Search"
+    "search": "Search",
+    "landing": "Landing page",
+    "moderation": "Moderation",
+    "myDashboard": "My Dashboard"
   },
   "admin": {
     "cities": {
@@ -356,7 +363,9 @@
       "selectCity": "Select city...",
       "selectPoi": "Select place...",
       "accessGranted": "City access granted",
-      "poiAccessGranted": "POI access granted"
+      "poiAccessGranted": "POI access granted",
+      "countryAccess": "Country",
+      "validUntil": "Valid until (optional)"
     },
     "dashboard": {
       "sectionUsers": "Users",
@@ -480,6 +489,18 @@
       "places": "places",
       "ratings": "ratings",
       "score": "Score"
+    },
+    "landing": {
+      "title": "Landing page content",
+      "desc": "Edit the public homepage text per language. Empty fields fall back to defaults."
+    },
+    "moderation": {
+      "title": "Moderation",
+      "desc": "Hide or remove inappropriate place reviews.",
+      "empty": "No comments to moderate.",
+      "hidden": "Hidden",
+      "hide": "Hide",
+      "show": "Show"
     }
   },
   "contributor": {
@@ -594,7 +615,21 @@
       "goToAdmin": "Go to Admin Panel",
       "purchasesTab": "My Purchases",
       "adminTab": "Admin Panel",
-      "settingsTab": "Account Settings"
+      "settingsTab": "Account Settings",
+      "avatar": "Profile photo",
+      "avatarDesc": "Shown on your profile.",
+      "uploadAvatar": "Upload photo",
+      "avatarUpdated": "Profile photo updated",
+      "emailVerification": "Email verification",
+      "emailVerified": "Your email is verified.",
+      "emailNotVerified": "Your email is not verified yet.",
+      "resendVerification": "Resend email",
+      "verificationSent": "Verification email sent.",
+      "marketing": "Email preferences",
+      "marketingOptIn": "Send me product news and tips (you can opt out anytime).",
+      "dataExport": "Export my data",
+      "dataExportDesc": "Download a copy of your account data (GDPR).",
+      "downloadData": "Download JSON"
     },
     "history": {
       "title": "My History",
@@ -640,7 +675,11 @@
     "newPinRequired": "New PIN is required",
     "pinChangeFailed": "Failed to change PIN",
     "pinChanged": "PIN changed",
-    "changingPin": "Changing..."
+    "changingPin": "Changing...",
+    "freeCount": "Free audios",
+    "freePeriod": "Free period",
+    "perDay": "per day",
+    "perMonth": "per month"
   },
   "poiForm": {
     "basicInfo": "Basic Info",
@@ -683,7 +722,10 @@
     "coordParserPlaceholder": "e.g. 50.0764, 14.2536",
     "parse": "Parse",
     "parseError": "Could not parse coordinates",
-    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'"
+    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'",
+    "name": "Name",
+    "description": "Description",
+    "language": "Language"
   },
   "cityForm": {
     "aliases": "City Aliases",
@@ -789,6 +831,41 @@
       "registered": "Registered",
       "city_access": "City pass",
       "premium_poi": "Premium"
+    },
+    "commentPlaceholder": "Add a comment (optional)"
+  },
+  "footer": {
+    "tagline": "Your personal audio guide to hidden stories behind every place.",
+    "explore": "Explore",
+    "map": "Map",
+    "howItWorks": "How It Works",
+    "downloadApp": "Download App",
+    "becomeContributor": "Become a Contributor",
+    "legal": "Legal",
+    "about": "About",
+    "faq": "FAQ",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "contact": "Contact",
+    "rights": "All rights reserved."
+  },
+  "legal": {
+    "draftNotice": "DRAFT — template text, must be reviewed by a lawyer before launch.",
+    "lastUpdated": "Last updated"
+  },
+  "access": {
+    "myAccess": "My access",
+    "myAccessDesc": "What you currently have access to.",
+    "nothingPurchased": "You have no purchased places yet — free access applies.",
+    "freeUsage": "Free this {{period}}",
+    "period": {
+      "day": "day",
+      "month": "month"
     }
+  },
+  "contributorRegister": {
+    "title": "Become a Contributor",
+    "subtitle": "Join PlaceSecrets and share your local knowledge",
+    "created": "Your contributor account has been created."
   }
 }

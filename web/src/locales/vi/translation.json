@@ -35,7 +35,26 @@
     "signingIn": "Đang đăng nhập...",
     "signIn": "Đăng nhập",
     "noAccount": "Chưa có tài khoản?",
-    "createOne": "Tạo tài khoản"
+    "createOne": "Tạo tài khoản",
+    "forgotPassword": "Quên mật khẩu?",
+    "forgotPasswordTitle": "Đặt lại mật khẩu",
+    "forgotPasswordDesc": "Nhập email và chúng tôi sẽ gửi liên kết đặt lại.",
+    "forgotPasswordSent": "Nếu email tồn tại, chúng tôi đã gửi liên kết. Kiểm tra hộp thư.",
+    "sendResetLink": "Gửi liên kết",
+    "backToLogin": "Quay lại đăng nhập",
+    "resetPasswordTitle": "Chọn mật khẩu mới",
+    "resetPasswordOpenLink": "Mở trang này từ liên kết trong email của bạn.",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "passwordMin8": "Mật khẩu phải có ít nhất 8 ký tự.",
+    "passwordMismatch": "Mật khẩu không khớp.",
+    "updatePassword": "Cập nhật mật khẩu",
+    "passwordResetSuccess": "Đã cập nhật mật khẩu. Vui lòng đăng nhập.",
+    "resendConfirmation": "Gửi lại email xác nhận",
+    "confirmationResent": "Đã gửi email xác nhận.",
+    "agreePrefix": "Tôi đồng ý với",
+    "agreeAnd": "và",
+    "mustAgree": "Bạn phải đồng ý với Điều khoản và Chính sách bảo mật."
   },
   "landing": {
     "tagline": "Hướng dẫn âm thanh & Nhật ký du lịch",
@@ -80,7 +99,8 @@
     "googlePlay": "Google Play",
     "downloadOnThe": "Tải xuống trên",
     "appStore": "App Store",
-    "comingSoon": "Sắp ra mắt"
+    "comingSoon": "Sắp ra mắt",
+    "browseAll": "Duyệt tất cả địa điểm"
   },
   "adminProfile": {
     "displayName": "Tên hiển thị",
@@ -247,7 +267,12 @@
     "accountSettings": "Cài đặt tài khoản",
     "receipts": "Hóa đơn",
     "explore": "Khám phá",
-    "myHistory": "Lịch sử của tôi"
+    "myHistory": "Lịch sử của tôi",
+    "catalog": "Duyệt",
+    "search": "Tìm kiếm",
+    "landing": "Trang chủ",
+    "moderation": "Kiểm duyệt",
+    "myDashboard": "Bảng điều khiển"
   },
   "admin": {
     "cities": {
@@ -338,7 +363,9 @@
       "selectCity": "Chọn thành phố...",
       "selectPoi": "Chọn địa điểm...",
       "accessGranted": "Đã cấp quyền truy cập thành phố",
-      "poiAccessGranted": "Đã cấp quyền truy cập địa điểm"
+      "poiAccessGranted": "Đã cấp quyền truy cập địa điểm",
+      "countryAccess": "Quốc gia",
+      "validUntil": "Có hiệu lực đến (tùy chọn)"
     },
     "dashboard": {
       "sectionUsers": "Người dùng",
@@ -462,6 +489,18 @@
       "places": "địa điểm",
       "ratings": "đánh giá",
       "score": "Điểm"
+    },
+    "landing": {
+      "title": "Nội dung trang chủ",
+      "desc": "Chỉnh sửa nội dung trang chủ theo ngôn ngữ. Trường trống dùng mặc định."
+    },
+    "moderation": {
+      "title": "Kiểm duyệt",
+      "desc": "Ẩn hoặc xóa đánh giá không phù hợp.",
+      "empty": "Không có bình luận cần kiểm duyệt.",
+      "hidden": "Đã ẩn",
+      "hide": "Ẩn",
+      "show": "Hiện"
     }
   },
   "contributor": {
@@ -576,7 +615,21 @@
       "goToAdmin": "Đi đến bảng quản trị",
       "purchasesTab": "Mua hàng của tôi",
       "adminTab": "Bảng quản trị",
-      "settingsTab": "Cài đặt tài khoản"
+      "settingsTab": "Cài đặt tài khoản",
+      "avatar": "Ảnh đại diện",
+      "avatarDesc": "Hiển thị trên hồ sơ của bạn.",
+      "uploadAvatar": "Tải ảnh lên",
+      "avatarUpdated": "Đã cập nhật ảnh đại diện",
+      "emailVerification": "Xác minh email",
+      "emailVerified": "Email của bạn đã được xác minh.",
+      "emailNotVerified": "Email của bạn chưa được xác minh.",
+      "resendVerification": "Gửi lại email",
+      "verificationSent": "Đã gửi email xác minh.",
+      "marketing": "Tùy chọn email",
+      "marketingOptIn": "Gửi cho tôi tin tức và mẹo (có thể hủy bất cứ lúc nào).",
+      "dataExport": "Xuất dữ liệu của tôi",
+      "dataExportDesc": "Tải bản sao dữ liệu tài khoản (GDPR).",
+      "downloadData": "Tải JSON"
     },
     "history": {
       "title": "Lịch sử của tôi",
@@ -622,7 +675,11 @@
     "newPinRequired": "Yêu cầu PIN mới",
     "pinChangeFailed": "Không thể đổi PIN",
     "pinChanged": "Đã đổi PIN",
-    "changingPin": "Đang đổi..."
+    "changingPin": "Đang đổi...",
+    "freeCount": "Audio miễn phí",
+    "freePeriod": "Chu kỳ miễn phí",
+    "perDay": "mỗi ngày",
+    "perMonth": "mỗi tháng"
   },
   "poiForm": {
     "basicInfo": "Thông tin cơ bản",
@@ -665,7 +722,10 @@
     "coordParserPlaceholder": "vd. 50.0764, 14.2536",
     "parse": "Phân tích",
     "parseError": "Không thể nhận dạng tọa độ",
-    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'"
+    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'",
+    "name": "Tên",
+    "description": "Mô tả",
+    "language": "Ngôn ngữ"
   },
   "cityForm": {
     "aliases": "Tên thay thế của thành phố",
@@ -753,5 +813,59 @@
     "register": "Đăng ký",
     "haveAccount": "Đã có tài khoản?",
     "signIn": "Đăng nhập"
+  },
+  "places": {
+    "search": "Tìm địa điểm",
+    "searchPlaceholder": "Tìm địa điểm, thành phố…",
+    "noResults": "Không tìm thấy địa điểm.",
+    "catalog": "Duyệt thành phố",
+    "noCities": "Chưa có thành phố.",
+    "cityNotFound": "Không tìm thấy thành phố.",
+    "noPlacesInCity": "Chưa có địa điểm trong thành phố này.",
+    "rateThisPlace": "Đánh giá địa điểm",
+    "submitRating": "Gửi đánh giá",
+    "ratingThanks": "Cảm ơn đánh giá của bạn!",
+    "commentPlaceholder": "Thêm bình luận (tùy chọn)",
+    "access": {
+      "public": "Công khai",
+      "registered": "Đã đăng ký",
+      "city_access": "Vé thành phố",
+      "premium_poi": "Premium"
+    },
+    "yourRating": "Đánh giá của bạn"
+  },
+  "footer": {
+    "tagline": "Hướng dẫn âm thanh cá nhân về câu chuyện sau mỗi địa điểm.",
+    "explore": "Khám phá",
+    "map": "Bản đồ",
+    "howItWorks": "Cách hoạt động",
+    "downloadApp": "Tải ứng dụng",
+    "becomeContributor": "Trở thành cộng tác viên",
+    "legal": "Pháp lý",
+    "about": "Giới thiệu",
+    "faq": "Câu hỏi thường gặp",
+    "privacy": "Chính sách bảo mật",
+    "terms": "Điều khoản dịch vụ",
+    "contact": "Liên hệ",
+    "rights": "Bảo lưu mọi quyền."
+  },
+  "legal": {
+    "draftNotice": "BẢN NHÁP — văn bản mẫu, cần luật sư xem xét trước khi ra mắt.",
+    "lastUpdated": "Cập nhật lần cuối"
+  },
+  "access": {
+    "myAccess": "Quyền truy cập của tôi",
+    "myAccessDesc": "Những gì bạn hiện có quyền truy cập.",
+    "nothingPurchased": "Bạn chưa mua địa điểm nào — áp dụng quyền truy cập miễn phí.",
+    "freeUsage": "Miễn phí mỗi {{period}}",
+    "period": {
+      "day": "ngày",
+      "month": "tháng"
+    }
+  },
+  "contributorRegister": {
+    "title": "Trở thành cộng tác viên",
+    "subtitle": "Tham gia PlaceSecrets và chia sẻ kiến thức địa phương",
+    "created": "Tài khoản cộng tác viên đã được tạo."
   }
 }

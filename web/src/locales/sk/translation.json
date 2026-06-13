@@ -35,7 +35,26 @@
     "signingIn": "Prihlasovanie...",
     "signIn": "Prihlásiť sa",
     "noAccount": "Nemáte účet?",
-    "createOne": "Vytvorte si ho"
+    "createOne": "Vytvorte si ho",
+    "forgotPassword": "Zabudnuté heslo?",
+    "forgotPasswordTitle": "Obnovenie hesla",
+    "forgotPasswordDesc": "Zadajte e-mail a pošleme vám odkaz na obnovenie.",
+    "forgotPasswordSent": "Ak e-mail existuje, poslali sme odkaz. Skontrolujte schránku.",
+    "sendResetLink": "Poslať odkaz",
+    "backToLogin": "Späť na prihlásenie",
+    "resetPasswordTitle": "Zvoľte nové heslo",
+    "resetPasswordOpenLink": "Otvorte túto stránku z odkazu v e-maile.",
+    "newPassword": "Nové heslo",
+    "confirmPassword": "Potvrdenie hesla",
+    "passwordMin8": "Heslo musí mať aspoň 8 znakov.",
+    "passwordMismatch": "Heslá sa nezhodujú.",
+    "updatePassword": "Zmeniť heslo",
+    "passwordResetSuccess": "Heslo zmenené. Prihláste sa prosím.",
+    "resendConfirmation": "Znova poslať potvrdzovací e-mail",
+    "confirmationResent": "Potvrdzovací e-mail odoslaný.",
+    "agreePrefix": "Súhlasím s",
+    "agreeAnd": "a",
+    "mustAgree": "Musíte súhlasiť s Podmienkami a Zásadami ochrany údajov."
   },
   "landing": {
     "tagline": "Audio sprievodca a cestovný denník",
@@ -80,7 +99,8 @@
     "googlePlay": "Google Play",
     "downloadOnThe": "Stiahnuť z",
     "appStore": "App Store",
-    "comingSoon": "Čoskoro"
+    "comingSoon": "Čoskoro",
+    "browseAll": "Prehliadať všetky miesta"
   },
   "adminProfile": {
     "displayName": "Zobrazované meno",
@@ -247,7 +267,12 @@
     "accountSettings": "Nastavenia účtu",
     "receipts": "Účtenky",
     "explore": "Preskúmať",
-    "myHistory": "Moja história"
+    "myHistory": "Moja história",
+    "catalog": "Prehliadať",
+    "search": "Hľadať",
+    "landing": "Úvodná stránka",
+    "moderation": "Moderovanie",
+    "myDashboard": "Môj prehľad"
   },
   "admin": {
     "cities": {
@@ -338,7 +363,9 @@
       "selectCity": "Vybrať mesto...",
       "selectPoi": "Vybrať miesto...",
       "accessGranted": "Prístup k mestu udelený",
-      "poiAccessGranted": "Prístup k miestu udelený"
+      "poiAccessGranted": "Prístup k miestu udelený",
+      "countryAccess": "Krajina",
+      "validUntil": "Platnosť do (voliteľné)"
     },
     "dashboard": {
       "sectionUsers": "Používatelia",
@@ -462,6 +489,18 @@
       "places": "miest",
       "ratings": "hodnotení",
       "score": "Skóre"
+    },
+    "landing": {
+      "title": "Obsah úvodnej stránky",
+      "desc": "Upravte text úvodnej stránky pre každý jazyk. Prázdne polia použijú predvolené."
+    },
+    "moderation": {
+      "title": "Moderovanie",
+      "desc": "Skryte alebo odstráňte nevhodné recenzie.",
+      "empty": "Žiadne komentáre na moderovanie.",
+      "hidden": "Skryté",
+      "hide": "Skryť",
+      "show": "Zobraziť"
     }
   },
   "contributor": {
@@ -576,7 +615,21 @@
       "goToAdmin": "Prejsť do administrácie",
       "purchasesTab": "Moje nákupy",
       "adminTab": "Administračný panel",
-      "settingsTab": "Nastavenia účtu"
+      "settingsTab": "Nastavenia účtu",
+      "avatar": "Profilová fotka",
+      "avatarDesc": "Zobrazí sa na vašom profile.",
+      "uploadAvatar": "Nahrať fotku",
+      "avatarUpdated": "Profilová fotka aktualizovaná",
+      "emailVerification": "Overenie e-mailu",
+      "emailVerified": "Váš e-mail je overený.",
+      "emailNotVerified": "Váš e-mail zatiaľ nie je overený.",
+      "resendVerification": "Znova poslať e-mail",
+      "verificationSent": "Overovací e-mail odoslaný.",
+      "marketing": "Nastavenia e-mailov",
+      "marketingOptIn": "Posielajte mi novinky a tipy (kedykoľvek sa dá odhlásiť).",
+      "dataExport": "Export mojich údajov",
+      "dataExportDesc": "Stiahnite si kópiu údajov účtu (GDPR).",
+      "downloadData": "Stiahnuť JSON"
     },
     "history": {
       "title": "Moja história",
@@ -622,7 +675,11 @@
     "newPinRequired": "Nový PIN je povinný",
     "pinChangeFailed": "Nepodarilo sa zmeniť PIN",
     "pinChanged": "PIN zmenený",
-    "changingPin": "Mením..."
+    "changingPin": "Mením...",
+    "freeCount": "Voľných audií",
+    "freePeriod": "Perióda voľného",
+    "perDay": "za deň",
+    "perMonth": "za mesiac"
   },
   "poiForm": {
     "basicInfo": "Základné informácie",
@@ -665,7 +722,10 @@
     "coordParserPlaceholder": "napr. 50.0764, 14.2536",
     "parse": "Parsovať",
     "parseError": "Nie je možné rozpoznať súradnice",
-    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'"
+    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'",
+    "name": "Názov",
+    "description": "Popis",
+    "language": "Jazyk"
   },
   "cityForm": {
     "aliases": "Alternatívne názvy mesta",
@@ -753,5 +813,59 @@
     "register": "Zaregistrovať sa",
     "haveAccount": "Máte účet?",
     "signIn": "Prihláste sa"
+  },
+  "places": {
+    "search": "Hľadať miesta",
+    "searchPlaceholder": "Hľadať miesta, mestá…",
+    "noResults": "Nenašli sa žiadne miesta.",
+    "catalog": "Prehliadať mestá",
+    "noCities": "Zatiaľ žiadne mestá.",
+    "cityNotFound": "Mesto sa nenašlo.",
+    "noPlacesInCity": "V tomto meste zatiaľ nie sú miesta.",
+    "rateThisPlace": "Ohodnotiť miesto",
+    "submitRating": "Odoslať hodnotenie",
+    "ratingThanks": "Ďakujeme za hodnotenie!",
+    "commentPlaceholder": "Pridať komentár (voliteľné)",
+    "access": {
+      "public": "Verejné",
+      "registered": "Registrovaní",
+      "city_access": "Mestská karta",
+      "premium_poi": "Prémium"
+    },
+    "yourRating": "Vaše hodnotenie"
+  },
+  "footer": {
+    "tagline": "Váš osobný audiosprievodca príbehmi za každým miestom.",
+    "explore": "Objavovať",
+    "map": "Mapa",
+    "howItWorks": "Ako to funguje",
+    "downloadApp": "Stiahnuť aplikáciu",
+    "becomeContributor": "Stať sa prispievateľom",
+    "legal": "Právne",
+    "about": "O nás",
+    "faq": "Časté otázky",
+    "privacy": "Ochrana osobných údajov",
+    "terms": "Podmienky používania",
+    "contact": "Kontakt",
+    "rights": "Všetky práva vyhradené."
+  },
+  "legal": {
+    "draftNotice": "NÁVRH — šablónový text, pred spustením nutná právna revízia.",
+    "lastUpdated": "Naposledy aktualizované"
+  },
+  "access": {
+    "myAccess": "Môj prístup",
+    "myAccessDesc": "K čomu máte aktuálne prístup.",
+    "nothingPurchased": "Zatiaľ nemáte zakúpené miesta — platí voľný prístup.",
+    "freeUsage": "Voľné za {{period}}",
+    "period": {
+      "day": "deň",
+      "month": "mesiac"
+    }
+  },
+  "contributorRegister": {
+    "title": "Staňte sa prispievateľom",
+    "subtitle": "Pripojte sa k PlaceSecrets a zdieľajte miestne znalosti",
+    "created": "Váš prispievateľský účet bol vytvorený."
   }
 }

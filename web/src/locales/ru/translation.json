@@ -35,7 +35,26 @@
     "signingIn": "Вход...",
     "signIn": "Войти",
     "noAccount": "Нет аккаунта?",
-    "createOne": "Создать"
+    "createOne": "Создать",
+    "forgotPassword": "Забыли пароль?",
+    "forgotPasswordTitle": "Сброс пароля",
+    "forgotPasswordDesc": "Введите e-mail, и мы отправим ссылку.",
+    "forgotPasswordSent": "Если e-mail существует, мы отправили ссылку. Проверьте почту.",
+    "sendResetLink": "Отправить ссылку",
+    "backToLogin": "Назад к входу",
+    "resetPasswordTitle": "Выберите новый пароль",
+    "resetPasswordOpenLink": "Откройте эту страницу по ссылке из письма.",
+    "newPassword": "Новый пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "passwordMin8": "Пароль должен быть не менее 8 символов.",
+    "passwordMismatch": "Пароли не совпадают.",
+    "updatePassword": "Обновить пароль",
+    "passwordResetSuccess": "Пароль обновлён. Войдите.",
+    "resendConfirmation": "Отправить письмо подтверждения снова",
+    "confirmationResent": "Письмо подтверждения отправлено.",
+    "agreePrefix": "Я принимаю",
+    "agreeAnd": "и",
+    "mustAgree": "Необходимо принять Условия и Политику конфиденциальности."
   },
   "landing": {
     "tagline": "Аудиогид и Дневник Путешествий",
@@ -80,7 +99,8 @@
     "googlePlay": "Google Play",
     "downloadOnThe": "Скачать в",
     "appStore": "App Store",
-    "comingSoon": "Скоро"
+    "comingSoon": "Скоро",
+    "browseAll": "Все места"
   },
   "adminProfile": {
     "displayName": "Отображаемое имя",
@@ -247,7 +267,12 @@
     "accountSettings": "Настройки аккаунта",
     "receipts": "Квитанции",
     "explore": "Исследовать",
-    "myHistory": "Моя история"
+    "myHistory": "Моя история",
+    "catalog": "Каталог",
+    "search": "Поиск",
+    "landing": "Главная страница",
+    "moderation": "Модерация",
+    "myDashboard": "Мой кабинет"
   },
   "admin": {
     "cities": {
@@ -338,7 +363,9 @@
       "selectCity": "Выбрать город...",
       "selectPoi": "Выбрать место...",
       "accessGranted": "Доступ к городу предоставлен",
-      "poiAccessGranted": "Доступ к месту предоставлен"
+      "poiAccessGranted": "Доступ к месту предоставлен",
+      "countryAccess": "Страна",
+      "validUntil": "Действует до (необязательно)"
     },
     "dashboard": {
       "sectionUsers": "Пользователи",
@@ -462,6 +489,18 @@
       "places": "мест",
       "ratings": "оценок",
       "score": "Баллы"
+    },
+    "landing": {
+      "title": "Контент главной страницы",
+      "desc": "Редактируйте текст главной страницы по языкам. Пустые поля — значения по умолчанию."
+    },
+    "moderation": {
+      "title": "Модерация",
+      "desc": "Скрывайте или удаляйте неприемлемые отзывы.",
+      "empty": "Нет комментариев для модерации.",
+      "hidden": "Скрыто",
+      "hide": "Скрыть",
+      "show": "Показать"
     }
   },
   "contributor": {
@@ -576,7 +615,21 @@
       "goToAdmin": "Перейти в панель администратора",
       "purchasesTab": "Мои покупки",
       "adminTab": "Панель администратора",
-      "settingsTab": "Настройки аккаунта"
+      "settingsTab": "Настройки аккаунта",
+      "avatar": "Фото профиля",
+      "avatarDesc": "Показывается в профиле.",
+      "uploadAvatar": "Загрузить фото",
+      "avatarUpdated": "Фото профиля обновлено",
+      "emailVerification": "Подтверждение e-mail",
+      "emailVerified": "Ваш e-mail подтверждён.",
+      "emailNotVerified": "Ваш e-mail ещё не подтверждён.",
+      "resendVerification": "Отправить ещё раз",
+      "verificationSent": "Письмо для подтверждения отправлено.",
+      "marketing": "Настройки писем",
+      "marketingOptIn": "Присылайте новости и советы (отписка в любое время).",
+      "dataExport": "Экспорт моих данных",
+      "dataExportDesc": "Скачайте копию данных аккаунта (GDPR).",
+      "downloadData": "Скачать JSON"
     },
     "history": {
       "title": "Моя история",
@@ -622,7 +675,11 @@
     "newPinRequired": "Новый PIN обязателен",
     "pinChangeFailed": "Не удалось сменить PIN",
     "pinChanged": "PIN изменён",
-    "changingPin": "Изменение..."
+    "changingPin": "Изменение...",
+    "freeCount": "Бесплатных аудио",
+    "freePeriod": "Период бесплатного",
+    "perDay": "в день",
+    "perMonth": "в месяц"
   },
   "poiForm": {
     "basicInfo": "Основная информация",
@@ -665,7 +722,10 @@
     "coordParserPlaceholder": "напр. 50.0764, 14.2536",
     "parse": "Распознать",
     "parseError": "Не удалось распознать координаты",
-    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'"
+    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'",
+    "name": "Название",
+    "description": "Описание",
+    "language": "Язык"
   },
   "cityForm": {
     "aliases": "Псевдонимы города",
@@ -753,5 +813,59 @@
     "register": "Зарегистрироваться",
     "haveAccount": "Есть аккаунт?",
     "signIn": "Войти"
+  },
+  "places": {
+    "search": "Поиск мест",
+    "searchPlaceholder": "Поиск мест, городов…",
+    "noResults": "Места не найдены.",
+    "catalog": "Города",
+    "noCities": "Пока нет городов.",
+    "cityNotFound": "Город не найден.",
+    "noPlacesInCity": "В этом городе пока нет мест.",
+    "rateThisPlace": "Оценить место",
+    "submitRating": "Отправить оценку",
+    "ratingThanks": "Спасибо за оценку!",
+    "commentPlaceholder": "Добавить комментарий (необязательно)",
+    "access": {
+      "public": "Общедоступно",
+      "registered": "Для зарегистрированных",
+      "city_access": "Городской доступ",
+      "premium_poi": "Премиум"
+    },
+    "yourRating": "Ваша оценка"
+  },
+  "footer": {
+    "tagline": "Ваш личный аудиогид по историям каждого места.",
+    "explore": "Обзор",
+    "map": "Карта",
+    "howItWorks": "Как это работает",
+    "downloadApp": "Скачать приложение",
+    "becomeContributor": "Стать автором",
+    "legal": "Правовая информация",
+    "about": "О нас",
+    "faq": "Вопросы и ответы",
+    "privacy": "Политика конфиденциальности",
+    "terms": "Условия использования",
+    "contact": "Контакты",
+    "rights": "Все права защищены."
+  },
+  "legal": {
+    "draftNotice": "ЧЕРНОВИК — шаблон, требуется юридическая проверка.",
+    "lastUpdated": "Последнее обновление"
+  },
+  "access": {
+    "myAccess": "Мой доступ",
+    "myAccessDesc": "К чему у вас сейчас есть доступ.",
+    "nothingPurchased": "Покупок пока нет — действует бесплатный доступ.",
+    "freeUsage": "Бесплатно за {{period}}",
+    "period": {
+      "day": "день",
+      "month": "месяц"
+    }
+  },
+  "contributorRegister": {
+    "title": "Станьте автором",
+    "subtitle": "Присоединяйтесь к PlaceSecrets и делитесь местными знаниями",
+    "created": "Ваш аккаунт автора создан."
   }
 }

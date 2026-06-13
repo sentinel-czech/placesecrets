@@ -35,7 +35,26 @@
     "signingIn": "Anmelden...",
     "signIn": "Anmelden",
     "noAccount": "Noch kein Konto?",
-    "createOne": "Erstellen"
+    "createOne": "Erstellen",
+    "forgotPassword": "Passwort vergessen?",
+    "forgotPasswordTitle": "Passwort zurücksetzen",
+    "forgotPasswordDesc": "Gib deine E-Mail ein und wir senden dir einen Link.",
+    "forgotPasswordSent": "Falls die E-Mail existiert, haben wir einen Link gesendet.",
+    "sendResetLink": "Link senden",
+    "backToLogin": "Zurück zur Anmeldung",
+    "resetPasswordTitle": "Neues Passwort wählen",
+    "resetPasswordOpenLink": "Öffne diese Seite über den Link in deiner E-Mail.",
+    "newPassword": "Neues Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "passwordMin8": "Das Passwort muss mindestens 8 Zeichen haben.",
+    "passwordMismatch": "Passwörter stimmen nicht überein.",
+    "updatePassword": "Passwort aktualisieren",
+    "passwordResetSuccess": "Passwort aktualisiert. Bitte anmelden.",
+    "resendConfirmation": "Bestätigungs-E-Mail erneut senden",
+    "confirmationResent": "Bestätigungs-E-Mail gesendet.",
+    "agreePrefix": "Ich stimme den",
+    "agreeAnd": "und",
+    "mustAgree": "Du musst den Nutzungsbedingungen und der Datenschutzerklärung zustimmen."
   },
   "landing": {
     "tagline": "Audioführer & Reisetagebuch",
@@ -80,7 +99,8 @@
     "googlePlay": "Google Play",
     "downloadOnThe": "Laden im",
     "appStore": "App Store",
-    "comingSoon": "Demnächst verfügbar"
+    "comingSoon": "Demnächst verfügbar",
+    "browseAll": "Alle Orte durchsuchen"
   },
   "adminProfile": {
     "displayName": "Anzeigename",
@@ -247,7 +267,12 @@
     "accountSettings": "Kontoeinstellungen",
     "receipts": "Belege",
     "explore": "Entdecken",
-    "myHistory": "Meine Geschichte"
+    "myHistory": "Meine Geschichte",
+    "catalog": "Durchsuchen",
+    "search": "Suchen",
+    "landing": "Startseite",
+    "moderation": "Moderation",
+    "myDashboard": "Mein Dashboard"
   },
   "admin": {
     "cities": {
@@ -338,7 +363,9 @@
       "selectCity": "Stadt auswählen...",
       "selectPoi": "Ort auswählen...",
       "accessGranted": "Stadtzugang gewährt",
-      "poiAccessGranted": "Ort-Zugang gewährt"
+      "poiAccessGranted": "Ort-Zugang gewährt",
+      "countryAccess": "Land",
+      "validUntil": "Gültig bis (optional)"
     },
     "dashboard": {
       "sectionUsers": "Benutzer",
@@ -462,6 +489,18 @@
       "places": "Orte",
       "ratings": "Bewertungen",
       "score": "Punktzahl"
+    },
+    "landing": {
+      "title": "Startseiten-Inhalt",
+      "desc": "Bearbeite den Startseitentext je Sprache. Leere Felder nutzen Standardwerte."
+    },
+    "moderation": {
+      "title": "Moderation",
+      "desc": "Unangemessene Bewertungen ausblenden oder entfernen.",
+      "empty": "Keine Kommentare zu moderieren.",
+      "hidden": "Ausgeblendet",
+      "hide": "Ausblenden",
+      "show": "Anzeigen"
     }
   },
   "contributor": {
@@ -576,7 +615,21 @@
       "goToAdmin": "Zum Admin-Panel",
       "purchasesTab": "Meine Käufe",
       "adminTab": "Admin-Panel",
-      "settingsTab": "Kontoeinstellungen"
+      "settingsTab": "Kontoeinstellungen",
+      "avatar": "Profilbild",
+      "avatarDesc": "Wird in deinem Profil angezeigt.",
+      "uploadAvatar": "Foto hochladen",
+      "avatarUpdated": "Profilbild aktualisiert",
+      "emailVerification": "E-Mail-Bestätigung",
+      "emailVerified": "Deine E-Mail ist bestätigt.",
+      "emailNotVerified": "Deine E-Mail ist noch nicht bestätigt.",
+      "resendVerification": "E-Mail erneut senden",
+      "verificationSent": "Bestätigungs-E-Mail gesendet.",
+      "marketing": "E-Mail-Einstellungen",
+      "marketingOptIn": "Sende mir Neuigkeiten und Tipps (jederzeit abbestellbar).",
+      "dataExport": "Meine Daten exportieren",
+      "dataExportDesc": "Lade eine Kopie deiner Kontodaten herunter (DSGVO).",
+      "downloadData": "JSON herunterladen"
     },
     "history": {
       "title": "Meine Geschichte",
@@ -622,7 +675,11 @@
     "newPinRequired": "Neuer PIN ist erforderlich",
     "pinChangeFailed": "PIN-Änderung fehlgeschlagen",
     "pinChanged": "PIN geändert",
-    "changingPin": "Ändern..."
+    "changingPin": "Ändern...",
+    "freeCount": "Kostenlose Audios",
+    "freePeriod": "Kostenloser Zeitraum",
+    "perDay": "pro Tag",
+    "perMonth": "pro Monat"
   },
   "poiForm": {
     "basicInfo": "Grundinformationen",
@@ -665,7 +722,10 @@
     "coordParserPlaceholder": "z.B. 50.0764, 14.2536",
     "parse": "Parsen",
     "parseError": "Koordinaten konnten nicht erkannt werden",
-    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'"
+    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'",
+    "name": "Name",
+    "description": "Beschreibung",
+    "language": "Sprache"
   },
   "cityForm": {
     "aliases": "Stadt-Aliase",
@@ -753,5 +813,59 @@
     "register": "Registrieren",
     "haveAccount": "Haben Sie ein Konto?",
     "signIn": "Anmelden"
+  },
+  "places": {
+    "search": "Orte suchen",
+    "searchPlaceholder": "Orte, Städte suchen…",
+    "noResults": "Keine Orte gefunden.",
+    "catalog": "Städte durchsuchen",
+    "noCities": "Noch keine Städte verfügbar.",
+    "cityNotFound": "Stadt nicht gefunden.",
+    "noPlacesInCity": "Noch keine Orte in dieser Stadt.",
+    "rateThisPlace": "Diesen Ort bewerten",
+    "submitRating": "Bewertung senden",
+    "ratingThanks": "Danke für deine Bewertung!",
+    "commentPlaceholder": "Kommentar hinzufügen (optional)",
+    "access": {
+      "public": "Öffentlich",
+      "registered": "Registriert",
+      "city_access": "Stadtpass",
+      "premium_poi": "Premium"
+    },
+    "yourRating": "Deine Bewertung"
+  },
+  "footer": {
+    "tagline": "Dein persönlicher Audioguide zu den Geschichten hinter jedem Ort.",
+    "explore": "Entdecken",
+    "map": "Karte",
+    "howItWorks": "So funktioniert's",
+    "downloadApp": "App herunterladen",
+    "becomeContributor": "Mitwirkender werden",
+    "legal": "Rechtliches",
+    "about": "Über uns",
+    "faq": "FAQ",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "contact": "Kontakt",
+    "rights": "Alle Rechte vorbehalten."
+  },
+  "legal": {
+    "draftNotice": "ENTWURF — Vorlagentext, vor dem Start juristisch zu prüfen.",
+    "lastUpdated": "Zuletzt aktualisiert"
+  },
+  "access": {
+    "myAccess": "Mein Zugang",
+    "myAccessDesc": "Worauf du aktuell Zugriff hast.",
+    "nothingPurchased": "Noch keine gekauften Orte — kostenloser Zugang gilt.",
+    "freeUsage": "Kostenlos pro {{period}}",
+    "period": {
+      "day": "Tag",
+      "month": "Monat"
+    }
+  },
+  "contributorRegister": {
+    "title": "Mitwirkender werden",
+    "subtitle": "Tritt PlaceSecrets bei und teile dein lokales Wissen",
+    "created": "Dein Mitwirkenden-Konto wurde erstellt."
   }
 }

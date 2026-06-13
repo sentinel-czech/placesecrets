@@ -51,7 +51,10 @@
     "updatePassword": "Změnit heslo",
     "passwordResetSuccess": "Heslo změněno. Přihlaste se prosím.",
     "resendConfirmation": "Poslat potvrzovací e-mail znovu",
-    "confirmationResent": "Potvrzovací e-mail odeslán."
+    "confirmationResent": "Potvrzovací e-mail odeslán.",
+    "agreePrefix": "Souhlasím s",
+    "agreeAnd": "a",
+    "mustAgree": "Musíte souhlasit s Podmínkami použití a Zásadami ochrany osobních údajů."
   },
   "landing": {
     "tagline": "Audio průvodce a cestovní deník",
@@ -96,7 +99,8 @@
     "googlePlay": "Google Play",
     "downloadOnThe": "Stáhněte na",
     "appStore": "App Store",
-    "comingSoon": "Připravujeme"
+    "comingSoon": "Připravujeme",
+    "browseAll": "Procházet všechna místa"
   },
   "adminProfile": {
     "displayName": "Zobrazované jméno",
@@ -265,7 +269,10 @@
     "explore": "Prozkoumat",
     "myHistory": "Moje historie",
     "catalog": "Procházet",
-    "search": "Hledat"
+    "search": "Hledat",
+    "landing": "Úvodní stránka",
+    "moderation": "Moderace",
+    "myDashboard": "Můj přehled"
   },
   "admin": {
     "cities": {
@@ -356,7 +363,9 @@
       "selectCity": "Vyberte město...",
       "selectPoi": "Vyberte místo...",
       "accessGranted": "Přístup k městu udělen",
-      "poiAccessGranted": "Přístup k POI udělen"
+      "poiAccessGranted": "Přístup k POI udělen",
+      "countryAccess": "Země",
+      "validUntil": "Platnost do (volitelné)"
     },
     "dashboard": {
       "sectionUsers": "Uživatelé",
@@ -480,6 +489,18 @@
       "places": "míst",
       "ratings": "hodnocení",
       "score": "Skóre"
+    },
+    "landing": {
+      "title": "Obsah úvodní stránky",
+      "desc": "Upravte text veřejné úvodní stránky pro každý jazyk. Prázdná pole použijí výchozí."
+    },
+    "moderation": {
+      "title": "Moderace",
+      "desc": "Skryjte nebo odstraňte nevhodné recenze míst.",
+      "empty": "Žádné komentáře k moderaci.",
+      "hidden": "Skryto",
+      "hide": "Skrýt",
+      "show": "Zobrazit"
     }
   },
   "contributor": {
@@ -594,7 +615,21 @@
       "goToAdmin": "Přejít do administrace",
       "purchasesTab": "Moje nákupy",
       "adminTab": "Administrační panel",
-      "settingsTab": "Nastavení účtu"
+      "settingsTab": "Nastavení účtu",
+      "avatar": "Profilová fotka",
+      "avatarDesc": "Zobrazí se na vašem profilu.",
+      "uploadAvatar": "Nahrát fotku",
+      "avatarUpdated": "Profilová fotka aktualizována",
+      "emailVerification": "Ověření e-mailu",
+      "emailVerified": "Váš e-mail je ověřen.",
+      "emailNotVerified": "Váš e-mail zatím není ověřen.",
+      "resendVerification": "Poslat e-mail znovu",
+      "verificationSent": "Ověřovací e-mail odeslán.",
+      "marketing": "Nastavení e-mailů",
+      "marketingOptIn": "Posílejte mi novinky a tipy (kdykoli lze odhlásit).",
+      "dataExport": "Export mých dat",
+      "dataExportDesc": "Stáhněte si kopii dat svého účtu (GDPR).",
+      "downloadData": "Stáhnout JSON"
     },
     "history": {
       "title": "Moje historie",
@@ -640,7 +675,11 @@
     "newPinRequired": "Nový PIN je povinný",
     "pinChangeFailed": "Nepodařilo se změnit PIN",
     "pinChanged": "PIN změněn",
-    "changingPin": "Měním..."
+    "changingPin": "Měním...",
+    "freeCount": "Volných audií",
+    "freePeriod": "Perioda volného",
+    "perDay": "za den",
+    "perMonth": "za měsíc"
   },
   "poiForm": {
     "basicInfo": "Základní informace",
@@ -683,7 +722,10 @@
     "coordParserPlaceholder": "např. 50.0764, 14.2536",
     "parse": "Parsovat",
     "parseError": "Nelze rozpoznat souřadnice",
-    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'"
+    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'",
+    "name": "Název",
+    "description": "Popis",
+    "language": "Jazyk"
   },
   "cityForm": {
     "aliases": "Aliasy města",
@@ -789,6 +831,41 @@
       "registered": "Registrovaní",
       "city_access": "Městská karta",
       "premium_poi": "Prémium"
+    },
+    "commentPlaceholder": "Přidat komentář (volitelné)"
+  },
+  "footer": {
+    "tagline": "Váš osobní audioprůvodce příběhy ukrytými za každým místem.",
+    "explore": "Objevovat",
+    "map": "Mapa",
+    "howItWorks": "Jak to funguje",
+    "downloadApp": "Stáhnout aplikaci",
+    "becomeContributor": "Stát se přispěvatelem",
+    "legal": "Právní",
+    "about": "O nás",
+    "faq": "Časté dotazy",
+    "privacy": "Ochrana osobních údajů",
+    "terms": "Podmínky použití",
+    "contact": "Kontakt",
+    "rights": "Všechna práva vyhrazena."
+  },
+  "legal": {
+    "draftNotice": "NÁVRH — šablonový text, před spuštěním nutná právní revize.",
+    "lastUpdated": "Naposledy aktualizováno"
+  },
+  "access": {
+    "myAccess": "Můj přístup",
+    "myAccessDesc": "K čemu máte aktuálně přístup.",
+    "nothingPurchased": "Zatím nemáte zakoupená místa — platí volný přístup.",
+    "freeUsage": "Volné za {{period}}",
+    "period": {
+      "day": "den",
+      "month": "měsíc"
     }
+  },
+  "contributorRegister": {
+    "title": "Staňte se přispěvatelem",
+    "subtitle": "Připojte se k PlaceSecrets a sdílejte své místní znalosti",
+    "created": "Váš přispěvatelský účet byl vytvořen."
   }
 }

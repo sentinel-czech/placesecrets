@@ -35,7 +35,26 @@
     "signingIn": "Iniciando sesión...",
     "signIn": "Iniciar sesión",
     "noAccount": "¿No tienes cuenta?",
-    "createOne": "Crear una"
+    "createOne": "Crear una",
+    "forgotPassword": "¿Olvidó la contraseña?",
+    "forgotPasswordTitle": "Restablecer contraseña",
+    "forgotPasswordDesc": "Introduce tu correo y te enviaremos un enlace.",
+    "forgotPasswordSent": "Si el correo existe, enviamos un enlace. Revisa tu bandeja.",
+    "sendResetLink": "Enviar enlace",
+    "backToLogin": "Volver a iniciar sesión",
+    "resetPasswordTitle": "Elige una nueva contraseña",
+    "resetPasswordOpenLink": "Abre esta página desde el enlace de tu correo.",
+    "newPassword": "Nueva contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "passwordMin8": "La contraseña debe tener al menos 8 caracteres.",
+    "passwordMismatch": "Las contraseñas no coinciden.",
+    "updatePassword": "Actualizar contraseña",
+    "passwordResetSuccess": "Contraseña actualizada. Inicia sesión.",
+    "resendConfirmation": "Reenviar correo de confirmación",
+    "confirmationResent": "Correo de confirmación enviado.",
+    "agreePrefix": "Acepto los",
+    "agreeAnd": "y",
+    "mustAgree": "Debes aceptar los Términos y la Política de Privacidad."
   },
   "landing": {
     "tagline": "Audioguía y Diario de Viaje",
@@ -80,7 +99,8 @@
     "googlePlay": "Google Play",
     "downloadOnThe": "Descarga en",
     "appStore": "App Store",
-    "comingSoon": "Próximamente"
+    "comingSoon": "Próximamente",
+    "browseAll": "Explorar todos los lugares"
   },
   "adminProfile": {
     "displayName": "Nombre visible",
@@ -247,7 +267,12 @@
     "accountSettings": "Configuración de la cuenta",
     "receipts": "Recibos",
     "explore": "Explorar",
-    "myHistory": "Mi historial"
+    "myHistory": "Mi historial",
+    "catalog": "Explorar",
+    "search": "Buscar",
+    "landing": "Página de inicio",
+    "moderation": "Moderación",
+    "myDashboard": "Mi panel"
   },
   "admin": {
     "cities": {
@@ -338,7 +363,9 @@
       "selectCity": "Seleccionar ciudad...",
       "selectPoi": "Seleccionar lugar...",
       "accessGranted": "Acceso a ciudad concedido",
-      "poiAccessGranted": "Acceso a lugar concedido"
+      "poiAccessGranted": "Acceso a lugar concedido",
+      "countryAccess": "País",
+      "validUntil": "Válido hasta (opcional)"
     },
     "dashboard": {
       "sectionUsers": "Usuarios",
@@ -462,6 +489,18 @@
       "places": "lugares",
       "ratings": "calificaciones",
       "score": "Puntuación"
+    },
+    "landing": {
+      "title": "Contenido de la página de inicio",
+      "desc": "Edita el texto de la página de inicio por idioma. Los campos vacíos usan valores predeterminados."
+    },
+    "moderation": {
+      "title": "Moderación",
+      "desc": "Oculta o elimina reseñas inapropiadas.",
+      "empty": "No hay comentarios que moderar.",
+      "hidden": "Oculto",
+      "hide": "Ocultar",
+      "show": "Mostrar"
     }
   },
   "contributor": {
@@ -576,7 +615,21 @@
       "goToAdmin": "Ir al panel de administración",
       "purchasesTab": "Mis compras",
       "adminTab": "Panel de administración",
-      "settingsTab": "Configuración de la cuenta"
+      "settingsTab": "Configuración de la cuenta",
+      "avatar": "Foto de perfil",
+      "avatarDesc": "Se muestra en tu perfil.",
+      "uploadAvatar": "Subir foto",
+      "avatarUpdated": "Foto de perfil actualizada",
+      "emailVerification": "Verificación de correo",
+      "emailVerified": "Tu correo está verificado.",
+      "emailNotVerified": "Tu correo aún no está verificado.",
+      "resendVerification": "Reenviar correo",
+      "verificationSent": "Correo de verificación enviado.",
+      "marketing": "Preferencias de correo",
+      "marketingOptIn": "Envíame novedades y consejos (puedes darte de baja).",
+      "dataExport": "Exportar mis datos",
+      "dataExportDesc": "Descarga una copia de los datos de tu cuenta (RGPD).",
+      "downloadData": "Descargar JSON"
     },
     "history": {
       "title": "Mi historial",
@@ -622,7 +675,11 @@
     "newPinRequired": "Se requiere un nuevo PIN",
     "pinChangeFailed": "Error al cambiar el PIN",
     "pinChanged": "PIN cambiado",
-    "changingPin": "Cambiando..."
+    "changingPin": "Cambiando...",
+    "freeCount": "Audios gratis",
+    "freePeriod": "Período gratis",
+    "perDay": "por día",
+    "perMonth": "por mes"
   },
   "poiForm": {
     "basicInfo": "Información básica",
@@ -665,7 +722,10 @@
     "coordParserPlaceholder": "ej. 50.0764, 14.2536",
     "parse": "Analizar",
     "parseError": "No se pudieron reconocer las coordenadas",
-    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'"
+    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'",
+    "name": "Nombre",
+    "description": "Descripción",
+    "language": "Idioma"
   },
   "cityForm": {
     "aliases": "Alias de la ciudad",
@@ -753,5 +813,59 @@
     "register": "Registrarse",
     "haveAccount": "¿Tienes cuenta?",
     "signIn": "Inicia sesión"
+  },
+  "places": {
+    "search": "Buscar lugares",
+    "searchPlaceholder": "Buscar lugares, ciudades…",
+    "noResults": "No se encontraron lugares.",
+    "catalog": "Explorar ciudades",
+    "noCities": "Aún no hay ciudades.",
+    "cityNotFound": "Ciudad no encontrada.",
+    "noPlacesInCity": "Aún no hay lugares en esta ciudad.",
+    "rateThisPlace": "Valorar este lugar",
+    "submitRating": "Enviar valoración",
+    "ratingThanks": "¡Gracias por tu valoración!",
+    "commentPlaceholder": "Añadir un comentario (opcional)",
+    "access": {
+      "public": "Público",
+      "registered": "Registrado",
+      "city_access": "Pase de ciudad",
+      "premium_poi": "Premium"
+    },
+    "yourRating": "Tu valoración"
+  },
+  "footer": {
+    "tagline": "Tu audioguía personal de las historias detrás de cada lugar.",
+    "explore": "Explorar",
+    "map": "Mapa",
+    "howItWorks": "Cómo funciona",
+    "downloadApp": "Descargar app",
+    "becomeContributor": "Hazte colaborador",
+    "legal": "Legal",
+    "about": "Acerca de",
+    "faq": "Preguntas frecuentes",
+    "privacy": "Política de privacidad",
+    "terms": "Términos del servicio",
+    "contact": "Contacto",
+    "rights": "Todos los derechos reservados."
+  },
+  "legal": {
+    "draftNotice": "BORRADOR — texto de plantilla, debe revisarlo un abogado.",
+    "lastUpdated": "Última actualización"
+  },
+  "access": {
+    "myAccess": "Mi acceso",
+    "myAccessDesc": "A qué tienes acceso actualmente.",
+    "nothingPurchased": "Aún no has comprado lugares — se aplica el acceso gratuito.",
+    "freeUsage": "Gratis este {{period}}",
+    "period": {
+      "day": "día",
+      "month": "mes"
+    }
+  },
+  "contributorRegister": {
+    "title": "Hazte colaborador",
+    "subtitle": "Únete a PlaceSecrets y comparte tu conocimiento local",
+    "created": "Tu cuenta de colaborador ha sido creada."
   }
 }

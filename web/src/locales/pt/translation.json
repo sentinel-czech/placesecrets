@@ -35,7 +35,26 @@
     "signingIn": "A iniciar sessão...",
     "signIn": "Iniciar sessão",
     "noAccount": "Não tem conta?",
-    "createOne": "Criar conta"
+    "createOne": "Criar conta",
+    "forgotPassword": "Esqueceu a senha?",
+    "forgotPasswordTitle": "Redefinir a senha",
+    "forgotPasswordDesc": "Introduza o seu e-mail e enviaremos um link.",
+    "forgotPasswordSent": "Se o e-mail existir, enviámos um link. Verifique a caixa.",
+    "sendResetLink": "Enviar link",
+    "backToLogin": "Voltar a entrar",
+    "resetPasswordTitle": "Escolha uma nova senha",
+    "resetPasswordOpenLink": "Abra esta página a partir do link no seu e-mail.",
+    "newPassword": "Nova senha",
+    "confirmPassword": "Confirmar senha",
+    "passwordMin8": "A senha deve ter pelo menos 8 caracteres.",
+    "passwordMismatch": "As senhas não coincidem.",
+    "updatePassword": "Atualizar senha",
+    "passwordResetSuccess": "Senha atualizada. Inicie sessão.",
+    "resendConfirmation": "Reenviar e-mail de confirmação",
+    "confirmationResent": "E-mail de confirmação enviado.",
+    "agreePrefix": "Concordo com os",
+    "agreeAnd": "e",
+    "mustAgree": "Tem de aceitar os Termos e a Política de Privacidade."
   },
   "landing": {
     "tagline": "Audioguia e Diário de Viagem",
@@ -80,7 +99,8 @@
     "googlePlay": "Google Play",
     "downloadOnThe": "Descarregar na",
     "appStore": "App Store",
-    "comingSoon": "Em breve"
+    "comingSoon": "Em breve",
+    "browseAll": "Explorar todos os lugares"
   },
   "adminProfile": {
     "displayName": "Nome de exibição",
@@ -247,7 +267,12 @@
     "accountSettings": "Definições da conta",
     "receipts": "Recibos",
     "explore": "Explorar",
-    "myHistory": "Meu historial"
+    "myHistory": "Meu historial",
+    "catalog": "Explorar",
+    "search": "Pesquisar",
+    "landing": "Página inicial",
+    "moderation": "Moderação",
+    "myDashboard": "O meu painel"
   },
   "admin": {
     "cities": {
@@ -338,7 +363,9 @@
       "selectCity": "Selecionar cidade...",
       "selectPoi": "Selecionar local...",
       "accessGranted": "Acesso à cidade concedido",
-      "poiAccessGranted": "Acesso ao POI concedido"
+      "poiAccessGranted": "Acesso ao POI concedido",
+      "countryAccess": "País",
+      "validUntil": "Válido até (opcional)"
     },
     "dashboard": {
       "sectionUsers": "Utilizadores",
@@ -462,6 +489,18 @@
       "places": "locais",
       "ratings": "avaliações",
       "score": "Pontuação"
+    },
+    "landing": {
+      "title": "Conteúdo da página inicial",
+      "desc": "Edite o texto da página inicial por idioma. Campos vazios usam padrões."
+    },
+    "moderation": {
+      "title": "Moderação",
+      "desc": "Oculte ou remova avaliações inadequadas.",
+      "empty": "Sem comentários para moderar.",
+      "hidden": "Oculto",
+      "hide": "Ocultar",
+      "show": "Mostrar"
     }
   },
   "contributor": {
@@ -576,7 +615,21 @@
       "goToAdmin": "Ir para o painel de administração",
       "purchasesTab": "Minhas compras",
       "adminTab": "Painel de administração",
-      "settingsTab": "Definições da conta"
+      "settingsTab": "Definições da conta",
+      "avatar": "Foto de perfil",
+      "avatarDesc": "Mostrada no seu perfil.",
+      "uploadAvatar": "Carregar foto",
+      "avatarUpdated": "Foto de perfil atualizada",
+      "emailVerification": "Verificação de e-mail",
+      "emailVerified": "O seu e-mail está verificado.",
+      "emailNotVerified": "O seu e-mail ainda não está verificado.",
+      "resendVerification": "Reenviar e-mail",
+      "verificationSent": "E-mail de verificação enviado.",
+      "marketing": "Preferências de e-mail",
+      "marketingOptIn": "Envie-me novidades e dicas (pode cancelar a qualquer momento).",
+      "dataExport": "Exportar os meus dados",
+      "dataExportDesc": "Baixe uma cópia dos dados da conta (RGPD).",
+      "downloadData": "Baixar JSON"
     },
     "history": {
       "title": "Meu historial",
@@ -622,7 +675,11 @@
     "newPinRequired": "Novo PIN é obrigatório",
     "pinChangeFailed": "Falha ao alterar o PIN",
     "pinChanged": "PIN alterado",
-    "changingPin": "A alterar..."
+    "changingPin": "A alterar...",
+    "freeCount": "Áudios grátis",
+    "freePeriod": "Período grátis",
+    "perDay": "por dia",
+    "perMonth": "por mês"
   },
   "poiForm": {
     "basicInfo": "Informação Básica",
@@ -665,7 +722,10 @@
     "coordParserPlaceholder": "ex. 50.0764, 14.2536",
     "parse": "Analisar",
     "parseError": "Não foi possível reconhecer as coordenadas",
-    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'"
+    "coordExamples": "DD: 50.0764, 14.2536 · DMS: 50°04'35.1\"N 14°25'47.0\"E · DDM: N 50° 4.5848' E 14° 25.4700'",
+    "name": "Nome",
+    "description": "Descrição",
+    "language": "Idioma"
   },
   "cityForm": {
     "aliases": "Aliases da Cidade",
@@ -753,5 +813,59 @@
     "register": "Registar",
     "haveAccount": "Já tem uma conta?",
     "signIn": "Iniciar sessão"
+  },
+  "places": {
+    "search": "Pesquisar lugares",
+    "searchPlaceholder": "Pesquisar lugares, cidades…",
+    "noResults": "Nenhum lugar encontrado.",
+    "catalog": "Explorar cidades",
+    "noCities": "Ainda não há cidades.",
+    "cityNotFound": "Cidade não encontrada.",
+    "noPlacesInCity": "Ainda não há lugares nesta cidade.",
+    "rateThisPlace": "Avaliar este lugar",
+    "submitRating": "Enviar avaliação",
+    "ratingThanks": "Obrigado pela avaliação!",
+    "commentPlaceholder": "Adicionar comentário (opcional)",
+    "access": {
+      "public": "Público",
+      "registered": "Registado",
+      "city_access": "Passe da cidade",
+      "premium_poi": "Premium"
+    },
+    "yourRating": "A sua avaliação"
+  },
+  "footer": {
+    "tagline": "O seu audioguia pessoal das histórias por trás de cada lugar.",
+    "explore": "Explorar",
+    "map": "Mapa",
+    "howItWorks": "Como funciona",
+    "downloadApp": "Baixar app",
+    "becomeContributor": "Torne-se colaborador",
+    "legal": "Legal",
+    "about": "Sobre",
+    "faq": "Perguntas frequentes",
+    "privacy": "Política de privacidade",
+    "terms": "Termos de serviço",
+    "contact": "Contacto",
+    "rights": "Todos os direitos reservados."
+  },
+  "legal": {
+    "draftNotice": "RASCUNHO — texto modelo, deve ser revisto por um advogado.",
+    "lastUpdated": "Última atualização"
+  },
+  "access": {
+    "myAccess": "O meu acesso",
+    "myAccessDesc": "A que tem acesso atualmente.",
+    "nothingPurchased": "Ainda não comprou lugares — aplica-se o acesso gratuito.",
+    "freeUsage": "Grátis este {{period}}",
+    "period": {
+      "day": "dia",
+      "month": "mês"
+    }
+  },
+  "contributorRegister": {
+    "title": "Torne-se colaborador",
+    "subtitle": "Junte-se ao PlaceSecrets e partilhe o seu conhecimento local",
+    "created": "A sua conta de colaborador foi criada."
   }
 }
