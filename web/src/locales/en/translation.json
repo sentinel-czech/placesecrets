@@ -679,7 +679,12 @@
     "freeCount": "Free audios",
     "freePeriod": "Free period",
     "perDay": "per day",
-    "perMonth": "per month"
+    "perMonth": "per month",
+    "comgateMerchant": "Comgate merchant ID",
+    "comgateSecret": "Comgate secret",
+    "comgateSecretManaged": "Managed via env (COMGATE_SECRET)",
+    "comgateSecretDesc": "Set COMGATE_MERCHANT / COMGATE_SECRET as function secrets.",
+    "countryPrice": "Country price (€)"
   },
   "poiForm": {
     "basicInfo": "Basic Info",
@@ -867,5 +872,16 @@
     "title": "Become a Contributor",
     "subtitle": "Join PlaceSecrets and share your local knowledge",
     "created": "Your contributor account has been created."
+  },
+  "buy": {
+    "buyFor": "Buy for",
+    "unavailable": "Payment is not available yet."
+  },
+  "purchase": {
+    "successTitle": "Payment received",
+    "successDesc": "Your access has been unlocked. It may take a moment to appear.",
+    "goToAccount": "Go to my account",
+    "cancelTitle": "Payment cancelled",
+    "cancelDesc": "No payment was taken. You can try again anytime."
   }
 }

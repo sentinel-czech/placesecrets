@@ -679,7 +679,12 @@
     "freeCount": "免费音频数",
     "freePeriod": "免费周期",
     "perDay": "每天",
-    "perMonth": "每月"
+    "perMonth": "每月",
+    "comgateMerchant": "Comgate 商户 ID",
+    "comgateSecret": "Comgate 密钥",
+    "comgateSecretManaged": "通过环境变量管理（COMGATE_SECRET）",
+    "comgateSecretDesc": "将 COMGATE_MERCHANT / COMGATE_SECRET 设为函数密钥。",
+    "countryPrice": "国家价格（€）"
   },
   "poiForm": {
     "basicInfo": "基本信息",
@@ -867,5 +872,16 @@
     "title": "成为贡献者",
     "subtitle": "加入 PlaceSecrets，分享您的本地知识",
     "created": "您的贡献者账户已创建。"
+  },
+  "buy": {
+    "buyFor": "购买价",
+    "unavailable": "支付暂不可用。"
+  },
+  "purchase": {
+    "successTitle": "已收到付款",
+    "successDesc": "您的访问权限已解锁，可能需要片刻才能显示。",
+    "goToAccount": "前往我的账户",
+    "cancelTitle": "付款已取消",
+    "cancelDesc": "未扣款。您可以随时重试。"
   }
 }

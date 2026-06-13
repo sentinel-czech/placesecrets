@@ -679,7 +679,12 @@
     "freeCount": "Kostenlose Audios",
     "freePeriod": "Kostenloser Zeitraum",
     "perDay": "pro Tag",
-    "perMonth": "pro Monat"
+    "perMonth": "pro Monat",
+    "comgateMerchant": "Comgate-Händler-ID",
+    "comgateSecret": "Comgate-Secret",
+    "comgateSecretManaged": "Über env verwaltet (COMGATE_SECRET)",
+    "comgateSecretDesc": "Setze COMGATE_MERCHANT / COMGATE_SECRET als Function-Secrets.",
+    "countryPrice": "Länderpreis (€)"
   },
   "poiForm": {
     "basicInfo": "Grundinformationen",
@@ -867,5 +872,16 @@
     "title": "Mitwirkender werden",
     "subtitle": "Tritt PlaceSecrets bei und teile dein lokales Wissen",
     "created": "Dein Mitwirkenden-Konto wurde erstellt."
+  },
+  "buy": {
+    "buyFor": "Kaufen für",
+    "unavailable": "Zahlung ist noch nicht verfügbar."
+  },
+  "purchase": {
+    "successTitle": "Zahlung erhalten",
+    "successDesc": "Dein Zugang wurde freigeschaltet. Es kann einen Moment dauern.",
+    "goToAccount": "Zu meinem Konto",
+    "cancelTitle": "Zahlung abgebrochen",
+    "cancelDesc": "Es wurde keine Zahlung abgebucht. Du kannst es jederzeit erneut versuchen."
   }
 }

@@ -679,7 +679,12 @@
     "freeCount": "Voľných audií",
     "freePeriod": "Perióda voľného",
     "perDay": "za deň",
-    "perMonth": "za mesiac"
+    "perMonth": "za mesiac",
+    "comgateMerchant": "Comgate merchant ID",
+    "comgateSecret": "Comgate secret",
+    "comgateSecretManaged": "Spravované cez env (COMGATE_SECRET)",
+    "comgateSecretDesc": "Nastavte COMGATE_MERCHANT / COMGATE_SECRET ako tajomstvá funkcií.",
+    "countryPrice": "Cena za krajinu (€)"
   },
   "poiForm": {
     "basicInfo": "Základné informácie",
@@ -867,5 +872,16 @@
     "title": "Staňte sa prispievateľom",
     "subtitle": "Pripojte sa k PlaceSecrets a zdieľajte miestne znalosti",
     "created": "Váš prispievateľský účet bol vytvorený."
+  },
+  "buy": {
+    "buyFor": "Kúpiť za",
+    "unavailable": "Platba zatiaľ nie je dostupná."
+  },
+  "purchase": {
+    "successTitle": "Platba prijatá",
+    "successDesc": "Váš prístup bol odomknutý. Môže chvíľu trvať, kým sa prejaví.",
+    "goToAccount": "Prejsť na môj účet",
+    "cancelTitle": "Platba zrušená",
+    "cancelDesc": "Nebola stiahnutá žiadna platba. Môžete to kedykoľvek skúsiť znova."
   }
 }

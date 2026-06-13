@@ -679,7 +679,12 @@
     "freeCount": "Audio miễn phí",
     "freePeriod": "Chu kỳ miễn phí",
     "perDay": "mỗi ngày",
-    "perMonth": "mỗi tháng"
+    "perMonth": "mỗi tháng",
+    "comgateMerchant": "ID người bán Comgate",
+    "comgateSecret": "Khóa bí mật Comgate",
+    "comgateSecretManaged": "Quản lý qua env (COMGATE_SECRET)",
+    "comgateSecretDesc": "Đặt COMGATE_MERCHANT / COMGATE_SECRET làm bí mật của function.",
+    "countryPrice": "Giá theo quốc gia (€)"
   },
   "poiForm": {
     "basicInfo": "Thông tin cơ bản",
@@ -867,5 +872,16 @@
     "title": "Trở thành cộng tác viên",
     "subtitle": "Tham gia PlaceSecrets và chia sẻ kiến thức địa phương",
     "created": "Tài khoản cộng tác viên đã được tạo."
+  },
+  "buy": {
+    "buyFor": "Mua với giá",
+    "unavailable": "Thanh toán chưa khả dụng."
+  },
+  "purchase": {
+    "successTitle": "Đã nhận thanh toán",
+    "successDesc": "Quyền truy cập đã được mở. Có thể mất chút thời gian.",
+    "goToAccount": "Đến tài khoản của tôi",
+    "cancelTitle": "Đã hủy thanh toán",
+    "cancelDesc": "Không có khoản thanh toán nào. Bạn có thể thử lại."
   }
 }

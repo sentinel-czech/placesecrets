@@ -679,7 +679,12 @@
     "freeCount": "무료 오디오 수",
     "freePeriod": "무료 주기",
     "perDay": "하루당",
-    "perMonth": "한 달당"
+    "perMonth": "한 달당",
+    "comgateMerchant": "Comgate 가맹점 ID",
+    "comgateSecret": "Comgate 시크릿",
+    "comgateSecretManaged": "환경 변수로 관리 (COMGATE_SECRET)",
+    "comgateSecretDesc": "COMGATE_MERCHANT / COMGATE_SECRET를 함수 시크릿으로 설정하세요.",
+    "countryPrice": "국가 가격 (€)"
   },
   "poiForm": {
     "basicInfo": "기본 정보",
@@ -867,5 +872,16 @@
     "title": "기여자 되기",
     "subtitle": "PlaceSecrets에 참여해 현지 지식을 공유하세요",
     "created": "기여자 계정이 생성되었습니다."
+  },
+  "buy": {
+    "buyFor": "구매 가격",
+    "unavailable": "아직 결제를 이용할 수 없습니다."
+  },
+  "purchase": {
+    "successTitle": "결제 완료",
+    "successDesc": "이용 권한이 활성화되었습니다. 잠시 후 표시될 수 있습니다.",
+    "goToAccount": "내 계정으로 이동",
+    "cancelTitle": "결제 취소됨",
+    "cancelDesc": "결제가 이루어지지 않았습니다. 언제든 다시 시도할 수 있습니다."
   }
 }

@@ -56,6 +56,7 @@ never the service-role key).
 |-----|-------|
 | `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | auto-injected by the Supabase Edge runtime |
 | `STRIPE_SECRET_KEY` | Stripe API key |
+| `COMGATE_MERCHANT`, `COMGATE_SECRET` | Comgate gateway (required for the web Buy flow; without them `comgate-create` returns 503) |
 | `STRIPE_POI_WEBHOOK_SECRET` | signing secret for `confirm-poi-payment` |
 | `WEBHOOK_SECRET` | signing secret for `payment-webhook` |
 | `RESEND_API_KEY` | transactional email (best-effort) |

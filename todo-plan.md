@@ -8,7 +8,7 @@ Living plán. `~~přeškrtnuté~~` = ověřeno v kódu jako hotové (neimplement
 - ~~**Fáze B** — přístupový model: úroveň země, get_poi_access v2 (země+expirace), konfigurovatelný free limit 1/den server-side, get_my_entitlements, „Můj přístup" na profilu, admin grant (země+platnost) (mig 0448)~~ ✅
 - ~~**Fáze D** — landing CMS (mig 0450, admin /admin/landing, JSONB per-jazyk) + přepínač jazyka v hlavičce + About/Contact/FAQ stránky~~ ✅
 - ~~**Fáze E** — moderační fronta recenzí /admin/moderation (mig 0451); deaktivace uživatele už existovala~~ ✅
-- **Fáze C — platební brány (ZBÝVÁ, čeká na credentials):** Comgate scaffolding (payment_config pole, `'comgate'` do enumu, edge fn `comgate-create`+`comgate-webhook`, web „Koupit" tok, výběr Comgate/Revolut), Google Pay na webu odložit. **Bez Comgate sandbox klíčů nelze otestovat reálnou platbu.**
+- ~~**Fáze C** — Comgate scaffolding HOTOVO (mig 0452: config pole + `comgate` enum; edge fn `comgate-create`+`comgate-webhook`; web `BuyButton` + /purchase/success|cancel; SettingsPage Comgate pole). **Čeká jen na `COMGATE_MERCHANT`/`COMGATE_SECRET`** (env secrets) pro reálnou platbu — bez nich `comgate-create` vrací 503. Google Pay na webu odloženo (todo).~~ ✅ (scaffolding)
 - ~~**Fáze F** — i18n: všechny nové + chybějící klíče přeloženy do všech 11 jazyků (parita 771 klíčů, 0 chybějících). Strojové překlady — doporučena revize rodilým mluvčím.~~ ✅
 - Drobnost: zobrazení avataru v hlavičce `AccountShell` (profil ho už ukládá+zobrazuje).
 

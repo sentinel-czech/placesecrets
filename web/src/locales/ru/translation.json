@@ -679,7 +679,12 @@
     "freeCount": "Бесплатных аудио",
     "freePeriod": "Период бесплатного",
     "perDay": "в день",
-    "perMonth": "в месяц"
+    "perMonth": "в месяц",
+    "comgateMerchant": "ID мерчанта Comgate",
+    "comgateSecret": "Секрет Comgate",
+    "comgateSecretManaged": "Управляется через env (COMGATE_SECRET)",
+    "comgateSecretDesc": "Задайте COMGATE_MERCHANT / COMGATE_SECRET как секреты функций.",
+    "countryPrice": "Цена за страну (€)"
   },
   "poiForm": {
     "basicInfo": "Основная информация",
@@ -867,5 +872,16 @@
     "title": "Станьте автором",
     "subtitle": "Присоединяйтесь к PlaceSecrets и делитесь местными знаниями",
     "created": "Ваш аккаунт автора создан."
+  },
+  "buy": {
+    "buyFor": "Купить за",
+    "unavailable": "Оплата пока недоступна."
+  },
+  "purchase": {
+    "successTitle": "Платёж получен",
+    "successDesc": "Доступ открыт. Может появиться через мгновение.",
+    "goToAccount": "Перейти в аккаунт",
+    "cancelTitle": "Платёж отменён",
+    "cancelDesc": "Платёж не списан. Можно попробовать снова."
   }
 }
