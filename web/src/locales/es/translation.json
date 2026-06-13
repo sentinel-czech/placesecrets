@@ -398,7 +398,10 @@
       "premiumPurchases": "Compras Premium",
       "contributors": "Colaboradores",
       "hallOfFame": "Salón de la fama",
-      "settings": "Configuración"
+      "settings": "Configuración",
+      "moderation": "Moderación",
+      "landing": "Página de inicio",
+      "acl": "Control de acceso"
     },
     "acl": {
       "title": "Control de acceso",
@@ -411,7 +414,8 @@
       "resetConfirm": "¿Restablecer todos los permisos a los valores predeterminados? Esta acción no se puede deshacer.",
       "superadminLocked": "Los permisos de superadmin no se pueden cambiar",
       "saved": "Permisos guardados correctamente",
-      "noChanges": "No hay cambios que guardar"
+      "noChanges": "No hay cambios que guardar",
+      "desc": "Gestiona qué puede leer, escribir y eliminar cada rol."
     },
     "forceChangePin": {
       "title": "Cambiar PIN predeterminado",

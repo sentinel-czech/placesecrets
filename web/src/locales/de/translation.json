@@ -398,7 +398,10 @@
       "premiumPurchases": "Premium-Käufe",
       "contributors": "Mitwirkende",
       "hallOfFame": "Ruhmeshalle",
-      "settings": "Einstellungen"
+      "settings": "Einstellungen",
+      "moderation": "Moderation",
+      "landing": "Startseite",
+      "acl": "Zugriffskontrolle"
     },
     "acl": {
       "title": "Zugriffskontrolle",
@@ -411,7 +414,8 @@
       "resetConfirm": "Alle Berechtigungen auf Standard zurücksetzen? Dies kann nicht rückgängig gemacht werden.",
       "superadminLocked": "Superadmin-Berechtigungen können nicht geändert werden",
       "saved": "Berechtigungen erfolgreich gespeichert",
-      "noChanges": "Keine Änderungen zum Speichern"
+      "noChanges": "Keine Änderungen zum Speichern",
+      "desc": "Verwalte, was jede Rolle lesen, schreiben und löschen darf."
     },
     "forceChangePin": {
       "title": "Standard-PIN ändern",

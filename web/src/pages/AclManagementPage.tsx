@@ -2,7 +2,8 @@ import { useEffect, useState, useCallback } from 'react'
 import { adminRpc, adminUpdate } from '@/lib/supabase/admin-api'
 import { useAuthStore } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
+import { Section } from '@/components/shared/Section'
 import { Skeleton } from '@/components/ui/skeleton'
 import { toast } from 'sonner'
 import { useTranslation } from 'react-i18next'
@@ -140,19 +141,16 @@ export default function AclManagementPage() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">{t('admin.acl.title')}</h1>
-        {canWrite && (
+      <Section
+        title={t('admin.acl.title')}
+        description={t('admin.acl.desc', 'Manage what each role can read, write and delete.')}
+        action={canWrite && (
           <Button onClick={handleSave} disabled={saving || !hasChanges()}>
             {saving ? t('common.loading') : t('admin.acl.saveChanges')}
           </Button>
         )}
-      </div>
-
+      >
       <Card>
-        <CardHeader>
-          <CardTitle className="text-base">{t('admin.acl.title')}</CardTitle>
-        </CardHeader>
         <CardContent className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
             <thead>
@@ -234,6 +232,7 @@ export default function AclManagementPage() {
           )}
         </CardContent>
       </Card>
+      </Section>
     </div>
   )
 }

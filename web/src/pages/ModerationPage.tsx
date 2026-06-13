@@ -4,6 +4,7 @@ import { adminSelect, adminUpdate, adminDelete } from '@/lib/supabase/admin-api'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Section } from '@/components/shared/Section'
 import { Star, Eye, EyeOff, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -47,10 +48,11 @@ export default function ModerationPage() {
   }
 
   return (
-    <div className="max-w-3xl space-y-4">
-      <h1 className="text-2xl font-bold">{t('admin.moderation.title', 'Moderation')}</h1>
-      <p className="text-sm text-muted-foreground">{t('admin.moderation.desc', 'Hide or remove inappropriate place reviews.')}</p>
-
+    <div className="max-w-3xl">
+      <Section
+        title={t('admin.moderation.title', 'Moderation')}
+        description={t('admin.moderation.desc', 'Hide or remove inappropriate place reviews.')}
+      >
       {loading && <p className="text-muted-foreground">{t('common.loading')}</p>}
       {!loading && rows.length === 0 && (
         <p className="text-muted-foreground">{t('admin.moderation.empty', 'No comments to moderate.')}</p>
@@ -82,6 +84,7 @@ export default function ModerationPage() {
           </CardContent>
         </Card>
       ))}
+      </Section>
     </div>
   )
 }

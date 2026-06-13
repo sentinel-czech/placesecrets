@@ -4,6 +4,7 @@ import { adminSelect, adminUpdate } from '@/lib/supabase/admin-api'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
+import { Section } from '@/components/shared/Section'
 import { toast } from 'sonner'
 
 const FIELDS = ['hero_title_1', 'hero_title_2', 'hero_title_3', 'hero_subtitle', 'tagline', 'footer_tagline'] as const
@@ -41,16 +42,16 @@ export default function LandingConfigPage() {
   if (!cfg) return <p className="text-muted-foreground">{t('common.loading')}</p>
 
   return (
-    <div className="max-w-2xl space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">{t('admin.landing.title', 'Landing page content')}</h1>
-          <p className="text-sm text-muted-foreground">{t('admin.landing.desc', 'Edit the public homepage text per language. Empty fields fall back to defaults.')}</p>
-        </div>
-        <select value={lang} onChange={e => setLang(e.target.value)} className="rounded-md border px-2 py-1 text-sm">
-          {LANGS.map(l => <option key={l} value={l}>{l.toUpperCase()}</option>)}
-        </select>
-      </div>
+    <div className="max-w-2xl">
+      <Section
+        title={t('admin.landing.title', 'Landing page content')}
+        description={t('admin.landing.desc', 'Edit the public homepage text per language. Empty fields fall back to defaults.')}
+        action={
+          <select value={lang} onChange={e => setLang(e.target.value)} className="rounded-md border px-2 py-1 text-sm">
+            {LANGS.map(l => <option key={l} value={l}>{l.toUpperCase()}</option>)}
+          </select>
+        }
+      >
       <Card>
         <CardContent className="space-y-4 pt-6">
           {FIELDS.map(f => (
@@ -67,6 +68,7 @@ export default function LandingConfigPage() {
           <Button onClick={save} disabled={saving}>{saving ? t('common.loading') : t('common.save')}</Button>
         </CardContent>
       </Card>
+      </Section>
     </div>
   )
 }

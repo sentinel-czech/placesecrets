@@ -398,7 +398,10 @@
       "premiumPurchases": "Achats Premium",
       "contributors": "Contributeurs",
       "hallOfFame": "Temple de la renommée",
-      "settings": "Paramètres"
+      "settings": "Paramètres",
+      "moderation": "Modération",
+      "landing": "Page d'accueil",
+      "acl": "Contrôle d'accès"
     },
     "acl": {
       "title": "Contrôle d'accès",
@@ -411,7 +414,8 @@
       "resetConfirm": "Rétablir toutes les permissions par défaut ? Cette action est irréversible.",
       "superadminLocked": "Les permissions du superadmin ne peuvent pas être modifiées",
       "saved": "Permissions enregistrées avec succès",
-      "noChanges": "Aucune modification à enregistrer"
+      "noChanges": "Aucune modification à enregistrer",
+      "desc": "Gérez ce que chaque rôle peut lire, écrire et supprimer."
     },
     "forceChangePin": {
       "title": "Changer le PIN par défaut",

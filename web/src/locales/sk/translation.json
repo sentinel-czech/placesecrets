@@ -398,7 +398,10 @@
       "premiumPurchases": "Premium nákupy",
       "contributors": "Prispievatelia",
       "hallOfFame": "Sieň slávy",
-      "settings": "Nastavenia"
+      "settings": "Nastavenia",
+      "moderation": "Moderovanie",
+      "landing": "Úvodná stránka",
+      "acl": "Riadenie prístupu"
     },
     "acl": {
       "title": "Riadenie prístupu",
@@ -411,7 +414,8 @@
       "resetConfirm": "Obnoviť všetky oprávnenia na predvolené? Túto akciu nemožno vrátiť.",
       "superadminLocked": "Oprávnenia superadmina nemožno zmeniť",
       "saved": "Oprávnenia úspešne uložené",
-      "noChanges": "Žiadne zmeny na uloženie"
+      "noChanges": "Žiadne zmeny na uloženie",
+      "desc": "Spravujte, čo môže každá rola čítať, zapisovať a mazať."
     },
     "forceChangePin": {
       "title": "Zmena predvoleného PINu",

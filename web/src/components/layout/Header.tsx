@@ -19,7 +19,10 @@ export function Header() {
     '/admin/purchases/premium': t('admin.header.premiumPurchases'),
     '/admin/contributors': t('admin.header.contributors'),
     '/admin/hall-of-fame': t('admin.header.hallOfFame'),
+    '/admin/moderation': t('admin.header.moderation', 'Moderation'),
     '/admin/settings': t('admin.header.settings'),
+    '/admin/landing': t('admin.header.landing', 'Landing page'),
+    '/admin/acl': t('admin.header.acl', 'Access Control'),
   }
 
   const title = pageTitles[location.pathname] || 'PlaceSecrets Admin'

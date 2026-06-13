@@ -398,7 +398,10 @@
       "premiumPurchases": "高级购买",
       "contributors": "贡献者",
       "hallOfFame": "名人堂",
-      "settings": "设置"
+      "settings": "设置",
+      "moderation": "审核",
+      "landing": "首页",
+      "acl": "访问控制"
     },
     "acl": {
       "title": "访问控制",
@@ -411,7 +414,8 @@
       "resetConfirm": "将所有权限恢复为默认值？此操作不可撤销。",
       "superadminLocked": "超级管理员权限不可更改",
       "saved": "权限保存成功",
-      "noChanges": "没有需要保存的更改"
+      "noChanges": "没有需要保存的更改",
+      "desc": "管理每个角色的读取、写入和删除权限。"
     },
     "forceChangePin": {
       "title": "更改默认 PIN",

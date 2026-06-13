@@ -398,7 +398,10 @@
       "premiumPurchases": "Premium Purchases",
       "contributors": "Contributors",
       "hallOfFame": "Hall of Fame",
-      "settings": "Settings"
+      "settings": "Settings",
+      "moderation": "Moderation",
+      "landing": "Landing page",
+      "acl": "Access Control"
     },
     "acl": {
       "title": "Access Control",
@@ -411,7 +414,8 @@
       "resetConfirm": "Reset all permissions to defaults? This cannot be undone.",
       "superadminLocked": "Superadmin permissions cannot be changed",
       "saved": "Permissions saved successfully",
-      "noChanges": "No changes to save"
+      "noChanges": "No changes to save",
+      "desc": "Manage what each role can read, write and delete."
     },
     "forceChangePin": {
       "title": "Change Default PIN",

@@ -398,7 +398,10 @@
       "premiumPurchases": "Mua Premium",
       "contributors": "Người đóng góp",
       "hallOfFame": "Bảng vinh danh",
-      "settings": "Cài đặt"
+      "settings": "Cài đặt",
+      "moderation": "Kiểm duyệt",
+      "landing": "Trang chủ",
+      "acl": "Kiểm soát truy cập"
     },
     "acl": {
       "title": "Quản lý quyền truy cập",
@@ -411,7 +414,8 @@
       "resetConfirm": "Khôi phục tất cả quyền về mặc định? Hành động này không thể hoàn tác.",
       "superadminLocked": "Không thể thay đổi quyền của superadmin",
       "saved": "Đã lưu quyền thành công",
-      "noChanges": "Không có thay đổi để lưu"
+      "noChanges": "Không có thay đổi để lưu",
+      "desc": "Quản lý quyền đọc, ghi, xóa của từng vai trò."
     },
     "forceChangePin": {
       "title": "Đổi PIN mặc định",

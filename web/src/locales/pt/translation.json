@@ -398,7 +398,10 @@
       "premiumPurchases": "Compras Premium",
       "contributors": "Colaboradores",
       "hallOfFame": "Salão da fama",
-      "settings": "Definições"
+      "settings": "Definições",
+      "moderation": "Moderação",
+      "landing": "Página inicial",
+      "acl": "Controlo de acesso"
     },
     "acl": {
       "title": "Controlo de acesso",
@@ -411,7 +414,8 @@
       "resetConfirm": "Repor todas as permissões para as predefinições? Esta ação é irreversível.",
       "superadminLocked": "As permissões de superadmin não podem ser alteradas",
       "saved": "Permissões guardadas com sucesso",
-      "noChanges": "Sem alterações para guardar"
+      "noChanges": "Sem alterações para guardar",
+      "desc": "Faça a gestão do que cada função pode ler, escrever e eliminar."
     },
     "forceChangePin": {
       "title": "Alterar PIN predefinido",
