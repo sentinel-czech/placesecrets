@@ -9,7 +9,7 @@ Living plán. `~~přeškrtnuté~~` = ověřeno v kódu jako hotové (neimplement
 - ~~**Fáze D** — landing CMS (mig 0450, admin /admin/landing, JSONB per-jazyk) + přepínač jazyka v hlavičce + About/Contact/FAQ stránky~~ ✅
 - ~~**Fáze E** — moderační fronta recenzí /admin/moderation (mig 0451); deaktivace uživatele už existovala~~ ✅
 - **Fáze C — platební brány (ZBÝVÁ, čeká na credentials):** Comgate scaffolding (payment_config pole, `'comgate'` do enumu, edge fn `comgate-create`+`comgate-webhook`, web „Koupit" tok, výběr Comgate/Revolut), Google Pay na webu odložit. **Bez Comgate sandbox klíčů nelze otestovat reálnou platbu.**
-- **Fáze F — i18n (ZBÝVÁ):** přeložit všechny nové klíče + 33 původně chybějících do 9 zbývajících locales (de,es,fr,ko,pt,ru,sk,vi,zh). Appka zatím funguje s fallbackem na EN. en+cs hotové u nových řetězců přes `t(key, default)`.
+- ~~**Fáze F** — i18n: všechny nové + chybějící klíče přeloženy do všech 11 jazyků (parita 771 klíčů, 0 chybějících). Strojové překlady — doporučena revize rodilým mluvčím.~~ ✅
 - Drobnost: zobrazení avataru v hlavičce `AccountShell` (profil ho už ukládá+zobrazuje).
 
 Stav: web **293** testů, edge **72**, tsc 0, `npm audit` 0, 59 migrací aplikováno čistě (`supabase db reset`).
