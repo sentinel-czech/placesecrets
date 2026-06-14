@@ -66,6 +66,9 @@ dependencies:
   firebase_messaging: ^15.1.0
   flutter_local_notifications: ^17.2.3
 
+  # Deep links (purchase callbacks, shared place URLs)
+  app_links: ^6.3.2
+
   # Utilities
   shared_preferences: ^2.3.1
   intl: ^0.20.2
@@ -104,3 +107,7 @@ flutter_launcher_icons:
   android: true
   ios: true
   image_path: "assets/icons/app_icon.png"
+  min_sdk_android: 23
+  # iOS App Store rejects icons with an alpha channel; flatten onto the brand color.
+  remove_alpha_ios: true
+  background_color_ios: "#2D6A4F"

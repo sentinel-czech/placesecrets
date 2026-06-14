@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/constants/app_constants.dart';
@@ -34,7 +36,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       description:
           'Save notes, photos, and export your travel history.',
     ),
+    _OnboardingPage(
+      icon: Icons.notifications_active_outlined,
+      title: 'Stay in the Loop',
+      description:
+          'Allow location and notifications so we can alert you and play '
+          'a guide when you reach a place. You can change this anytime in Settings.',
+    ),
   ];
+
+  bool get _onLastPage => _currentPage == _pages.length - 1;
+
+  /// Requests the permissions the core experience needs, then finishes.
+  /// Non-blocking: a denial doesn't stop onboarding — the app still works and
+  /// can re-request from Settings (background location is escalated there).
+  Future<void> _requestPermissionsAndComplete() async {
+    try {
+      await [
+        Permission.locationWhenInUse,
+        Permission.notification,
+      ].request();
+    } catch (e) {
+      debugPrint('Permission request failed: $e');
+    }
+    await _complete();
+  }
 
   Future<void> _complete() async {
     final prefs = await SharedPreferences.getInstance();
@@ -87,17 +113,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
                   FilledButton(
-                    onPressed: _currentPage == _pages.length - 1
-                        ? _complete
+                    onPressed: _onLastPage
+                        ? _requestPermissionsAndComplete
                         : () => _controller.nextPage(
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
                             ),
-                    child: Text(
-                      _currentPage == _pages.length - 1
-                          ? 'Get Started'
-                          : 'Next',
-                    ),
+                    child: Text(_onLastPage ? 'Get Started' : 'Next'),
                   ),
                 ],
               ),

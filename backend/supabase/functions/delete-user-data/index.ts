@@ -50,6 +50,22 @@ serve(async (req: Request) => {
       await supabase.storage.from('payment-receipts').remove(receiptPaths)
     }
 
+    // Compliance evidence: record the erasure request before the auth user is
+    // removed. `target_id` is TEXT so it survives the actor_id FK being nulled
+    // (audit_logs.actor_id is ON DELETE SET NULL). Best-effort — never block the
+    // deletion on logging.
+    try {
+      await supabase.from('audit_logs').insert({
+        actor_id: userId,
+        action: 'gdpr_account_deletion',
+        target_type: 'user',
+        target_id: userId,
+        metadata: { email: user.email ?? null, deleted_at: new Date().toISOString() },
+      })
+    } catch (logErr) {
+      console.error('delete-user-data audit log failed (non-fatal):', logErr)
+    }
+
     // Delete auth user (cascades FK deletes)
     const { error: deleteError } = await supabase.auth.admin.deleteUser(userId)
     if (deleteError) {

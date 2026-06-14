@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/models/contributor_profile.dart';
@@ -98,7 +99,10 @@ class _PodiumWidget extends StatelessWidget {
         children: List.generate(
           3,
           (i) => Expanded(
-            child: Column(children: [
+            child: InkWell(
+              onTap: () =>
+                  context.push('/contributor/${order[i].contributorId}'),
+              child: Column(children: [
               CircleAvatar(
                 radius: ranks[i] == 1 ? 32 : 24,
                 backgroundImage: order[i].avatarUrl != null
@@ -151,6 +155,7 @@ class _PodiumWidget extends StatelessWidget {
                 ),
               ),
             ]),
+            ),
           ),
         ),
       ),
@@ -164,6 +169,7 @@ class _HoFListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListTile(
+        onTap: () => context.push('/contributor/${entry.contributorId}'),
         leading: Stack(
           children: [
             CircleAvatar(

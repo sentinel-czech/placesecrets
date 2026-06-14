@@ -5,7 +5,9 @@ import '../../../app/providers.dart';
 import '../../../core/services/payment_service.dart';
 import '../../../data/repositories/access_repository.dart';
 import '../../../data/repositories/payment_config_repository.dart';
+import '../../../data/repositories/payment_repository.dart';
 import '../../../domain/models/payment_config.dart';
+import '../../../domain/models/payment_receipt.dart';
 import '../../../domain/models/user_access.dart';
 
 part 'payment_providers.g.dart';
@@ -28,6 +30,11 @@ Future<List<UserAccess>> userPurchases(UserPurchasesRef ref) async {
     ref.watch(appDatabaseProvider),
   );
   return repo.getUserAccesses();
+}
+
+@riverpod
+Future<List<PaymentReceipt>> userReceipts(UserReceiptsRef ref) async {
+  return PaymentRepository(Supabase.instance.client).fetchReceipts();
 }
 
 @riverpod
@@ -59,6 +66,13 @@ class PaymentFlowState extends _$PaymentFlowState {
     );
   }
 
+  void setPending(String? transactionId) {
+    state = state.copyWith(
+      status: PaymentStatus.pending,
+      transactionId: transactionId,
+    );
+  }
+
   void setError(String error) {
     state = state.copyWith(
       status: PaymentStatus.error,
@@ -71,7 +85,7 @@ class PaymentFlowState extends _$PaymentFlowState {
   }
 }
 
-enum PaymentStatus { idle, processing, success, error }
+enum PaymentStatus { idle, processing, success, pending, error }
 
 class PaymentState {
   final String? cityId;

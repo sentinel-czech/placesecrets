@@ -2,8 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'providers/auth_providers.dart';
+
+/// Tappable legal link that opens the corresponding web page.
+class _LegalLink extends StatelessWidget {
+  final String label;
+  final String path;
+  final TextStyle? style;
+  final Color color;
+  const _LegalLink({
+    required this.label,
+    required this.path,
+    required this.style,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => launchUrl(
+        Uri.parse('https://placesecrets.app$path'),
+        mode: LaunchMode.externalApplication,
+      ),
+      child: Text(
+        label,
+        style: style?.copyWith(
+          color: color,
+          decoration: TextDecoration.underline,
+        ),
+      ),
+    );
+  }
+}
 
 class AuthScreen extends ConsumerStatefulWidget {
   const AuthScreen({super.key});
@@ -21,6 +53,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   String? _error;
   bool _resetSent = false;
   String? _handleError;
+  bool _acceptedTerms = false;
 
   @override
   void dispose() {
@@ -118,6 +151,43 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                   }
                 },
               ),
+              const SizedBox(height: 8),
+              InkWell(
+                onTap: () => setState(() => _acceptedTerms = !_acceptedTerms),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Checkbox(
+                      value: _acceptedTerms,
+                      onChanged: (v) =>
+                          setState(() => _acceptedTerms = v ?? false),
+                    ),
+                    Expanded(
+                      child: Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Text('I agree to the ',
+                              style: theme.textTheme.bodySmall),
+                          _LegalLink(
+                            label: 'Terms of Service',
+                            path: '/terms',
+                            style: theme.textTheme.bodySmall,
+                            color: theme.colorScheme.primary,
+                          ),
+                          Text(' and ', style: theme.textTheme.bodySmall),
+                          _LegalLink(
+                            label: 'Privacy Policy',
+                            path: '/privacy',
+                            style: theme.textTheme.bodySmall,
+                            color: theme.colorScheme.primary,
+                          ),
+                          Text('.', style: theme.textTheme.bodySmall),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
 
             if (_error != null)
@@ -149,6 +219,29 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
                   : Text(_isSignUp ? 'Create Account' : 'Sign In'),
+            ),
+
+            const SizedBox(height: 16),
+            Row(children: [
+              const Expanded(child: Divider()),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text('or continue with',
+                    style: theme.textTheme.bodySmall),
+              ),
+              const Expanded(child: Divider()),
+            ]),
+            const SizedBox(height: 12),
+            OutlinedButton.icon(
+              onPressed: _loading ? null : () => _oauth(OAuthProvider.google),
+              icon: const Icon(Icons.g_mobiledata, size: 28),
+              label: const Text('Google'),
+            ),
+            const SizedBox(height: 8),
+            OutlinedButton.icon(
+              onPressed: _loading ? null : () => _oauth(OAuthProvider.apple),
+              icon: const Icon(Icons.apple),
+              label: const Text('Apple'),
             ),
 
             const SizedBox(height: 12),
@@ -194,6 +287,12 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
       return;
     }
 
+    if (_isSignUp && !_acceptedTerms) {
+      setState(() =>
+          _error = 'Please accept the Terms and Privacy Policy to continue');
+      return;
+    }
+
     setState(() {
       _loading = true;
       _error = null;
@@ -208,15 +307,53 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
           setState(() => _loading = false);
           return;
         }
-        await authNotifier.signUp(email, password, handle: handle.isEmpty ? null : handle);
+        await authNotifier.signUp(
+          email,
+          password,
+          handle: handle.isEmpty ? null : handle,
+          acceptedTerms: _acceptedTerms,
+        );
+        if (mounted) {
+          final verified =
+              ref.read(authStateProvider).isEmailVerified;
+          if (!verified) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                    'Account created. Check your inbox to verify your email.'),
+              ),
+            );
+          }
+        }
       } else {
         await authNotifier.signInWithEmail(email, password);
       }
       if (mounted) context.pop();
+    } on TermsNotAcceptedException {
+      setState(() => _error = 'Please accept the Terms and Privacy Policy');
     } on AuthException catch (e) {
       setState(() => _error = e.message);
     } catch (e) {
       setState(() => _error = 'An error occurred. Please try again.');
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  Future<void> _oauth(OAuthProvider provider) async {
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
+    try {
+      // Launches an external browser; the session completes via deep link and
+      // the auth-state listener updates state. Close this screen optimistically.
+      await ref.read(authStateProvider.notifier).signInWithOAuth(provider);
+      if (mounted) context.pop();
+    } on AuthException catch (e) {
+      setState(() => _error = e.message);
+    } catch (e) {
+      setState(() => _error = 'Could not start sign-in. Please try again.');
     } finally {
       if (mounted) setState(() => _loading = false);
     }

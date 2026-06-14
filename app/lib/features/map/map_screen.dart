@@ -48,6 +48,16 @@ class _MapScreenState extends ConsumerState<MapScreen> {
       appBar: AppBar(
         title: Text(nearestCity?.name ?? 'PlaceSecrets'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            tooltip: 'Search places',
+            onPressed: () => context.push('/search'),
+          ),
+          IconButton(
+            icon: const Icon(Icons.location_city_outlined),
+            tooltip: 'Explore cities',
+            onPressed: () => context.push('/catalog'),
+          ),
           if (nearestCity != null)
             IconButton(
               icon: const Icon(Icons.emoji_events_outlined),
@@ -59,6 +69,20 @@ class _MapScreenState extends ConsumerState<MapScreen> {
       ),
       body: Column(
         children: [
+          // Non-blocking error banner: the map still renders (user location),
+          // but failing to load places is surfaced with a retry instead of a
+          // silent empty map.
+          if (poisAsync.hasError && cityId != null)
+            MaterialBanner(
+              content: const Text('Could not load places for this area.'),
+              leading: const Icon(Icons.cloud_off, color: Colors.orange),
+              actions: [
+                TextButton(
+                  onPressed: () => ref.invalidate(cityPoisProvider(cityId)),
+                  child: const Text('Retry'),
+                ),
+              ],
+            ),
           // Filter chips
           if (allPois.isNotEmpty)
             SingleChildScrollView(

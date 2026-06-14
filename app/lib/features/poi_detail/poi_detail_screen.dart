@@ -13,6 +13,7 @@ import '../../data/repositories/poi_repository.dart';
 import '../../domain/models/poi.dart';
 import '../../domain/models/poi_premium_content.dart';
 import 'widgets/audio_player_widget.dart';
+import 'widgets/poi_reviews_section.dart';
 import 'widgets/premium_poi_content.dart';
 import 'widgets/rating_widget.dart';
 import 'widgets/share_poi_button.dart';
@@ -306,7 +307,7 @@ class _PoiDetailScreenState extends ConsumerState<PoiDetailScreen> {
               isPrimary: true,
             ),
 
-          // Contributor badge
+          // Contributor badge — links to the public contributor profile.
           if (poi.contributorId != null)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -314,8 +315,11 @@ class _PoiDetailScreenState extends ConsumerState<PoiDetailScreen> {
                 child: ListTile(
                   leading: const Icon(Icons.person),
                   title: const Text('Community Contributed'),
-                  subtitle: Text('By contributor ${poi.contributorId}'),
+                  subtitle: const Text('View contributor profile'),
+                  trailing: const Icon(Icons.chevron_right),
                   dense: true,
+                  onTap: () =>
+                      context.push('/contributor/${poi.contributorId}'),
                 ),
               ),
             ),
@@ -329,6 +333,9 @@ class _PoiDetailScreenState extends ConsumerState<PoiDetailScreen> {
                 langCode: langCode,
               ),
             ),
+
+          // Reviews list (read-only, always visible)
+          PoiReviewsSection(poiId: widget.poiId),
 
           const SizedBox(height: 32),
         ],

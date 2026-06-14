@@ -886,6 +886,15 @@
     "successDesc": "Quyền truy cập đã được mở. Có thể mất chút thời gian.",
     "goToAccount": "Đến tài khoản của tôi",
     "cancelTitle": "Đã hủy thanh toán",
-    "cancelDesc": "Không có khoản thanh toán nào. Bạn có thể thử lại."
+    "cancelDesc": "Không có khoản thanh toán nào. Bạn có thể thử lại.",
+    "confirmingTitle": "Đang xác nhận thanh toán…",
+    "confirmingDesc": "Việc này thường mất vài giây.",
+    "unlockedDesc": "Quyền truy cập của bạn đã được mở."
+  },
+  "cookies": {
+    "title": "Thông báo cookie",
+    "message": "Chúng tôi chỉ sử dụng bộ nhớ kỹ thuật cần thiết (ví dụ: đăng nhập và ngôn ngữ). Chúng tôi không sử dụng cookie quảng cáo hoặc theo dõi.",
+    "learnMore": "Chính sách bảo mật",
+    "accept": "Đã hiểu"
   }
 }

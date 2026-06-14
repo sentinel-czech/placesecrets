@@ -6,6 +6,27 @@ part of 'ratings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$canSubmitRatingHash() => r'109bb95aaf2789837a2a51ca5953ac8c0aa5a497';
+
+/// Whether the current session may submit a rating: signed in with a real
+/// (non-anonymous) account. The app keeps a persistent anonymous session, so
+/// `currentUser != null` is not enough — anonymous users must be excluded.
+///
+/// Copied from [canSubmitRating].
+@ProviderFor(canSubmitRating)
+final canSubmitRatingProvider = AutoDisposeProvider<bool>.internal(
+  canSubmitRating,
+  name: r'canSubmitRatingProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$canSubmitRatingHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef CanSubmitRatingRef = AutoDisposeProviderRef<bool>;
 String _$myPoiRatingHash() => r'cc40af467586db704c3e6477d471ef23405f3133';
 
 /// Copied from Dart SDK
@@ -155,6 +176,155 @@ class _MyPoiRatingProviderElement
 
   @override
   String get poiId => (origin as MyPoiRatingProvider).poiId;
+}
+
+String _$poiReviewsHash() => r'812ad49aa3af515aa13c46ce83659fe547a00f9e';
+
+/// First page of reviews for a place. Additional pages are loaded by the
+/// reviews widget directly via the repository; invalidate this to refresh.
+///
+/// Copied from [poiReviews].
+@ProviderFor(poiReviews)
+const poiReviewsProvider = PoiReviewsFamily();
+
+/// First page of reviews for a place. Additional pages are loaded by the
+/// reviews widget directly via the repository; invalidate this to refresh.
+///
+/// Copied from [poiReviews].
+class PoiReviewsFamily extends Family<AsyncValue<List<PoiReview>>> {
+  /// First page of reviews for a place. Additional pages are loaded by the
+  /// reviews widget directly via the repository; invalidate this to refresh.
+  ///
+  /// Copied from [poiReviews].
+  const PoiReviewsFamily();
+
+  /// First page of reviews for a place. Additional pages are loaded by the
+  /// reviews widget directly via the repository; invalidate this to refresh.
+  ///
+  /// Copied from [poiReviews].
+  PoiReviewsProvider call(
+    String poiId,
+  ) {
+    return PoiReviewsProvider(
+      poiId,
+    );
+  }
+
+  @override
+  PoiReviewsProvider getProviderOverride(
+    covariant PoiReviewsProvider provider,
+  ) {
+    return call(
+      provider.poiId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'poiReviewsProvider';
+}
+
+/// First page of reviews for a place. Additional pages are loaded by the
+/// reviews widget directly via the repository; invalidate this to refresh.
+///
+/// Copied from [poiReviews].
+class PoiReviewsProvider extends AutoDisposeFutureProvider<List<PoiReview>> {
+  /// First page of reviews for a place. Additional pages are loaded by the
+  /// reviews widget directly via the repository; invalidate this to refresh.
+  ///
+  /// Copied from [poiReviews].
+  PoiReviewsProvider(
+    String poiId,
+  ) : this._internal(
+          (ref) => poiReviews(
+            ref as PoiReviewsRef,
+            poiId,
+          ),
+          from: poiReviewsProvider,
+          name: r'poiReviewsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$poiReviewsHash,
+          dependencies: PoiReviewsFamily._dependencies,
+          allTransitiveDependencies:
+              PoiReviewsFamily._allTransitiveDependencies,
+          poiId: poiId,
+        );
+
+  PoiReviewsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.poiId,
+  }) : super.internal();
+
+  final String poiId;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<PoiReview>> Function(PoiReviewsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: PoiReviewsProvider._internal(
+        (ref) => create(ref as PoiReviewsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        poiId: poiId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<PoiReview>> createElement() {
+    return _PoiReviewsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PoiReviewsProvider && other.poiId == poiId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, poiId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin PoiReviewsRef on AutoDisposeFutureProviderRef<List<PoiReview>> {
+  /// The parameter `poiId` of this provider.
+  String get poiId;
+}
+
+class _PoiReviewsProviderElement
+    extends AutoDisposeFutureProviderElement<List<PoiReview>>
+    with PoiReviewsRef {
+  _PoiReviewsProviderElement(super.provider);
+
+  @override
+  String get poiId => (origin as PoiReviewsProvider).poiId;
 }
 
 String _$poiRatingStatsHash() => r'0bb1c4a629b1aee01a8d6abed08ce7d1711a3dfa';

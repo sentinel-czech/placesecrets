@@ -4,15 +4,21 @@ import 'package:just_audio/just_audio.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 import '../constants/app_constants.dart';
+import 'audio_cache_service.dart';
 
 enum AudioSource { file, tts, none }
 
 class AudioGuideService {
   final AudioPlayer _player = AudioPlayer();
   final FlutterTts _tts = FlutterTts();
+  final AudioCacheService _cache = AudioCacheService();
 
   AudioSource _currentSource = AudioSource.none;
   bool _ttsPlaying = false;
+  // Last TTS request, kept so resume() can restart it (flutter_tts has no
+  // reliable resume-from-position across platforms).
+  String? _lastTtsText;
+  String _lastTtsLang = 'en';
   final _ttsCompletionController = StreamController<void>.broadcast();
 
   AudioSource get currentSource => _currentSource;
@@ -63,13 +69,23 @@ class AudioGuideService {
 
   Future<void> playAudioFile(String url) async {
     _currentSource = AudioSource.file;
-    await _player.setUrl(url);
+    // Prefer a cached local copy (offline playback); otherwise stream and cache
+    // in the background for next time.
+    final cached = await _cache.cachedPath(url);
+    if (cached != null) {
+      await _player.setFilePath(cached);
+    } else {
+      await _player.setUrl(url);
+      unawaited(_cache.ensureCached(url));
+    }
     await _player.play();
   }
 
   Future<void> playTts(String text, {String lang = 'en'}) async {
     _currentSource = AudioSource.tts;
     _ttsPlaying = true;
+    _lastTtsText = text;
+    _lastTtsLang = lang;
     await _tts.setLanguage(lang);
     await _tts.setSpeechRate(AppConstants.defaultTtsSpeechRate);
     await _tts.speak(text);
@@ -87,8 +103,13 @@ class AudioGuideService {
   Future<void> resume() async {
     if (_currentSource == AudioSource.file) {
       await _player.play();
+    } else if (_currentSource == AudioSource.tts && _lastTtsText != null) {
+      // flutter_tts can't resume mid-utterance reliably — restart playback.
+      _ttsPlaying = true;
+      await _tts.setLanguage(_lastTtsLang);
+      await _tts.setSpeechRate(AppConstants.defaultTtsSpeechRate);
+      await _tts.speak(_lastTtsText!);
     }
-    // TTS cannot be resumed — must restart
   }
 
   Future<void> stop() async {

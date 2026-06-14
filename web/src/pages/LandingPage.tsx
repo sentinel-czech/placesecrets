@@ -130,10 +130,10 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              {t('landing.exploreAround')}
+              {cms('explore_title', t('landing.exploreAround'))}
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-              {t('landing.exploreAroundDesc')}
+              {cms('explore_desc', t('landing.exploreAroundDesc'))}
             </p>
           </div>
 
@@ -174,10 +174,10 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              {t('landing.featuredPlaces')}
+              {cms('featured_title', t('landing.featuredPlaces'))}
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-              {t('landing.featuredPlacesDesc')}
+              {cms('featured_desc', t('landing.featuredPlacesDesc'))}
             </p>
           </div>
 
@@ -205,10 +205,10 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              {t('landing.howItWorks')}
+              {cms('how_title', t('landing.howItWorks'))}
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-              {t('landing.howItWorksDesc')}
+              {cms('how_desc', t('landing.howItWorksDesc'))}
             </p>
           </div>
 
@@ -217,26 +217,26 @@ export default function LandingPage() {
               {
                 step: '01',
                 icon: Search,
-                title: t('landing.step1Title'),
-                description: t('landing.step1Desc'),
+                title: cms('how_step1_title', t('landing.step1Title')),
+                description: cms('how_step1_desc', t('landing.step1Desc')),
                 color: 'bg-primary/10 text-primary',
               },
               {
                 step: '02',
                 icon: Headphones,
-                title: t('landing.step2Title'),
-                description: t('landing.step2Desc'),
+                title: cms('how_step2_title', t('landing.step2Title')),
+                description: cms('how_step2_desc', t('landing.step2Desc')),
                 color: 'bg-[#B8960C]/10 text-[#B8960C]',
               },
               {
                 step: '03',
                 icon: Star,
-                title: t('landing.step3Title'),
-                description: t('landing.step3Desc'),
+                title: cms('how_step3_title', t('landing.step3Title')),
+                description: cms('how_step3_desc', t('landing.step3Desc')),
                 color: 'bg-blue-500/10 text-blue-500',
               },
             ].map((item) => (
-              <div key={item.title} className="group relative flex flex-col items-center rounded-xl border border-transparent p-6 text-center transition-all hover:border-border hover:bg-muted/30 hover:shadow-sm">
+              <div key={item.step} className="group relative flex flex-col items-center rounded-xl border border-transparent p-6 text-center transition-all hover:border-border hover:bg-muted/30 hover:shadow-sm">
                 <div className="absolute -top-3 left-6 text-5xl font-black text-muted-foreground/10">
                   {item.step}
                 </div>
@@ -287,10 +287,10 @@ export default function LandingPage() {
       <section className="bg-gradient-to-br from-[#1A1A2E] to-[#0F3460] py-16 sm:py-20 text-white">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {t('landing.readyToExplore')}
+            {cms('cta_title', t('landing.readyToExplore'))}
           </h2>
           <p className="mt-4 text-lg text-white/70">
-            {t('landing.readyToExploreDesc')}
+            {cms('cta_desc', t('landing.readyToExploreDesc'))}
           </p>
           <div className="mt-8 flex flex-col items-center gap-4">
             {user ? (

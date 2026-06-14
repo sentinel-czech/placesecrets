@@ -1,5 +1,6 @@
 {
   "SUPABASE_URL": "https://your-project.supabase.co",
   "SUPABASE_ANON_KEY": "your-anon-key-here",
-  "ENVIRONMENT": "prod"
+  "ENVIRONMENT": "prod",
+  "GOOGLE_IOS_CLIENT_ID": ""
 }

@@ -49,6 +49,22 @@
 	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- Deep links: custom scheme placesecrets:// (purchase callbacks).
+	     Universal links for https://placesecrets.app additionally require an
+	     Associated Domains entitlement + apple-app-site-association on the domain. -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>app.placesecrets</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>placesecrets</string>
+			</array>
+		</dict>
+	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>PlaceSecrets needs your location to show nearby points of interest and trigger audio guides.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>

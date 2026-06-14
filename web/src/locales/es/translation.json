@@ -886,6 +886,15 @@
     "successDesc": "Tu acceso se ha desbloqueado. Puede tardar un momento.",
     "goToAccount": "Ir a mi cuenta",
     "cancelTitle": "Pago cancelado",
-    "cancelDesc": "No se realizó ningún cargo. Puedes intentarlo de nuevo."
+    "cancelDesc": "No se realizó ningún cargo. Puedes intentarlo de nuevo.",
+    "confirmingTitle": "Confirmando tu pago…",
+    "confirmingDesc": "Esto suele tardar unos segundos.",
+    "unlockedDesc": "Tu acceso ha sido desbloqueado."
+  },
+  "cookies": {
+    "title": "Aviso de cookies",
+    "message": "Solo usamos almacenamiento técnico necesario (p. ej. inicio de sesión e idioma). No usamos cookies de publicidad ni de seguimiento.",
+    "learnMore": "Política de privacidad",
+    "accept": "Entendido"
   }
 }

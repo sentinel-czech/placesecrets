@@ -1,0 +1,26 @@
+# Netlify deployment config for the PlaceSecrets web app (Vite SPA).
+# Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in the Netlify site
+# environment variables (Site settings → Environment) — they are injected at
+# build time. The anon key is publishable (protected by RLS).
+
+[build]
+  base = "web"
+  command = "npm run build"
+  publish = "dist"
+
+# SPA fallback: every non-asset path serves index.html so client-side routes
+# (/account/*, /admin/*, /:country/:city/:poi) work on direct navigation/refresh.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Security headers.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(self), camera=(), microphone=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.supabase.in wss://*.supabase.co https://*.tile.openstreetmap.org; frame-src 'self' https://payments.comgate.cz https://checkout.stripe.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'"

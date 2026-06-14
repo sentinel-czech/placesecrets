@@ -21,6 +21,7 @@ class FakeRatingsRepository implements RatingsRepository {
     required int rating,
     RatingReason? reason,
     required String langCode,
+    String? comment,
   }) async {
     submitCalled = true;
     submittedRating = rating;
@@ -43,6 +44,7 @@ Widget _wrap({
   return ProviderScope(
     overrides: [
       // For family providers, override each concrete provider instance
+      canSubmitRatingProvider.overrideWithValue(true),
       myPoiRatingProvider('poi-1')
           .overrideWith((ref) => Future.value(existingRating)),
       ratingsRepositoryProvider.overrideWith((ref) => repo),
@@ -168,14 +170,13 @@ void main() {
 
     testWidgets('submit button disabled while submitting', (tester) async {
       final completer = Completer<void>();
-      final fakeRepo = FakeRatingsRepository();
 
       // Make submitRating hang until we complete the future
-      bool originalSubmitCalled = false;
       final slowRepo = _SlowFakeRatingsRepository(completer);
 
       await tester.pumpWidget(ProviderScope(
         overrides: [
+          canSubmitRatingProvider.overrideWithValue(true),
           myPoiRatingProvider('poi-1')
               .overrideWith((ref) => Future.value(null)),
           ratingsRepositoryProvider.overrideWith((ref) => slowRepo),
@@ -221,6 +222,7 @@ class _SlowFakeRatingsRepository implements RatingsRepository {
     required int rating,
     RatingReason? reason,
     required String langCode,
+    String? comment,
   }) => completer.future;
 
   @override

@@ -11,6 +11,20 @@ Living plán. `~~přeškrtnuté~~` = ověřeno v kódu jako hotové (neimplement
 - ~~**Fáze C** — Comgate scaffolding HOTOVO (mig 0452: config pole + `comgate` enum; edge fn `comgate-create`+`comgate-webhook`; web `BuyButton` + /purchase/success|cancel; SettingsPage Comgate pole). **Čeká jen na `COMGATE_MERCHANT`/`COMGATE_SECRET`** (env secrets) pro reálnou platbu — bez nich `comgate-create` vrací 503. Google Pay na webu odloženo (todo).~~ ✅ (scaffolding)
 - ~~**Fáze F** — i18n: všechny nové + chybějící klíče přeloženy do všech 11 jazyků (parita 771 klíčů, 0 chybějících). Strojové překlady — doporučena revize rodilým mluvčím.~~ ✅
 - Drobnost: zobrazení avataru v hlavičce `AccountShell` (profil ho už ukládá+zobrazuje).
+- ~~**Mobilní kritická vrstva** (parita s webem, bez adminu) — vyhledávání (`/search`, `search_pois`),
+  katalog měst (`/catalog`→`/catalog/:cityId`), „Můj přístup" (`/account/access`, `get_my_entitlements`),
+  consent+ověření emailu při registraci (consent timestamps, resend), změna hesla/emailu v Settings
+  (`auth.updateUser`). + oprava rating gate (vyloučit anonymní session). `flutter analyze` 0, `flutter test` 214. Viz `MOBILE-PARITY.md`.~~ ✅ (2026-06-13)
+  - ~~Mobil — vysoká priorita (recenze + avatar): recenze/komentáře u místa (`get_poi_reviews` read +
+    paginace, komentář u hodnocení `poi_ratings.comment`, login-only) — `poi_reviews_section.dart`;
+    avatar upload (`image_picker` → bucket `avatars` → `user_profiles.avatar_url`) v Settings.
+    `flutter analyze` 0, `flutter test` 220 (+model testy).~~ ✅ (2026-06-13)
+  - ~~Mobil — vysoká priorita (účtenky + app-wide jazyk): účtenky/historie plateb z `payment_receipts`
+    (owner-read RLS) → `receipts_screen.dart` (`/account/receipts`, částky/datum/stav/PDF přes `url_launcher`);
+    app-wide jazyk — `AppLocale` controller (persist `pref_app_language` + sync `user_profiles.language`,
+    `MaterialApp.locale` + 11 `supportedLocales`), Settings „App language". `flutter analyze` 0, `flutter test` 224.~~ ✅ (2026-06-14)
+  - Mobil — celá kritická + vysoká vrstva HOTOVA. Zbývá střední priorita: OAuth (Google/Apple), registrace
+    přispěvatele, GDPR export, země-level nákup; + extrakce UI chrome stringů do `AppLocalizations` (zatím natvrdo EN).
 
 Stav: web **293** testů, edge **72**, tsc 0, `npm audit` 0, 59 migrací aplikováno čistě (`supabase db reset`).
 
@@ -115,6 +129,10 @@ Ponecháno jako záznam; položky přeškrtnuté.
 **P3:**
 - ~~Odstranit `admin.herodots.app` z CORS allowlistů~~ ✅. Wildcard u `create-poi-checkout`/`confirm-poi-payment` ponechán (chrání JWT/Stripe podpis; allowlist by rozbil veřejný nákup).
 - ~~CI pipeline (`.github/workflows/ci.yml`: lint+tsc+build+test+audit) + secret-scan pre-commit hook~~ ✅
-- ~~Branding `operator_name` HeroDots → PlaceSecrets~~ ✅ (seed + migrace 0446 + generate_docs). **Zbývá (mimo rozsah):** balíček `cz.tuma.herodots` / `herodots.iml` (breaking pro app store — samostatná úloha).
+- ~~Branding `operator_name` HeroDots → PlaceSecrets~~ ✅ (seed + migrace 0446 + generate_docs).
+  ~~Balíček `cz.tuma.herodots` → `cz.tuma.placesecrets` + `.iml` přejmenování~~ ✅ (ověřeno 2026-06-14:
+  `build.gradle.kts` namespace+applicationId = `cz.tuma.placesecrets`, `MainActivity.kt` v `cz/tuma/placesecrets/`,
+  `app/placesecrets.iml` + `app/android/placesecrets_android.iml`; jediný zbytek „herodots" je záměrný regression
+  test removed CORS origin). Viz `APP-GAP-ANALYSIS.md`.
 - **Zbývá:** generovaný PDF v gitu (zvážit generování v CI místo commitování). Konvence migrací: nepřečíslovávat, forward-only (rozhodnuto).
 - **Zbývá:** Flutter závislosti review (mobil). Admin UI pro moderaci hodnocení audio guidů (dnes jen POI recenze).

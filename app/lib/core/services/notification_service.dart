@@ -1,9 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../constants/app_constants.dart';
 
 class NotificationService {
   static final _plugin = FlutterLocalNotificationsPlugin();
+
+  /// Called when the user taps a local notification, with its payload (a POI id
+  /// for geofence alerts). Wired by the app bootstrapper to navigate.
+  static void Function(String payload)? onSelect;
 
   static Future<void> initialize() async {
     const androidSettings =
@@ -17,7 +22,10 @@ class NotificationService {
       android: androidSettings,
       iOS: iosSettings,
     );
-    await _plugin.initialize(settings);
+    await _plugin.initialize(
+      settings,
+      onDidReceiveNotificationResponse: _onResponse,
+    );
 
     // Create notification channel for Android
     const channel = AndroidNotificationChannel(
@@ -32,10 +40,22 @@ class NotificationService {
         ?.createNotificationChannel(channel);
   }
 
+  static void _onResponse(NotificationResponse response) {
+    final payload = response.payload;
+    if (payload != null && payload.isNotEmpty) {
+      try {
+        onSelect?.call(payload);
+      } catch (e) {
+        debugPrint('Notification tap handler failed: $e');
+      }
+    }
+  }
+
   static Future<void> showPoiNearby({
     required int id,
     required String poiName,
     String? body,
+    String? payload,
   }) async {
     await _plugin.show(
       id,
@@ -50,6 +70,7 @@ class NotificationService {
         ),
         iOS: DarwinNotificationDetails(),
       ),
+      payload: payload,
     );
   }
 }

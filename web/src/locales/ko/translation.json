@@ -886,6 +886,15 @@
     "successDesc": "이용 권한이 활성화되었습니다. 잠시 후 표시될 수 있습니다.",
     "goToAccount": "내 계정으로 이동",
     "cancelTitle": "결제 취소됨",
-    "cancelDesc": "결제가 이루어지지 않았습니다. 언제든 다시 시도할 수 있습니다."
+    "cancelDesc": "결제가 이루어지지 않았습니다. 언제든 다시 시도할 수 있습니다.",
+    "confirmingTitle": "결제를 확인하는 중…",
+    "confirmingDesc": "보통 몇 초 정도 걸립니다.",
+    "unlockedDesc": "액세스 권한이 잠금 해제되었습니다."
+  },
+  "cookies": {
+    "title": "쿠키 안내",
+    "message": "우리는 필요한 기술적 저장소(예: 로그인 및 언어)만 사용합니다. 광고나 추적 쿠키는 사용하지 않습니다.",
+    "learnMore": "개인정보 처리방침",
+    "accept": "확인"
   }
 }

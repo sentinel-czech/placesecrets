@@ -92,6 +92,19 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                 onPressed: () => context.pop(),
                 child: const Text('Return to Map'),
               ),
+            ] else if (paymentState.status == PaymentStatus.pending) ...[
+              Icon(Icons.hourglass_top, size: 48, color: theme.colorScheme.primary),
+              const SizedBox(height: 8),
+              const Text(
+                'Payment initiated. Your access will unlock automatically once '
+                'the payment is confirmed.',
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              FilledButton(
+                onPressed: () => context.pop(),
+                child: const Text('Return to Map'),
+              ),
             ] else
               configAsync.when(
                 loading: () => const CircularProgressIndicator(),
@@ -183,16 +196,15 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
       config: config,
     );
 
-    if (result.success) {
-      ref
-          .read(paymentFlowStateProvider.notifier)
-          .setSuccess(result.transactionId);
+    final notifier = ref.read(paymentFlowStateProvider.notifier);
+    if (result.pending) {
+      notifier.setPending(result.transactionId);
+    } else if (result.success) {
+      notifier.setSuccess(result.transactionId);
       ref.invalidate(hasCityAccessProvider(city.id));
       ref.invalidate(userPurchasesProvider);
     } else {
-      ref
-          .read(paymentFlowStateProvider.notifier)
-          .setError(result.error ?? 'Payment failed');
+      notifier.setError(result.error ?? 'Payment failed');
     }
 
     setState(() => _processing = false);

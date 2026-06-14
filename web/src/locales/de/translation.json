@@ -886,6 +886,15 @@
     "successDesc": "Dein Zugang wurde freigeschaltet. Es kann einen Moment dauern.",
     "goToAccount": "Zu meinem Konto",
     "cancelTitle": "Zahlung abgebrochen",
-    "cancelDesc": "Es wurde keine Zahlung abgebucht. Du kannst es jederzeit erneut versuchen."
+    "cancelDesc": "Es wurde keine Zahlung abgebucht. Du kannst es jederzeit erneut versuchen.",
+    "confirmingTitle": "Zahlung wird bestätigt…",
+    "confirmingDesc": "Das dauert meist nur wenige Sekunden.",
+    "unlockedDesc": "Ihr Zugang wurde freigeschaltet."
+  },
+  "cookies": {
+    "title": "Cookie-Hinweis",
+    "message": "Wir verwenden nur notwendige technische Speicherung (z. B. Login und Sprache). Wir verwenden keine Werbe- oder Tracking-Cookies.",
+    "learnMore": "Datenschutz",
+    "accept": "Verstanden"
   }
 }

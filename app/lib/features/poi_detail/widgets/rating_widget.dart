@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../data/repositories/ratings_repository.dart';
 import '../../../domain/models/poi_rating.dart';
@@ -21,11 +20,18 @@ class _RatingWidgetState extends ConsumerState<RatingWidget> {
   bool _submitted = false;
   bool _loading = false;
   RatingReason? _reason;
+  final _commentController = TextEditingController();
+
+  @override
+  void dispose() {
+    _commentController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Ratings are for signed-in users only.
-    if (Supabase.instance.client.auth.currentUser == null) {
+    // Ratings are for signed-in (non-anonymous) users only.
+    if (!ref.watch(canSubmitRatingProvider)) {
       return const _SignInToRateWidget();
     }
 
@@ -120,6 +126,19 @@ class _RatingWidgetState extends ConsumerState<RatingWidget> {
           ],
           if (_selected != null) ...[
             const SizedBox(height: 12),
+            TextField(
+              controller: _commentController,
+              maxLines: 3,
+              minLines: 1,
+              maxLength: 1000,
+              textInputAction: TextInputAction.newline,
+              decoration: const InputDecoration(
+                labelText: 'Add a comment (optional)',
+                border: OutlineInputBorder(),
+                isDense: true,
+              ),
+            ),
+            const SizedBox(height: 8),
             SizedBox(
               width: double.infinity,
               child: FilledButton(
@@ -152,7 +171,12 @@ class _RatingWidgetState extends ConsumerState<RatingWidget> {
             rating: _selected!,
             reason: _reason,
             langCode: widget.langCode,
+            comment: _commentController.text,
           );
+
+      // Refresh the visible reviews + rating so the new entry shows up.
+      ref.invalidate(poiReviewsProvider(widget.poiId));
+      ref.invalidate(myPoiRatingProvider(widget.poiId));
 
       if (mounted) {
         setState(() {

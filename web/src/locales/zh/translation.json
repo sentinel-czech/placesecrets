@@ -886,6 +886,15 @@
     "successDesc": "您的访问权限已解锁，可能需要片刻才能显示。",
     "goToAccount": "前往我的账户",
     "cancelTitle": "付款已取消",
-    "cancelDesc": "未扣款。您可以随时重试。"
+    "cancelDesc": "未扣款。您可以随时重试。",
+    "confirmingTitle": "正在确认您的付款…",
+    "confirmingDesc": "通常只需几秒钟。",
+    "unlockedDesc": "您的访问权限已解锁。"
+  },
+  "cookies": {
+    "title": "Cookie 通知",
+    "message": "我们仅使用必要的技术存储（例如登录和语言）。我们不使用广告或跟踪 Cookie。",
+    "learnMore": "隐私政策",
+    "accept": "知道了"
   }
 }

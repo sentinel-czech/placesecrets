@@ -13,7 +13,7 @@ void main() {
       SharedPreferences.setMockInitialValues({});
     });
 
-    testWidgets('renders 3-page carousel with page indicators',
+    testWidgets('renders carousel with page indicators',
         (tester) async {
       await tester.pumpWidget(_wrap());
       await tester.pumpAndSettle();
@@ -70,15 +70,16 @@ void main() {
       await tester.pumpWidget(_wrap());
       await tester.pumpAndSettle();
 
-      // Navigate to last page
-      await tester.drag(find.byType(PageView), const Offset(-400, 0));
-      await tester.pumpAndSettle();
-      await tester.drag(find.byType(PageView), const Offset(-400, 0));
-      await tester.pumpAndSettle();
+      // Navigate to the last page (4 pages: 3 intro + 1 permission priming).
+      for (var i = 0; i < 3; i++) {
+        await tester.drag(find.byType(PageView), const Offset(-400, 0));
+        await tester.pumpAndSettle();
+      }
 
       // On last page, button should say "Get Started"
       expect(find.text('Get Started'), findsOneWidget);
       expect(find.text('Next'), findsNothing);
+      expect(find.text('Stay in the Loop'), findsOneWidget);
     });
   });
 }

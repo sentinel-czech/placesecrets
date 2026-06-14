@@ -59,6 +59,23 @@ final userPurchasesProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef UserPurchasesRef = AutoDisposeFutureProviderRef<List<UserAccess>>;
+String _$userReceiptsHash() => r'579d094f4c978bd707b17d7b808a6c642edfc29f';
+
+/// See also [userReceipts].
+@ProviderFor(userReceipts)
+final userReceiptsProvider =
+    AutoDisposeFutureProvider<List<PaymentReceipt>>.internal(
+  userReceipts,
+  name: r'userReceiptsProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$userReceiptsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef UserReceiptsRef = AutoDisposeFutureProviderRef<List<PaymentReceipt>>;
 String _$hasCityAccessHash() => r'738396cb35d0600c5934331b722399dd1f2552d3';
 
 /// Copied from Dart SDK

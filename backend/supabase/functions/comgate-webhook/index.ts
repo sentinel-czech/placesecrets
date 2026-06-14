@@ -1,31 +1,60 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 // Comgate status callback (server-to-server, x-www-form-urlencoded). On a PAID
-// status we grant the entitlement encoded in refId. Credentials supplied later.
+// status we grant the entitlement encoded in refId.
 //
-// NOTE for production hardening: instead of trusting the echoed `secret`, verify
-// the payment by calling Comgate's status API (merchant+secret+transId) before
-// granting. This scaffolding checks the shared secret Comgate echoes back.
+// Hardening: we do NOT trust the callback body alone. After the shared-secret
+// gate we re-verify the transaction by calling Comgate's status API
+// (merchant + secret + transId) and grant ONLY when that authoritative response
+// reports PAID. The grant target and price are taken from the verified status
+// response, not the (forgeable) callback body. Grants are idempotent (upsert on
+// the natural key), so replays are safe.
+
+const COMGATE_STATUS_URL = 'https://payments.comgate.cz/v1.0/status'
 
 Deno.serve(async (req) => {
   if (req.method !== 'POST') return new Response('Method Not Allowed', { status: 405 })
 
+  const merchant = Deno.env.get('COMGATE_MERCHANT')
   const secret = Deno.env.get('COMGATE_SECRET')
-  if (!secret) return new Response('Comgate not configured', { status: 503 })
+  if (!merchant || !secret) return new Response('Comgate not configured', { status: 503 })
 
   const text = await req.text()
   const p = new URLSearchParams(text)
 
+  // First gate: shared secret echoed by Comgate.
   if (p.get('secret') !== secret) {
     return new Response('Invalid secret', { status: 401 })
   }
 
-  const status = p.get('status')
-  if (status !== 'PAID') return new Response('OK', { status: 200 }) // ignore non-paid states
-
-  const refId = p.get('refId') || ''
   const transId = p.get('transId') || ''
-  const priceEur = (parseInt(p.get('price') || '0', 10) || 0) / 100
+  if (!transId) return new Response('Missing transId', { status: 400 })
+
+  // Second gate: re-verify the transaction against Comgate's status API. This
+  // is the authoritative check — a forged callback cannot pass it.
+  let verified: URLSearchParams
+  try {
+    const statusRes = await fetch(COMGATE_STATUS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ merchant, secret, transId }),
+    })
+    verified = new URLSearchParams(await statusRes.text())
+  } catch (err) {
+    console.error('comgate-webhook status verify failed:', err)
+    return new Response('Verification failed', { status: 502 })
+  }
+
+  if (verified.get('code') !== '0') {
+    return new Response('Unverifiable transaction', { status: 400 })
+  }
+  if (verified.get('status') !== 'PAID') {
+    return new Response('OK', { status: 200 }) // not paid (yet) — ignore
+  }
+
+  // Use the VERIFIED refId and price, not the callback body.
+  const refId = verified.get('refId') || ''
+  const priceEur = (parseInt(verified.get('price') || '0', 10) || 0) / 100
   const [purchaseType, userId, itemRef] = refId.split('~')
   if (!purchaseType || !userId || !itemRef) return new Response('Bad refId', { status: 400 })
 

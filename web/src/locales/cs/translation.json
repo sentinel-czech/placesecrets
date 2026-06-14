@@ -886,6 +886,15 @@
     "successDesc": "Váš přístup byl odemčen. Může chvíli trvat, než se projeví.",
     "goToAccount": "Přejít na můj účet",
     "cancelTitle": "Platba zrušena",
-    "cancelDesc": "Nebyla stržena žádná platba. Můžete to kdykoli zkusit znovu."
+    "cancelDesc": "Nebyla stržena žádná platba. Můžete to kdykoli zkusit znovu.",
+    "confirmingTitle": "Potvrzujeme vaši platbu…",
+    "confirmingDesc": "Obvykle to trvá pár sekund.",
+    "unlockedDesc": "Váš přístup byl odemčen."
+  },
+  "cookies": {
+    "title": "Cookies",
+    "message": "Používáme jen nezbytné technické úložiště (např. přihlášení a jazyk). Nepoužíváme reklamní ani sledovací cookies.",
+    "learnMore": "Zásady ochrany soukromí",
+    "accept": "Rozumím"
   }
 }

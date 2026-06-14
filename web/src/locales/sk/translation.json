@@ -886,6 +886,15 @@
     "successDesc": "Váš prístup bol odomknutý. Môže chvíľu trvať, kým sa prejaví.",
     "goToAccount": "Prejsť na môj účet",
     "cancelTitle": "Platba zrušená",
-    "cancelDesc": "Nebola stiahnutá žiadna platba. Môžete to kedykoľvek skúsiť znova."
+    "cancelDesc": "Nebola stiahnutá žiadna platba. Môžete to kedykoľvek skúsiť znova.",
+    "confirmingTitle": "Potvrdzujeme vašu platbu…",
+    "confirmingDesc": "Zvyčajne to trvá pár sekúnd.",
+    "unlockedDesc": "Váš prístup bol odomknutý."
+  },
+  "cookies": {
+    "title": "Cookies",
+    "message": "Používame len nevyhnutné technické úložisko (napr. prihlásenie a jazyk). Nepoužívame reklamné ani sledovacie cookies.",
+    "learnMore": "Zásady ochrany súkromia",
+    "accept": "Rozumiem"
   }
 }

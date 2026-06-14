@@ -3,8 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../features/account/my_access_screen.dart';
 import '../features/account/my_purchases_screen.dart';
+import '../features/account/receipts_screen.dart';
 import '../features/auth/auth_screen.dart';
+import '../features/catalog/catalog_screen.dart';
+import '../features/catalog/city_places_screen.dart';
+import '../features/contributor/contributor_profile_screen.dart';
 import '../features/export/export_screen.dart';
 import '../features/hall_of_fame/hall_of_fame_screen.dart';
 import '../features/history/history_screen.dart';
@@ -14,6 +19,7 @@ import '../features/payment/paywall_screen.dart';
 import '../features/poi_detail/poi_by_slug_screen.dart';
 import '../features/poi_detail/poi_detail_screen.dart';
 import '../features/purchase/purchase_poi_screen.dart';
+import '../features/search/search_screen.dart';
 import '../features/settings/settings_screen.dart';
 import '../shared/widgets/main_scaffold.dart';
 
@@ -115,18 +121,15 @@ GoRouter router(RouterRef ref) {
             HallOfFameScreen(cityId: state.pathParameters['cityId']!),
       ),
       GoRoute(
-        path: '/contributor/:userId',
+        path: '/contributor/:id',
         name: 'contributor_profile',
         redirect: (_, state) {
-          final userId = state.pathParameters['userId'];
-          if (!AppRouter.isValidUuid(userId)) return '/';
+          final id = state.pathParameters['id'];
+          if (!AppRouter.isValidUuid(id)) return '/';
           return null;
         },
-        builder: (_, state) => Scaffold(
-          appBar: AppBar(title: const Text('Contributor Profile')),
-          body: Center(
-              child: Text(
-                  'Contributor: ${state.pathParameters['userId']}')),
+        builder: (_, state) => ContributorProfileScreen(
+          contributorId: state.pathParameters['id']!,
         ),
       ),
       GoRoute(
@@ -153,6 +156,39 @@ GoRouter router(RouterRef ref) {
         path: '/account/purchases',
         name: 'my_purchases',
         builder: (_, __) => const MyPurchasesScreen(),
+      ),
+      GoRoute(
+        path: '/account/access',
+        name: 'my_access',
+        builder: (_, __) => const MyAccessScreen(),
+      ),
+      GoRoute(
+        path: '/account/receipts',
+        name: 'receipts',
+        builder: (_, __) => const ReceiptsScreen(),
+      ),
+      GoRoute(
+        path: '/search',
+        name: 'search',
+        builder: (_, __) => const SearchScreen(),
+      ),
+      GoRoute(
+        path: '/catalog',
+        name: 'catalog',
+        builder: (_, __) => const CatalogScreen(),
+      ),
+      GoRoute(
+        path: '/catalog/:cityId',
+        name: 'city_places',
+        redirect: (_, state) {
+          final cityId = state.pathParameters['cityId'];
+          if (!AppRouter.isValidUuid(cityId)) return '/catalog';
+          return null;
+        },
+        builder: (_, state) => CityPlacesScreen(
+          cityId: state.pathParameters['cityId']!,
+          cityName: state.extra is String ? state.extra as String : null,
+        ),
       ),
     ],
   );

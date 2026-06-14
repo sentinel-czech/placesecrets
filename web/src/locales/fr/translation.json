@@ -886,6 +886,15 @@
     "successDesc": "Votre accès a été débloqué. Cela peut prendre un instant.",
     "goToAccount": "Aller à mon compte",
     "cancelTitle": "Paiement annulé",
-    "cancelDesc": "Aucun paiement n'a été prélevé. Réessayez à tout moment."
+    "cancelDesc": "Aucun paiement n'a été prélevé. Réessayez à tout moment.",
+    "confirmingTitle": "Confirmation de votre paiement…",
+    "confirmingDesc": "Cela prend généralement quelques secondes.",
+    "unlockedDesc": "Votre accès a été débloqué."
+  },
+  "cookies": {
+    "title": "Avis sur les cookies",
+    "message": "Nous utilisons uniquement le stockage technique nécessaire (par ex. connexion et langue). Nous n'utilisons pas de cookies publicitaires ou de suivi.",
+    "learnMore": "Politique de confidentialité",
+    "accept": "J'ai compris"
   }
 }

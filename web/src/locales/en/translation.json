@@ -886,6 +886,15 @@
     "successDesc": "Your access has been unlocked. It may take a moment to appear.",
     "goToAccount": "Go to my account",
     "cancelTitle": "Payment cancelled",
-    "cancelDesc": "No payment was taken. You can try again anytime."
+    "cancelDesc": "No payment was taken. You can try again anytime.",
+    "confirmingTitle": "Confirming your payment…",
+    "confirmingDesc": "This usually takes a few seconds.",
+    "unlockedDesc": "Your access has been unlocked."
+  },
+  "cookies": {
+    "title": "Cookie notice",
+    "message": "We use only necessary technical storage (e.g. login and language). We do not use advertising or tracking cookies.",
+    "learnMore": "Privacy Policy",
+    "accept": "Got it"
   }
 }

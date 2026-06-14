@@ -1,11 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:drift/drift.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../data/local/app_database.dart';
-import 'device_service.dart';
 
 class SyncService {
   final SupabaseClient _supabase;
@@ -41,9 +41,10 @@ class SyncService {
   }
 
   Future<void> _pushLocalRatings() async {
-    final userId = _supabase.auth.currentUser?.id;
-    final deviceId =
-        userId == null ? await DeviceService.getOrCreateDeviceId() : null;
+    // Ratings are login-only (migration 0453): only an authenticated, real
+    // (non-anonymous) user may push. Anonymous device ratings are not synced.
+    final user = _supabase.auth.currentUser;
+    if (user == null || user.isAnonymous) return;
 
     final localRatings = await _db.select(_db.ratedPoisTable).get();
     for (final rating in localRatings) {
@@ -51,13 +52,12 @@ class SyncService {
         await _supabase.from('poi_ratings').upsert(
           {
             'poi_id': rating.poiId,
-            'user_id': userId,
-            'device_id': deviceId,
+            'user_id': user.id,
             'rating': rating.rating,
             'reason': rating.reason,
             'lang_code': rating.langCode,
           },
-          onConflict: userId != null ? 'poi_id,user_id' : 'poi_id,device_id',
+          onConflict: 'poi_id,user_id',
         );
       } catch (_) {
         // Will retry on next sync
@@ -96,8 +96,11 @@ class SyncService {
   }
 
   String _encodeJson(dynamic value) {
+    // Supabase returns jsonb columns already decoded (Map/List); a plain String
+    // is passed through. jsonEncode produces valid JSON the cache can decode
+    // back (toString() on a Map would not be valid JSON).
     if (value is String) return value;
-    return value.toString();
+    return jsonEncode(value);
   }
 
   void dispose() {

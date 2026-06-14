@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useAuthStore } from '@/hooks/useAuth'
 import { Toaster } from '@/components/ui/sonner'
 
+import { CookieConsent } from '@/components/shared/CookieConsent'
 import { AdminGuard } from '@/components/layout/AdminGuard'
 import { AccountGuard } from '@/components/layout/AccountGuard'
 import { AppShell } from '@/components/layout/AppShell'
@@ -148,6 +149,7 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Toaster />
+      <CookieConsent />
     </BrowserRouter>
   )
 }

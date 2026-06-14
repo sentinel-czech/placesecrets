@@ -26,7 +26,8 @@ class _FakeAuthStateNotifier extends AuthState {
   Future<void> signInWithEmail(String email, String password) async {}
 
   @override
-  Future<void> signUp(String email, String password, {String? handle}) async {}
+  Future<void> signUp(String email, String password,
+      {String? handle, bool acceptedTerms = false}) async {}
 
   @override
   Future<void> resetPassword(String email) async {}

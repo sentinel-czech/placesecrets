@@ -1,0 +1,11 @@
+# Android release signing — copy to `android/key.properties` (gitignored) and
+# fill in real values. Generate an upload keystore with:
+#   keytool -genkey -v -keystore ~/placesecrets-upload.jks \
+#     -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+#
+# `storeFile` is resolved relative to the `android/app` module directory, so an
+# absolute path is recommended.
+storePassword=changeme
+keyPassword=changeme
+keyAlias=upload
+storeFile=/absolute/path/to/placesecrets-upload.jks

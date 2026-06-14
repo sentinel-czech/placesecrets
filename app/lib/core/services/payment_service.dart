@@ -12,10 +12,20 @@ enum PaymentMethod { googlePay, applePay, revolut }
 
 class PaymentResult {
   final bool success;
+
+  /// Payment was initiated but not yet confirmed (e.g. Revolut, where the grant
+  /// arrives later via webhook). Not a success and not an error — the UI should
+  /// tell the user access unlocks once the payment is confirmed.
+  final bool pending;
   final String? transactionId;
   final String? error;
 
-  const PaymentResult({required this.success, this.transactionId, this.error});
+  const PaymentResult({
+    required this.success,
+    this.pending = false,
+    this.transactionId,
+    this.error,
+  });
 }
 
 class PaymentService {
@@ -191,7 +201,8 @@ class PaymentService {
             success: false, error: 'Could not open Revolut');
       }
 
-      // For Revolut, payment confirmation happens via webhook
+      // Revolut grant is confirmed server-side via webhook, so this is PENDING,
+      // not a success — the user is told access unlocks once payment confirms.
       final response =
           await _supabase.functions.invoke('create-payment-intent', body: {
         'city_id': cityId,
@@ -201,7 +212,8 @@ class PaymentService {
 
       final data = response.data as Map<String, dynamic>?;
       return PaymentResult(
-        success: true,
+        success: false,
+        pending: true,
         transactionId: data?['payment_id'] as String?,
       );
     } catch (e) {

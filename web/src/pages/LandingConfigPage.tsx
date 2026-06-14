@@ -1,13 +1,32 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { adminSelect, adminUpdate } from '@/lib/supabase/admin-api'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Section } from '@/components/shared/Section'
 import { toast } from 'sonner'
 
-const FIELDS = ['hero_title_1', 'hero_title_2', 'hero_title_3', 'hero_subtitle', 'tagline', 'footer_tagline'] as const
+// Landing-page CMS fields grouped by the section they render in. Each field is a
+// per-language JSONB column on `landing_config`; LandingPage falls back to its
+// i18n keys when a value is empty, so leaving a field blank is safe.
+const SECTIONS: { title: string; fields: string[] }[] = [
+  { title: 'Hero', fields: ['tagline', 'hero_title_1', 'hero_title_2', 'hero_title_3', 'hero_subtitle'] },
+  { title: 'Explore', fields: ['explore_title', 'explore_desc'] },
+  { title: 'Featured', fields: ['featured_title', 'featured_desc'] },
+  {
+    title: 'How it works',
+    fields: [
+      'how_title', 'how_desc',
+      'how_step1_title', 'how_step1_desc',
+      'how_step2_title', 'how_step2_desc',
+      'how_step3_title', 'how_step3_desc',
+    ],
+  },
+  { title: 'Call to action', fields: ['cta_title', 'cta_desc'] },
+  { title: 'Footer', fields: ['footer_tagline'] },
+]
+const FIELDS = SECTIONS.flatMap(s => s.fields)
 const LANGS = ['en', 'cs', 'sk', 'de', 'es', 'fr', 'pt', 'ru', 'vi', 'zh', 'ko']
 type Cfg = { id: number } & Record<string, Record<string, string>>
 
@@ -52,22 +71,29 @@ export default function LandingConfigPage() {
           </select>
         }
       >
-      <Card>
-        <CardContent className="space-y-4 pt-6">
-          {FIELDS.map(f => (
-            <div key={f} className="space-y-1">
-              <Label className="capitalize">{f.replace(/_/g, ' ')}</Label>
-              <textarea
-                value={cfg[f]?.[lang] || ''}
-                onChange={e => setField(f, e.target.value)}
-                rows={2}
-                className="w-full rounded-md border px-3 py-2 text-sm"
-              />
-            </div>
+        <div className="space-y-4">
+          {SECTIONS.map(section => (
+            <Card key={section.title}>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base">{section.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {section.fields.map(f => (
+                  <div key={f} className="space-y-1">
+                    <Label className="capitalize">{f.replace(/_/g, ' ')}</Label>
+                    <textarea
+                      value={cfg[f]?.[lang] || ''}
+                      onChange={e => setField(f, e.target.value)}
+                      rows={2}
+                      className="w-full rounded-md border px-3 py-2 text-sm"
+                    />
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
           ))}
           <Button onClick={save} disabled={saving}>{saving ? t('common.loading') : t('common.save')}</Button>
-        </CardContent>
-      </Card>
+        </div>
       </Section>
     </div>
   )
