@@ -580,7 +580,10 @@
       "date": "Date",
       "download": "Télécharger",
       "pdfUnavailable": "PDF du reçu non disponible",
-      "downloadFailed": "Échec du téléchargement du reçu"
+      "downloadFailed": "Échec du téléchargement du reçu",
+      "item": "Article",
+      "downloadPdf": "Télécharger le PDF",
+      "downloadImage": "Télécharger l'image"
     },
     "profile": {
       "title": "Mon profil",

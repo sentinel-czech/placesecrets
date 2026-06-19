@@ -8,7 +8,9 @@ class PaymentReceipt with _$PaymentReceipt {
   const factory PaymentReceipt({
     required String id,
     @JsonKey(name: 'user_id') required String userId,
-    @JsonKey(name: 'city_id') required String cityId,
+    @JsonKey(name: 'city_id') String? cityId,
+    @JsonKey(name: 'item_type') String? itemType,
+    @JsonKey(name: 'item_label') String? itemLabel,
     @JsonKey(name: 'purchased_at') required DateTime purchasedAt,
     @JsonKey(name: 'payment_method') required String paymentMethod,
     @JsonKey(name: 'transaction_id') String? transactionId,

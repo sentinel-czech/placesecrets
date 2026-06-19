@@ -12,7 +12,7 @@ import { Separator } from '@/components/ui/separator'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Shield, Mail, Calendar, Download, Receipt, Hash, AtSign, Loader2 } from 'lucide-react'
+import { Shield, Mail, Calendar, Download, Receipt, Hash, AtSign, Loader2, Image as ImageIcon } from 'lucide-react'
 import { toast } from 'sonner'
 import { MyAccessCard } from '@/components/account/MyAccessCard'
 
@@ -653,41 +653,51 @@ function PurchasesTab() {
       setLoading(true)
       const { data } = await supabase
         .from('payment_receipts')
-        .select('id, receipt_number, amount_eur, city_name, created_at, pdf_path')
+        .select('id, receipt_number, amount_eur, currency, item_label, payment_method, created_at, receipt_pdf_url')
         .eq('user_id', user!.id)
         .order('created_at', { ascending: false })
 
-      if (data) {
-        setReceipts(data)
-      }
+      if (data) setReceipts(data as PaymentReceipt[])
       setLoading(false)
     }
 
     loadReceipts()
   }, [user])
 
-  async function handleDownload(receipt: PaymentReceipt) {
-    if (!receipt.pdf_path) {
+  function triggerDownload(blob: Blob, filename: string) {
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = filename
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
+  async function handleDownloadPdf(receipt: PaymentReceipt) {
+    if (!receipt.receipt_pdf_url) {
       toast.error(t('user.receipts.pdfUnavailable'))
       return
     }
-
-    setDownloading(receipt.id)
+    setDownloading(receipt.id + ':pdf')
     try {
-      const { data, error } = await supabase.storage
-        .from('payment-receipts')
-        .download(receipt.pdf_path)
+      const res = await fetch(receipt.receipt_pdf_url)
+      if (!res.ok) throw new Error('fetch failed')
+      triggerDownload(await res.blob(), `${receipt.receipt_number}.pdf`)
+    } catch {
+      // Fallback: open in a new tab if direct download is blocked.
+      window.open(receipt.receipt_pdf_url, '_blank', 'noopener')
+    } finally {
+      setDownloading(null)
+    }
+  }
 
-      if (error) throw error
-
-      const url = URL.createObjectURL(data)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `${receipt.receipt_number}.pdf`
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-      URL.revokeObjectURL(url)
+  async function handleDownloadImage(receipt: PaymentReceipt) {
+    setDownloading(receipt.id + ':img')
+    try {
+      const blob = await renderReceiptPng(receipt)
+      triggerDownload(blob, `${receipt.receipt_number}.png`)
     } catch {
       toast.error(t('user.receipts.downloadFailed'))
     } finally {
@@ -719,28 +729,40 @@ function PurchasesTab() {
         <TableHeader>
           <TableRow>
             <TableHead>{t('user.receipts.receiptNumber')}</TableHead>
-            <TableHead>{t('user.receipts.city')}</TableHead>
+            <TableHead>{t('user.receipts.item', 'Item')}</TableHead>
             <TableHead>{t('user.receipts.amount')}</TableHead>
             <TableHead>{t('user.receipts.date')}</TableHead>
-            <TableHead className="w-[100px]">{t('user.receipts.download')}</TableHead>
+            <TableHead className="w-[120px]">{t('user.receipts.download')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {receipts.map(receipt => (
             <TableRow key={receipt.id}>
               <TableCell className="font-mono text-sm">{receipt.receipt_number}</TableCell>
-              <TableCell>{receipt.city_name}</TableCell>
-              <TableCell>{receipt.amount_eur.toFixed(2)} EUR</TableCell>
+              <TableCell>{receipt.item_label ?? '—'}</TableCell>
+              <TableCell>{receipt.amount_eur.toFixed(2)} {receipt.currency ?? 'EUR'}</TableCell>
               <TableCell>{new Date(receipt.created_at).toLocaleDateString()}</TableCell>
               <TableCell>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  disabled={!receipt.pdf_path || downloading === receipt.id}
-                  onClick={() => handleDownload(receipt)}
-                >
-                  <Download className="h-4 w-4" />
-                </Button>
+                <div className="flex gap-1">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    title={t('user.receipts.downloadPdf', 'Download PDF')}
+                    disabled={!receipt.receipt_pdf_url || downloading === receipt.id + ':pdf'}
+                    onClick={() => handleDownloadPdf(receipt)}
+                  >
+                    <Download className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    title={t('user.receipts.downloadImage', 'Download image')}
+                    disabled={downloading === receipt.id + ':img'}
+                    onClick={() => handleDownloadImage(receipt)}
+                  >
+                    <ImageIcon className="h-4 w-4" />
+                  </Button>
+                </div>
               </TableCell>
             </TableRow>
           ))}
@@ -754,7 +776,52 @@ interface PaymentReceipt {
   id: string
   receipt_number: string
   amount_eur: number
-  city_name: string
+  currency: string | null
+  item_label: string | null
+  payment_method: string | null
   created_at: string
-  pdf_path: string | null
+  receipt_pdf_url: string | null
+}
+
+/** Renders a styled receipt to a PNG blob via the Canvas API (full diacritics). */
+function renderReceiptPng(r: PaymentReceipt): Promise<Blob> {
+  const W = 720, H = 460, scale = 2
+  const canvas = document.createElement('canvas')
+  canvas.width = W * scale
+  canvas.height = H * scale
+  const ctx = canvas.getContext('2d')!
+  ctx.scale(scale, scale)
+
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H)
+  ctx.fillStyle = '#2D6A4F'; ctx.fillRect(0, 0, W, 90)
+  ctx.fillStyle = '#ffffff'
+  ctx.font = 'bold 28px system-ui, sans-serif'
+  ctx.fillText('PlaceSecrets', 40, 50)
+  ctx.font = '16px system-ui, sans-serif'
+  ctx.fillText('Payment receipt', 40, 74)
+
+  ctx.fillStyle = '#191919'
+  let y = 150
+  const line = (label: string, value: string) => {
+    ctx.font = 'bold 15px system-ui, sans-serif'; ctx.fillText(label, 40, y)
+    ctx.font = '15px system-ui, sans-serif'; ctx.fillText(value, 240, y)
+    y += 36
+  }
+  line('Receipt no.:', r.receipt_number)
+  line('Date:', new Date(r.created_at).toLocaleDateString())
+  line('Item:', r.item_label ?? '—')
+  line('Payment method:', r.payment_method ?? '—')
+
+  y += 8
+  ctx.strokeStyle = '#D8DEDB'; ctx.beginPath(); ctx.moveTo(40, y); ctx.lineTo(W - 40, y); ctx.stroke()
+  y += 40
+  ctx.fillStyle = '#2D6A4F'; ctx.font = 'bold 22px system-ui, sans-serif'
+  ctx.fillText('Total:', 40, y)
+  ctx.fillText(`${r.amount_eur.toFixed(2)} ${r.currency ?? 'EUR'}`, 240, y)
+
+  ctx.fillStyle = '#787878'; ctx.font = '12px system-ui, sans-serif'
+  ctx.fillText('PlaceSecrets — cz.tuma.placesecrets', 40, H - 30)
+
+  return new Promise((resolve, reject) =>
+    canvas.toBlob(b => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'))
 }

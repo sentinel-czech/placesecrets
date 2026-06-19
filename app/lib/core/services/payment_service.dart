@@ -257,7 +257,9 @@ class PaymentService {
     final methods = <PaymentMethod>[];
     if (Platform.isAndroid) methods.add(PaymentMethod.googlePay);
     if (Platform.isIOS) methods.add(PaymentMethod.applePay);
-    methods.add(PaymentMethod.revolut);
+    // Revolut is intentionally omitted: the revolut.me link flow has no payment
+    // confirmation (no webhook), so access would never unlock automatically.
+    // The `_payWithRevolut` path is kept for a future Revolut Merchant API.
     return methods;
   }
 }

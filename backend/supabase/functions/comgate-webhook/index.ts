@@ -1,4 +1,5 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { createReceipt } from '../_shared/receipt.ts'
 
 // Comgate status callback (server-to-server, x-www-form-urlencoded). On a PAID
 // status we grant the entitlement encoded in refId.
@@ -64,28 +65,57 @@ Deno.serve(async (req) => {
     { auth: { persistSession: false } }
   )
 
+  let receiptCityId: string | null = null
+  let itemLabel = 'PlaceSecrets purchase'
+
   try {
     if (purchaseType === 'poi') {
       await supabase.from('user_poi_purchases').upsert(
         { user_id: userId, poi_id: itemRef, price_paid: priceEur, payment_id: transId },
         { onConflict: 'user_id,poi_id' }
       )
+      const { data: poi } = await supabase.from('pois').select('name').eq('id', itemRef).maybeSingle()
+      itemLabel = `Premium place: ${localized(poi?.name)}`
     } else if (purchaseType === 'city_premium') {
       await supabase.from('user_city_premium_purchases').upsert(
         { user_id: userId, city_id: itemRef, price_paid: priceEur, payment_id: transId },
         { onConflict: 'user_id,city_id' }
       )
+      const { data: city } = await supabase.from('cities').select('name').eq('id', itemRef).maybeSingle()
+      receiptCityId = itemRef
+      itemLabel = `City bundle: ${city?.name ?? ''}`
     } else if (purchaseType === 'country') {
       await supabase.from('user_country_purchases').upsert(
         { user_id: userId, country_code: itemRef, price_paid: priceEur, payment_method: 'comgate' },
         { onConflict: 'user_id,country_code' }
       )
+      itemLabel = `Country access: ${itemRef}`
     } else {
       return new Response('Unknown purchase type', { status: 400 })
     }
+
+    // Issue a receipt (best-effort — must not fail the grant).
+    await createReceipt(supabase, {
+      userId,
+      cityId: receiptCityId,
+      itemType: purchaseType as 'poi' | 'city_premium' | 'country',
+      itemLabel,
+      amountEur: priceEur,
+      paymentMethod: 'comgate',
+      transactionId: transId,
+    })
+
     return new Response('OK', { status: 200 })
   } catch (err) {
     console.error('comgate-webhook error:', err)
     return new Response('DB error', { status: 500 })
   }
 })
+
+function localized(name: unknown): string {
+  if (name && typeof name === 'object') {
+    const m = name as Record<string, string>
+    return m.en ?? m.cs ?? Object.values(m)[0] ?? ''
+  }
+  return String(name ?? '')
+}

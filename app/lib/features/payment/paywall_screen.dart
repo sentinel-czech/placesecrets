@@ -129,9 +129,24 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
     final service = ref.read(paymentServiceProvider);
     final methods = service.availableMethods;
 
+    // Only show a wallet button when it is actually configured, so we never
+    // present a button that would fail on tap.
+    final googlePayReady = (config.googlePayMerchantId?.isNotEmpty ?? false) &&
+        (config.stripePublishableKey?.isNotEmpty ?? false);
+    final applePayReady = config.applePayMerchantId?.isNotEmpty ?? false;
+
+    final showGooglePay =
+        methods.contains(PaymentMethod.googlePay) && googlePayReady;
+    final showApplePay =
+        methods.contains(PaymentMethod.applePay) && applePayReady;
+
+    if (!showGooglePay && !showApplePay && !_processing) {
+      return const Text('Payment is not available on this device yet.');
+    }
+
     return Column(
       children: [
-        if (methods.contains(PaymentMethod.googlePay))
+        if (showGooglePay)
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
             child: SizedBox(
@@ -145,7 +160,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
             ),
           ),
 
-        if (methods.contains(PaymentMethod.applePay))
+        if (showApplePay)
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
             child: SizedBox(
@@ -156,18 +171,6 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                 icon: const Icon(Icons.apple),
                 label: const Text('Pay with Apple Pay'),
               ),
-            ),
-          ),
-
-        if (methods.contains(PaymentMethod.revolut) &&
-            config.revolutUsername != null)
-          SizedBox(
-            width: double.infinity,
-            child: OutlinedButton.icon(
-              onPressed:
-                  _processing ? null : () => _pay(city, config, PaymentMethod.revolut),
-              icon: const Icon(Icons.account_balance),
-              label: const Text('Pay with Revolut'),
             ),
           ),
 

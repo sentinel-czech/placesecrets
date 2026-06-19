@@ -580,7 +580,10 @@
       "date": "Date",
       "download": "Download",
       "pdfUnavailable": "Receipt PDF not available",
-      "downloadFailed": "Failed to download receipt"
+      "downloadFailed": "Failed to download receipt",
+      "item": "Item",
+      "downloadPdf": "Download PDF",
+      "downloadImage": "Download image"
     },
     "profile": {
       "title": "My Profile",

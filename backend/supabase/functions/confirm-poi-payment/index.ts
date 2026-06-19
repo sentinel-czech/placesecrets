@@ -2,6 +2,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import Stripe from 'https://esm.sh/stripe@14'
 import { corsHeaders, handleCors, jsonResponse, errorResponse } from '../_shared/cors.ts'
 import { UUID_RE } from '../_shared/validation.ts'
+import { createReceipt } from '../_shared/receipt.ts'
 
 Deno.serve(async (req) => {
   const corsResp = handleCors(req)
@@ -97,6 +98,30 @@ Deno.serve(async (req) => {
     } else {
       console.error('Unknown purchase_type:', purchaseType)
       return errorResponse('Unknown purchase type', 400)
+    }
+
+    // Issue a receipt for the Stripe purchase (best-effort).
+    if (pricePaid != null) {
+      let itemLabel = 'PlaceSecrets purchase'
+      let receiptCityId: string | null = null
+      if (purchaseType === 'poi') {
+        const { data: poi } = await supabase.from('pois').select('name').eq('id', metadata.poi_id).maybeSingle()
+        const n = poi?.name as Record<string, string> | undefined
+        itemLabel = `Premium place: ${n?.en ?? n?.cs ?? (n ? Object.values(n)[0] : '') ?? ''}`
+      } else {
+        receiptCityId = metadata.city_id as string
+        const { data: city } = await supabase.from('cities').select('name').eq('id', metadata.city_id).maybeSingle()
+        itemLabel = `City bundle: ${city?.name ?? ''}`
+      }
+      await createReceipt(supabase, {
+        userId,
+        cityId: receiptCityId,
+        itemType: purchaseType as 'poi' | 'city_premium',
+        itemLabel,
+        amountEur: pricePaid,
+        paymentMethod: 'stripe',
+        transactionId: session.payment_intent as string,
+      })
     }
 
     // Send confirmation email via Resend (optional, best-effort)

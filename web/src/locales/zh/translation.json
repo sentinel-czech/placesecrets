@@ -580,7 +580,10 @@
       "date": "日期",
       "download": "下载",
       "pdfUnavailable": "收据 PDF 不可用",
-      "downloadFailed": "下载收据失败"
+      "downloadFailed": "下载收据失败",
+      "item": "项目",
+      "downloadPdf": "下载 PDF",
+      "downloadImage": "下载图片"
     },
     "profile": {
       "title": "我的资料",

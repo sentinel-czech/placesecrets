@@ -580,7 +580,10 @@
       "date": "Data",
       "download": "Descarregar",
       "pdfUnavailable": "PDF do recibo não disponível",
-      "downloadFailed": "Falha ao descarregar o recibo"
+      "downloadFailed": "Falha ao descarregar o recibo",
+      "item": "Item",
+      "downloadPdf": "Baixar PDF",
+      "downloadImage": "Baixar imagem"
     },
     "profile": {
       "title": "Meu perfil",

@@ -79,6 +79,25 @@ do oprav NEpatří. Značení: `[✓zdroj]` = ověřeno ve zdroji, `[agent]` = h
     Revolut/Comgate platby, geofence/FCM/deep-link, Android release build s minify.
 - 📋 **`RELEASE-CHECKLIST.md`** — rozdělení zbývající práce: ② udělám já · ③ spolu · ④ jen ty (účty/právo/design).
 
+## Platby + účtenky (2026-06-15)
+- **Revolut: vypnuto** — end-to-end nefungovalo (revolut.me odkaz → `create-payment-intent` dělá *Stripe*
+  intent, žádný webhook → grant se neudělí). Tlačítko skryto (`paywall_screen`, `availableMethods`), kód
+  ponechán pro budoucí Revolut Merchant API.
+- **Google Pay: funguje** (mobil Android, přes Stripe gateway) — tlačítko se zobrazí jen když je
+  nakonfigurované (`google_pay_merchant_id`+`stripe_publishable_key`); Apple Pay analogicky.
+- **Účtenky — opraveno + PDF i obrázek:**
+  - Migrace **0457**: `payment_receipts.city_id` nullable + `item_type`/`item_label` → účtenka pokryje i POI/země.
+  - Pokrytí: účtenku teď vystaví i **Comgate** (`comgate-webhook`) a **Stripe** (`confirm-poi-payment`)
+    přes sdílený `_shared/receipt.ts` (`createReceipt`). `confirm-payment` (Google/Apple Pay) už ji měl.
+  - PDF: `generate-receipt` přepsán na **jsPDF** (provozovatel, položka, částka, metoda, datum) — ASCII-fold
+    (Helvetica nemá české glyfy); obrázková verze drží plnou diakritiku.
+  - **Web** (`AccountProfilePage`): opraven rozbitý dotaz (četl neexistující `pdf_path`/`city_name`) →
+    `receipt_pdf_url`/`item_label`; stažení **PDF** (signed URL) i **obrázek (PNG)** přes Canvas API.
+  - **Mobil** (`receipts_screen`): detail účtenky s „Open PDF" + „Share image" (RepaintBoundary→PNG→share).
+  - Ověření: `flutter analyze` 0 / `flutter test` **235**; web `tsc` 0 / `vitest` 293 / build OK; edge `vitest`
+    72; mig 0457 ověřena proti Postgresu (rolled-back, vč. POI účtenky s NULL city_id). **Neověřeno:** živý běh
+    edge fns (Deno není nainstalován), reálné platby a PNG export na zařízení; jsPDF v Deno runtime.
+
 ## Souhrn závažnosti
 | Kat. | Oblast | Počet |
 |---|---|---|

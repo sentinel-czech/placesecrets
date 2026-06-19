@@ -580,7 +580,10 @@
       "date": "날짜",
       "download": "다운로드",
       "pdfUnavailable": "영수증 PDF를 사용할 수 없습니다",
-      "downloadFailed": "영수증 다운로드 실패"
+      "downloadFailed": "영수증 다운로드 실패",
+      "item": "항목",
+      "downloadPdf": "PDF 다운로드",
+      "downloadImage": "이미지 다운로드"
     },
     "profile": {
       "title": "내 프로필",

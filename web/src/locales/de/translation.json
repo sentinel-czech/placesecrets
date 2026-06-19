@@ -580,7 +580,10 @@
       "date": "Datum",
       "download": "Herunterladen",
       "pdfUnavailable": "Beleg-PDF nicht verfügbar",
-      "downloadFailed": "Beleg konnte nicht heruntergeladen werden"
+      "downloadFailed": "Beleg konnte nicht heruntergeladen werden",
+      "item": "Position",
+      "downloadPdf": "PDF herunterladen",
+      "downloadImage": "Bild herunterladen"
     },
     "profile": {
       "title": "Mein Profil",

@@ -580,7 +580,10 @@
       "date": "Ngày",
       "download": "Tải xuống",
       "pdfUnavailable": "PDF hóa đơn không khả dụng",
-      "downloadFailed": "Tải hóa đơn thất bại"
+      "downloadFailed": "Tải hóa đơn thất bại",
+      "item": "Mục",
+      "downloadPdf": "Tải PDF",
+      "downloadImage": "Tải hình ảnh"
     },
     "profile": {
       "title": "Hồ sơ của tôi",

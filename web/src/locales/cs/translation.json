@@ -580,7 +580,10 @@
       "date": "Datum",
       "download": "Stáhnout",
       "pdfUnavailable": "PDF účtenky není k dispozici",
-      "downloadFailed": "Stažení účtenky se nezdařilo"
+      "downloadFailed": "Stažení účtenky se nezdařilo",
+      "item": "Položka",
+      "downloadPdf": "Stáhnout PDF",
+      "downloadImage": "Stáhnout obrázek"
     },
     "profile": {
       "title": "Můj profil",

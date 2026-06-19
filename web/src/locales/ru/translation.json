@@ -580,7 +580,10 @@
       "date": "Дата",
       "download": "Скачать",
       "pdfUnavailable": "PDF квитанции недоступен",
-      "downloadFailed": "Не удалось скачать квитанцию"
+      "downloadFailed": "Не удалось скачать квитанцию",
+      "item": "Позиция",
+      "downloadPdf": "Скачать PDF",
+      "downloadImage": "Скачать изображение"
     },
     "profile": {
       "title": "Мой профиль",

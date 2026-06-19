@@ -24,7 +24,11 @@ mixin _$PaymentReceipt {
   @JsonKey(name: 'user_id')
   String get userId => throw _privateConstructorUsedError;
   @JsonKey(name: 'city_id')
-  String get cityId => throw _privateConstructorUsedError;
+  String? get cityId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'item_type')
+  String? get itemType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'item_label')
+  String? get itemLabel => throw _privateConstructorUsedError;
   @JsonKey(name: 'purchased_at')
   DateTime get purchasedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'payment_method')
@@ -63,7 +67,9 @@ abstract class $PaymentReceiptCopyWith<$Res> {
   $Res call(
       {String id,
       @JsonKey(name: 'user_id') String userId,
-      @JsonKey(name: 'city_id') String cityId,
+      @JsonKey(name: 'city_id') String? cityId,
+      @JsonKey(name: 'item_type') String? itemType,
+      @JsonKey(name: 'item_label') String? itemLabel,
       @JsonKey(name: 'purchased_at') DateTime purchasedAt,
       @JsonKey(name: 'payment_method') String paymentMethod,
       @JsonKey(name: 'transaction_id') String? transactionId,
@@ -93,7 +99,9 @@ class _$PaymentReceiptCopyWithImpl<$Res, $Val extends PaymentReceipt>
   $Res call({
     Object? id = null,
     Object? userId = null,
-    Object? cityId = null,
+    Object? cityId = freezed,
+    Object? itemType = freezed,
+    Object? itemLabel = freezed,
     Object? purchasedAt = null,
     Object? paymentMethod = null,
     Object? transactionId = freezed,
@@ -114,10 +122,18 @@ class _$PaymentReceiptCopyWithImpl<$Res, $Val extends PaymentReceipt>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      cityId: null == cityId
+      cityId: freezed == cityId
           ? _value.cityId
           : cityId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      itemType: freezed == itemType
+          ? _value.itemType
+          : itemType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      itemLabel: freezed == itemLabel
+          ? _value.itemLabel
+          : itemLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
       purchasedAt: null == purchasedAt
           ? _value.purchasedAt
           : purchasedAt // ignore: cast_nullable_to_non_nullable
@@ -173,7 +189,9 @@ abstract class _$$PaymentReceiptImplCopyWith<$Res>
   $Res call(
       {String id,
       @JsonKey(name: 'user_id') String userId,
-      @JsonKey(name: 'city_id') String cityId,
+      @JsonKey(name: 'city_id') String? cityId,
+      @JsonKey(name: 'item_type') String? itemType,
+      @JsonKey(name: 'item_label') String? itemLabel,
       @JsonKey(name: 'purchased_at') DateTime purchasedAt,
       @JsonKey(name: 'payment_method') String paymentMethod,
       @JsonKey(name: 'transaction_id') String? transactionId,
@@ -201,7 +219,9 @@ class __$$PaymentReceiptImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? userId = null,
-    Object? cityId = null,
+    Object? cityId = freezed,
+    Object? itemType = freezed,
+    Object? itemLabel = freezed,
     Object? purchasedAt = null,
     Object? paymentMethod = null,
     Object? transactionId = freezed,
@@ -222,10 +242,18 @@ class __$$PaymentReceiptImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      cityId: null == cityId
+      cityId: freezed == cityId
           ? _value.cityId
           : cityId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      itemType: freezed == itemType
+          ? _value.itemType
+          : itemType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      itemLabel: freezed == itemLabel
+          ? _value.itemLabel
+          : itemLabel // ignore: cast_nullable_to_non_nullable
+              as String?,
       purchasedAt: null == purchasedAt
           ? _value.purchasedAt
           : purchasedAt // ignore: cast_nullable_to_non_nullable
@@ -276,7 +304,9 @@ class _$PaymentReceiptImpl implements _PaymentReceipt {
   const _$PaymentReceiptImpl(
       {required this.id,
       @JsonKey(name: 'user_id') required this.userId,
-      @JsonKey(name: 'city_id') required this.cityId,
+      @JsonKey(name: 'city_id') this.cityId,
+      @JsonKey(name: 'item_type') this.itemType,
+      @JsonKey(name: 'item_label') this.itemLabel,
       @JsonKey(name: 'purchased_at') required this.purchasedAt,
       @JsonKey(name: 'payment_method') required this.paymentMethod,
       @JsonKey(name: 'transaction_id') this.transactionId,
@@ -298,7 +328,13 @@ class _$PaymentReceiptImpl implements _PaymentReceipt {
   final String userId;
   @override
   @JsonKey(name: 'city_id')
-  final String cityId;
+  final String? cityId;
+  @override
+  @JsonKey(name: 'item_type')
+  final String? itemType;
+  @override
+  @JsonKey(name: 'item_label')
+  final String? itemLabel;
   @override
   @JsonKey(name: 'purchased_at')
   final DateTime purchasedAt;
@@ -332,7 +368,7 @@ class _$PaymentReceiptImpl implements _PaymentReceipt {
 
   @override
   String toString() {
-    return 'PaymentReceipt(id: $id, userId: $userId, cityId: $cityId, purchasedAt: $purchasedAt, paymentMethod: $paymentMethod, transactionId: $transactionId, amountEur: $amountEur, currency: $currency, status: $status, receiptNumber: $receiptNumber, receiptPdfUrl: $receiptPdfUrl, receiptSentAt: $receiptSentAt, createdAt: $createdAt)';
+    return 'PaymentReceipt(id: $id, userId: $userId, cityId: $cityId, itemType: $itemType, itemLabel: $itemLabel, purchasedAt: $purchasedAt, paymentMethod: $paymentMethod, transactionId: $transactionId, amountEur: $amountEur, currency: $currency, status: $status, receiptNumber: $receiptNumber, receiptPdfUrl: $receiptPdfUrl, receiptSentAt: $receiptSentAt, createdAt: $createdAt)';
   }
 
   @override
@@ -343,6 +379,10 @@ class _$PaymentReceiptImpl implements _PaymentReceipt {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.cityId, cityId) || other.cityId == cityId) &&
+            (identical(other.itemType, itemType) ||
+                other.itemType == itemType) &&
+            (identical(other.itemLabel, itemLabel) ||
+                other.itemLabel == itemLabel) &&
             (identical(other.purchasedAt, purchasedAt) ||
                 other.purchasedAt == purchasedAt) &&
             (identical(other.paymentMethod, paymentMethod) ||
@@ -371,6 +411,8 @@ class _$PaymentReceiptImpl implements _PaymentReceipt {
       id,
       userId,
       cityId,
+      itemType,
+      itemLabel,
       purchasedAt,
       paymentMethod,
       transactionId,
@@ -403,7 +445,9 @@ abstract class _PaymentReceipt implements PaymentReceipt {
   const factory _PaymentReceipt(
           {required final String id,
           @JsonKey(name: 'user_id') required final String userId,
-          @JsonKey(name: 'city_id') required final String cityId,
+          @JsonKey(name: 'city_id') final String? cityId,
+          @JsonKey(name: 'item_type') final String? itemType,
+          @JsonKey(name: 'item_label') final String? itemLabel,
           @JsonKey(name: 'purchased_at') required final DateTime purchasedAt,
           @JsonKey(name: 'payment_method') required final String paymentMethod,
           @JsonKey(name: 'transaction_id') final String? transactionId,
@@ -426,7 +470,13 @@ abstract class _PaymentReceipt implements PaymentReceipt {
   String get userId;
   @override
   @JsonKey(name: 'city_id')
-  String get cityId;
+  String? get cityId;
+  @override
+  @JsonKey(name: 'item_type')
+  String? get itemType;
+  @override
+  @JsonKey(name: 'item_label')
+  String? get itemLabel;
   @override
   @JsonKey(name: 'purchased_at')
   DateTime get purchasedAt;
