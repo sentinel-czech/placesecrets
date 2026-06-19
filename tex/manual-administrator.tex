@@ -1,0 +1,420 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- Engine: kompilovat pomocí XeLaTeX (kvůli českým znakům) ---
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{czech}
+\setmainfont{Latin Modern Roman}
+\setmonofont{Latin Modern Mono}
+
+\usepackage[a4paper,margin=2.4cm]{geometry}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{brand}{HTML}{2D6A4F}
+\definecolor{gold}{HTML}{B8960C}
+\definecolor{codebg}{HTML}{F4F6F5}
+\definecolor{codeframe}{HTML}{D8DEDB}
+
+\hypersetup{colorlinks=true, linkcolor=brand, urlcolor=brand}
+
+\titleformat{\section}{\Large\bfseries\color{brand}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{brand!85!black}}{\thesubsection}{0.6em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\lhead{\small\color{brand}PlaceSecrets}
+\rhead{\small Příručka administrátora}
+\cfoot{\small\thepage}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  framesep=5pt,
+  breaklines=true,
+  breakatwhitespace=false,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  xleftmargin=4pt,
+  literate={á}{{\'a}}1 {č}{{\v c}}1 {ď}{{\v d}}1 {é}{{\'e}}1 {ě}{{\v e}}1
+           {í}{{\'i}}1 {ň}{{\v n}}1 {ó}{{\'o}}1 {ř}{{\v r}}1 {š}{{\v s}}1
+           {ť}{{\v t}}1 {ú}{{\'u}}1 {ů}{{\r u}}1 {ý}{{\'y}}1 {ž}{{\v z}}1
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+% Tolerovat delší řádky (kód/cesty) bez přetékání do okraje.
+\setlength{\emergencystretch}{3em}
+\sloppy
+
+\begin{document}
+
+% ---------------- Titulní strana ----------------
+\begin{titlepage}
+\centering
+\vspace*{3cm}
+{\Huge\bfseries\color{brand} PlaceSecrets\par}
+\vspace{0.4cm}
+{\LARGE Příručka administrátora\par}
+\vspace{0.3cm}
+{\large Instalace, správa, architektura a zabezpečení\par}
+\vspace{2cm}
+{\large POI AudioGuide \& Travel Log\par}
+{\large Mobilní aplikace \textbullet{} Webový portál \textbullet{} Supabase backend\par}
+\vfill
+{\small Verze dokumentu k 14.\,6.\,2026\par}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ================================================================
+\section{Úvod}
+Tento dokument je úplná příručka pro \textbf{administrátora a provozovatele}
+systému PlaceSecrets. Po jeho přečtení má být jasné, \emph{co kde je}, \emph{jak
+to nainstalovat a nasadit}, \emph{jak to spravovat} a \emph{jak je vyřešené
+zabezpečení}.
+
+Systém se skládá ze tří částí sdílejících jeden backend:
+\begin{itemize}[nosep]
+  \item \textbf{Mobilní aplikace} (Flutter, Android + iOS) -- pro koncové uživatele.
+  \item \textbf{Webový portál} (React) -- veřejná část \emph{a} administrace.
+  \item \textbf{Backend} (Supabase: PostgreSQL, Auth, Storage, Edge Functions).
+\end{itemize}
+
+\paragraph{Doprovodné dokumenty v repozitáři.} Tato příručka shrnuje a odkazuje na:
+\code{app/BUILD.md} (build mobilu), \code{backend/DEPLOYMENT.md} (nasazení
+backendu), \code{backend/PRODUCTION\_SETUP.md} (produkční data),
+\code{RELEASE-CHECKLIST.md} (co musí udělat člověk vs.\ co je hotové v~kódu) a
+\code{APP-GAP-ANALYSIS.md} (stav a~analýza).
+
+% ================================================================
+\section{Architektura systému}
+
+\subsection{Přehled}
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Vrstva} & \textbf{Technologie} \\
+\midrule
+Mobil & Flutter/Dart, Riverpod, GoRouter, Drift (SQLite), supabase\_flutter \\
+      & flutter\_map (OSM), just\_audio + flutter\_tts, geofencing, Firebase FCM \\
+Web   & Vite + React 18 + TypeScript + Tailwind CSS, react-i18next (11 jazyků) \\
+Backend & Supabase: PostgreSQL + RLS, Auth, Storage, Edge Functions (Deno) \\
+Platby & Stripe (mobil checkout/refund), Comgate (web), Google/Apple Pay, Revolut \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Struktura repozitáře}
+\begin{lstlisting}
+place-secrets/
+  app/        ... Flutter mobilni aplikace (balicek cz.tuma.placesecrets)
+  web/        ... React webovy portal (verejna cast + /admin administrace)
+  backend/    ... Supabase: migrace, edge funkce, seed
+    supabase/migrations/   ... 64 SQL migraci (forward-only)
+    supabase/functions/    ... 15 edge funkci (Deno/TypeScript)
+  tex/        ... tento dokument
+  .github/workflows/ci.yml ... CI (web, edge, mobile, e2e)
+  APP-GAP-ANALYSIS.md, RELEASE-CHECKLIST.md ... stav a checklist
+\end{lstlisting}
+
+\subsection{Klíčové datové struktury (PostgreSQL)}
+Hlavní tabulky: \code{cities}, \code{pois}, \code{countries}, \code{poi\_types},
+\code{poi\_audio\_guides}, \code{poi\_ratings} (hodnocení), \code{user\_profiles},
+\code{admin\_users} (administrátoři + PIN), \code{contributor\_profiles},
+\code{acl\_permissions} (role \texttimes{} zdroj \texttimes{} R/W/D),
+\code{payment\_config}, \code{payment\_receipts} (účtenky), \code{landing\_config}
+(CMS úvodní stránky) a tabulky nároků: \code{user\_access},
+\code{user\_poi\_purchases}, \code{user\_city\_premium\_purchases},
+\code{user\_country\_purchases}, \code{free\_visit\_log}. Na všech je zapnuté
+\textbf{Row Level Security (RLS)}.
+
+\subsection{Edge funkce (15)}
+\code{admin-api} (proxy všech admin operací), \code{verify-admin-pin},
+\code{change-admin-pin}, \code{invite-contributor}, \code{confirm-payment},
+\code{generate-receipt}, \code{create-payment-intent}, \code{create-poi-checkout},
+\code{confirm-poi-payment}, \code{payment-webhook}, \code{stripe-refund},
+\code{comgate-create}, \code{comgate-webhook}, \code{delete-user-data} (GDPR),
+\code{migrate-anonymous-data}.
+
+% ================================================================
+\section{Instalace a první nasazení}
+Nasazení má čtyři kroky: \textbf{backend}, \textbf{web}, \textbf{mobil} a
+\textbf{doménové/účtové} úkony. Pořadí: nejdřív backend (na něm závisí web i mobil).
+
+\subsection{Předpoklady (účty a nástroje)}
+\begin{itemize}[nosep]
+  \item Supabase projekt (produkční, případně i staging).
+  \item Firebase projekt (push notifikace -- FCM).
+  \item Apple Developer + Google Play Console (vydání aplikací).
+  \item Platební brány: Stripe a/nebo Comgate (živé klíče).
+  \item Hosting webu: Netlify nebo Vercel; doména \code{placesecrets.app}.
+  \item Nástroje: \code{supabase} CLI, \code{flutter} SDK, \code{node} 22, \code{git}.
+\end{itemize}
+
+\subsection{Backend (Supabase)}
+Podrobně v \code{backend/DEPLOYMENT.md}. Stručně (spouštět v \code{backend/}):
+\begin{lstlisting}
+npx supabase login
+npx supabase link --project-ref <PROJECT_REF>
+npx supabase db push          # aplikuje vsech 64 migraci
+
+# tajne klice (viz tabulka v sekci Zabezpeceni):
+npx supabase secrets set STRIPE_SECRET_KEY=... \
+  COMGATE_MERCHANT=... COMGATE_SECRET=... \
+  WEBHOOK_SECRET=$(openssl rand -hex 32) \
+  RESEND_API_KEY=... APP_URL=https://placesecrets.app
+
+# nasazeni vsech 15 edge funkci:
+for fn in admin-api verify-admin-pin change-admin-pin \
+    invite-contributor confirm-payment generate-receipt \
+    create-payment-intent create-poi-checkout confirm-poi-payment \
+    payment-webhook stripe-refund comgate-create comgate-webhook \
+    delete-user-data migrate-anonymous-data; do
+  npx supabase functions deploy "$fn"
+done
+\end{lstlisting}
+
+\paragraph{Konfigurace Auth (dashboard).} V~\emph{Authentication}:
+\begin{itemize}[nosep]
+  \item \textbf{Redirect URLs}: přidat \code{placesecrets://login-callback} (OAuth z mobilu) a originy webu.
+  \item \textbf{Providers}: zapnout Google a Apple (client id/secret).
+  \item E-mailové šablony (potvrzení registrace, reset hesla).
+\end{itemize}
+
+\paragraph{Produkční data.} Podle \code{backend/PRODUCTION\_SETUP.md}: nasypat
+\code{countries}, nastavit \code{payment\_config} (ceny, \code{free\_count}),
+vytvořit prvního \code{superadmin}a, založit města a~místa (přes administraci).
+Testovací seed (\code{seed.sql}) do produkce \textbf{nepatří}.
+
+\subsection{Webový portál}
+Deploy konfigurace je v~repozitáři hotová (\code{web/netlify.toml},
+\code{web/vercel.json}, \code{web/public/\_redirects}). Na hostingu nastavte
+proměnné prostředí (injektují se při buildu):
+\begin{lstlisting}
+VITE_SUPABASE_URL=https://<ref>.supabase.co
+VITE_SUPABASE_ANON_KEY=<publikovatelny anon klic>   # chranen pomoci RLS
+VITE_SENTRY_DSN=<volitelne, pro error tracking>
+\end{lstlisting}
+Build: \code{npm ci \&\& npm run build} (výstup \code{dist/}). SPA fallback i
+bezpečnostní hlavičky (CSP, X-Frame-Options, \dots) jsou součástí deploy konfigurace.
+Pokud chybí \code{VITE\_SUPABASE\_*}, aplikace se \textbf{záměrně} nespustí a~zobrazí
+jasnou chybu (fail-fast v~\code{main.tsx}).
+
+\subsection{Mobilní aplikace}
+Podrobně v~\code{app/BUILD.md}. Člověkem dodávané části:
+\begin{itemize}[nosep]
+  \item \textbf{Firebase config}: \code{google-services.json} (Android) +
+        \code{GoogleService-Info.plist} (iOS) + plugin \code{com.google.gms.google-services}.
+        Bez nich appka \emph{funguje}, jen bez push notifikací (start je odolný).
+  \item \textbf{Podpisový klíč}: vytvořit keystore a~vyplnit \code{android/key.properties}
+        (mimo git). Bez něj se release podepíše debug klíčem (jen pro vývoj).
+  \item \textbf{Ikona}: nahradit placeholder \code{assets/icons/app\_icon.png} a~spustit
+        \code{dart run flutter\_\allowbreak launcher\_\allowbreak icons}.
+  \item \textbf{Konfigurace}: vyplnit \code{dart\_defines/prod.json} (prod Supabase URL/klíč).
+\end{itemize}
+Build:
+\begin{lstlisting}
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs
+flutter build appbundle --release --dart-define-from-file=dart_defines/prod.json
+flutter build ipa       --release --dart-define-from-file=dart_defines/prod.json
+\end{lstlisting}
+
+\paragraph{Deep linky (doménové soubory).} Pro ověřené \code{https} odkazy hostujte
+na doméně \code{/.well-known/\allowbreak assetlinks.json} (Android)
+a~\code{apple-app-\allowbreak site-association} (iOS). Schéma \code{placesecrets://}
+funguje i~bez nich (callbacky platby).
+
+% ================================================================
+\section{Webové administrační rozhraní}
+Administrace je v~portálu pod \code{/admin/*} (přihlášení e-mailem + PIN).
+Viditelnost položek řídí role přihlášeného administrátora (ACL).
+
+\begin{longtable}{@{}p{4.6cm}p{9.8cm}@{}}
+\toprule
+\textbf{Sekce} & \textbf{Co se zde spravuje} \\
+\midrule
+\endhead
+\code{/admin/dashboard} & Přehled, statistiky systému. \\
+\code{/admin/cities} & Města (název, země, poloha, ceny, aktivace). \\
+\code{/admin/cities/.../pois} & Místa (POI) ve městě: obsah, foto, audio, úroveň přístupu, ceny, slug. \\
+\code{/admin/cities/.../pricing} & Cenotvorba města (bundle). \\
+\code{/admin/poi-types} & Typy míst (12 typů) + lokalizace názvů. \\
+\code{/admin/users} & Uživatelé: profil, stav (aktivní/deaktivovaný), GDPR export, granty přístupu. \\
+\code{/admin/payments} & Platby a~účtenky, detail platby, refundace (Stripe). \\
+\code{/admin/purchases/premium} & Přehled prémiových nákupů. \\
+\code{/admin/contributors} & Přispěvatelé (autoři obsahu) a~jejich profily. \\
+\code{/admin/hall-of-fame} & Žebříčky přispěvatelů (celkově / dle města / dle místa). \\
+\code{/admin/moderation} & Moderace recenzí (skrýt/smazat nevhodné komentáře). \\
+\code{/admin/landing} & CMS úvodní stránky: hero, Explore, Featured, How-it-works, CTA, patička -- per 11 jazyků. \\
+\code{/admin/settings} & Systémová nastavení, platební konfigurace. \\
+\code{/admin/acl} & Matice oprávnění: role \texttimes{} zdroj \texttimes{} čtení/zápis/mazání. \\
+\code{/admin/my-pois} & Přispěvatel spravuje jen vlastní místa. \\
+\code{/admin/profile} & Profil administrátora/přispěvatele, změna PIN. \\
+\bottomrule
+\end{longtable}
+
+\paragraph{Role.} \code{superadmin} (vše), \code{editor} (POI + audio),
+\code{viewer} (jen čtení), \code{contributor} (vlastní POI + profil),
+\code{user} (čtení obsahu). Konkrétní práva jsou v~tabulce \code{acl\_permissions}
+a~editovatelná na \code{/admin/acl}.
+
+% ================================================================
+\section{Zabezpečení}
+Bezpečnostní model stojí na principu \emph{,,frontend nikdy nedrží silný klíč``}
+a~\emph{,,databáze chrání sama sebe (RLS)``}.
+
+\subsection{Autentizace a~autorizace}
+\begin{itemize}[nosep]
+  \item \textbf{Koncoví uživatelé}: anonymní session (okamžité použití) $\rightarrow$
+        e-mail/heslo nebo OAuth (Google/Apple). Anonymní data se migrují při registraci.
+  \item \textbf{Administrátoři}: e-mail + \textbf{PIN}. PIN je hashovaný (bcrypt),
+        po~5 chybách 15min zámek (\code{verify-admin-pin}, atomické počítání pokusů).
+        První přihlášení vynutí změnu PINu (\code{must\_change\_pin}).
+  \item \textbf{ACL}: každá admin operace ověří právo (role \texttimes{} zdroj \texttimes{}
+        R/W/D) v~\code{acl\_permissions}; \code{superadmin} má bypass.
+\end{itemize}
+
+\subsection{admin-api proxy -- žádný service\_role ve frontendu}
+Frontend \textbf{nikdy} nepoužívá \code{service\_role} klíč. Všechny privilegované
+operace jdou přes edge funkci \code{admin-api}, která: ověří JWT a~roli, validuje
+názvy sloupců, blokuje citlivé sloupce (\code{pin\_hash} apod.), povoluje jen
+whitelist tabulek a~RPC, vynucuje ACL a~loguje do \code{audit\_logs}.
+
+\subsection{Row Level Security (RLS)}
+Zapnuté na všech tabulkách. Uživatel vidí/edituje jen vlastní řádky
+(\code{auth.uid()}); veřejná data (aktivní města/místa, \code{landing\_config})
+mají \code{public read}; zápis přes \code{service\_role} (edge funkce) RLS obchází
+řízeně.
+
+\subsection{Storage (úložiště)}
+Buckety: \code{poi-photos}, \code{audio-guides} (veřejné čtení), \code{avatars}
+(veřejné čtení, zápis jen vlastník), \code{payment-receipts} (privátní -- servíruje
+se přes krátkodobé \emph{signed URL}; navíc owner-read RLS policy jako
+defense-in-depth), \code{premium-audio} (jen pro nakupující).
+
+\subsection{Platby a~webhooky}
+\begin{itemize}[nosep]
+  \item \textbf{Stripe}: webhook ověřuje podpis (\code{constructEvent}); granty idempotentní.
+  \item \textbf{Comgate}: webhook po kontrole sdíleného secretu \emph{re-ověřuje} transakci
+        voláním Comgate status API (merchant+secret+transId) a~grantuje jen na ověřené
+        \code{PAID}; refId/cena se berou z~ověřené odpovědi, ne z~těla callbacku.
+  \item \textbf{Refundace}: jen administrátor s~ACL na \code{payments}; idempotentní (Stripe idempotencyKey).
+\end{itemize}
+
+\subsection{Hodnocení míst}
+Hodnotit smí jen \textbf{přihlášený} (neanonymní) uživatel, \textbf{jednou na položku}
+(UNIQUE \code{poi\_id,user\_id} + upsert). Anonymní zápis je odebrán na úrovni DB
+(migrace 0453) i~aplikace.
+
+\subsection{GDPR}
+\begin{itemize}[nosep]
+  \item \textbf{Export dat}: uživatel si stáhne svá data (web i~mobil).
+  \item \textbf{Smazání účtu}: \code{delete-user-data} atomicky smaže data + storage + auth
+        usera a~zapíše doklad do \code{audit\_logs} (\code{gdpr\_account\_deletion}).
+  \item \textbf{Souhlasy}: časová razítka přijetí Podmínek/Soukromí při registraci;
+        cookie lišta na webu (jen nezbytné úložiště, bez trackingu).
+\end{itemize}
+
+\subsection{Web -- bezpečnostní hlavičky}
+Deploy konfigurace nastavuje \code{Content-Security-Policy}, \code{X-Frame-Options},
+\code{X-Content-Type-Options}, \code{Referrer-Policy} a~\code{Permissions-Policy}.
+
+\subsection{Správa tajných klíčů}
+\begin{longtable}{@{}p{5.2cm}p{9.2cm}@{}}
+\toprule
+\textbf{Kde} & \textbf{Co} \\
+\midrule
+\endhead
+Supabase secrets & \code{STRIPE\_SECRET\_KEY}, \code{STRIPE\_POI\_WEBHOOK\_SECRET},
+  \code{COMGATE\_MERCHANT/SECRET}, \code{WEBHOOK\_SECRET}, \code{RESEND\_API\_KEY} -- jen na serveru. \\
+Web (build env) & \code{VITE\_SUPABASE\_URL}, \code{VITE\_SUPABASE\_ANON\_KEY} (publikovatelný), \code{VITE\_SENTRY\_DSN}. \\
+Mobil (dart-define) & \code{SUPABASE\_URL}, \code{SUPABASE\_ANON\_KEY} v~\code{dart\_defines/prod.json}. \\
+Mobil (keystore) & \code{android/key.properties} -- mimo git. \\
+\bottomrule
+\end{longtable}
+\textbf{Nikdy} necommitovat reálné klíče; v~repu jsou jen \code{*.example} šablony.
+
+% ================================================================
+\section{Údržba a~provoz}
+
+\subsection{CI/CD}
+GitHub Actions (\code{.github/workflows/ci.yml}) na každý push/PR spouští:
+\begin{itemize}[nosep]
+  \item \textbf{web}: lint, \code{tsc}, build, \code{vitest} (293 testů), \code{npm audit}.
+  \item \textbf{edge-functions}: \code{vitest} (72 testů).
+  \item \textbf{mobile}: \code{flutter analyze} + \code{flutter test} (233 testů) + codegen.
+  \item \textbf{e2e}: Playwright (5 testů veřejných toků v~prohlížeči).
+\end{itemize}
+
+\subsection{Monitoring}
+Web: Sentry (volitelné, aktivní jen když je nastaveno \code{VITE\_SENTRY\_DSN}).
+Mobil: doporučeno Firebase Crashlytics (vyžaduje Firebase config). Edge chyby
+jsou v~logu Supabase.
+
+\subsection{Migrace databáze}
+Konvence: \textbf{forward-only}, nepřečíslovávat. Nová změna = nový soubor
+\code{NNNN\_popis.sql} (idempotentní -- \code{IF NOT EXISTS} apod.). Aplikace:
+\code{npx supabase db push}. Lokálně po editaci: \code{npx supabase db reset}.
+
+\subsection{Zálohy a~obnova}
+Spoléhat na Supabase \emph{Point-in-Time Recovery} (dle plánu projektu). Před
+velkými zásahy ruční záloha (export). Doporučen oddělený \textbf{staging} projekt
+pro testy nasazení.
+
+\subsection{Časté administrátorské úkoly}
+\begin{itemize}[nosep]
+  \item \textbf{Přidat město / místo}: \code{/admin/cities} $\rightarrow$ POI editor (foto, audio, ceny, slug).
+  \item \textbf{Udělit přístup uživateli}: \code{/admin/users/:id} (grant město/POI/země).
+  \item \textbf{Moderace}: \code{/admin/moderation} (skrýt/smazat komentář).
+  \item \textbf{Změnit ceny / free limit}: \code{/admin/settings} (\code{payment\_config}).
+  \item \textbf{Upravit úvodní stránku}: \code{/admin/landing} (per jazyk).
+  \item \textbf{Přidat administrátora}: pozvánka (\code{invite-contributor}) / \code{/admin/users}.
+\end{itemize}
+
+% ================================================================
+\section{Řešení problémů}
+\begin{longtable}{@{}p{6cm}p{8.4cm}@{}}
+\toprule
+\textbf{Příznak} & \textbf{Příčina / řešení} \\
+\midrule
+\endhead
+Web ukazuje ,,Configuration error`` & Chybí \code{VITE\_SUPABASE\_*} v~build env hostingu. \\
+Přímý odkaz na \code{/admin/...} vrací 404 & Chybí SPA fallback -- ověřit \code{netlify.toml}/\code{vercel.json}. \\
+Platba projde, ale přístup se neobjeví & Webhook nedoběhl/nedorazil; ověřit endpoint a~secrety brány; stránka úspěchu sama poolluje nárok. \\
+Mobil spadne hned po startu & Chybí Firebase config; ověřit \code{google-services.json}/plist (start je jinak odolný). \\
+Push notifikace nedorazí & Není FCM token na serveru / chybí Firebase config / oprávnění notifikací. \\
+Edge funkce vrací 503 & Chybí příslušný secret (např. Comgate/Stripe) -- \code{supabase secrets set}. \\
+Admin se nepřihlásí (zámek) & 15min zámek po 5 chybných PINech; počkat nebo reset přes superadmina. \\
+\bottomrule
+\end{longtable}
+
+% ================================================================
+\section{Odkazy}
+\begin{itemize}[nosep]
+  \item \code{app/BUILD.md} -- build mobilu, Firebase, keystore, deep linky, OAuth.
+  \item \code{backend/DEPLOYMENT.md} -- nasazení backendu (migrace, secrets, funkce).
+  \item \code{backend/PRODUCTION\_SETUP.md} -- produkční data (countries, admin, ceny).
+  \item \code{RELEASE-CHECKLIST.md} -- co musí udělat člověk vs.\ co je hotové v~kódu.
+  \item \code{APP-GAP-ANALYSIS.md} -- stav, analýza, ověření.
+\end{itemize}
+
+\vfill
+\noindent\rule{\linewidth}{0.4pt}\\
+{\small Tento dokument popisuje stav systému k~datu na titulní straně. Runtime chování
+závislé na účtech a~zařízeních (platby, push, deep linky, store buildy) je nutné
+ověřit v~cílovém prostředí.}
+
+\end{document}
