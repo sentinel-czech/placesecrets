@@ -209,7 +209,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       body: ListView(
         children: [
           // Language
-          _SectionHeader(title: 'Language'),
+          const _SectionHeader(title: 'Language'),
           ListTile(
             leading: const Icon(Icons.language),
             title: const Text('App language'),
@@ -221,7 +221,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const Divider(),
 
           // Audio & Location
-          _SectionHeader(title: 'Audio & Location'),
+          const _SectionHeader(title: 'Audio & Location'),
           ListTile(
             leading: const Icon(Icons.radar),
             title: const Text('Geofence radius'),
@@ -243,7 +243,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const Divider(),
 
           // Account
-          _SectionHeader(title: 'Account'),
+          const _SectionHeader(title: 'Account'),
           if (authState.isAuthenticated)
             ListTile(
               leading: CircleAvatar(
@@ -399,7 +399,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const Divider(),
 
           // Community
-          _SectionHeader(title: 'Community'),
+          const _SectionHeader(title: 'Community'),
           ListTile(
             leading: const Icon(Icons.edit_note),
             title: const Text('Become a guide'),
@@ -411,7 +411,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
           if (authState.isAuthenticated) ...[
             const Divider(),
-            _SectionHeader(title: 'Privacy & data'),
+            const _SectionHeader(title: 'Privacy & data'),
             ListTile(
               leading: const Icon(Icons.download_outlined),
               title: const Text('Export my data'),
@@ -557,7 +557,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 final prefs = await SharedPreferences.getInstance();
                 await prefs.setDouble(
                     AppConstants.prefGeofenceRadius, _geofenceRadius);
-                if (mounted) Navigator.pop(ctx);
+                if (ctx.mounted) Navigator.pop(ctx);
               },
               child: const Text('Save'),
             ),

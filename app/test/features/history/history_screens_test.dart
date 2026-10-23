@@ -18,7 +18,6 @@ class _HistoryTestable extends StatelessWidget {
   final int photosTaken;
   final bool hasStats;
   final List<String> visitNames;
-  final bool loading;
 
   const _HistoryTestable({
     this.totalVisits = 0,
@@ -27,7 +26,6 @@ class _HistoryTestable extends StatelessWidget {
     this.photosTaken = 0,
     this.hasStats = false,
     this.visitNames = const [],
-    this.loading = false,
   });
 
   @override
@@ -74,9 +72,7 @@ class _HistoryTestable extends StatelessWidget {
             ),
           const Divider(height: 1),
           Expanded(
-            child: loading
-                ? const Center(child: CircularProgressIndicator())
-                : visitNames.isEmpty
+            child: visitNames.isEmpty
                     ? Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

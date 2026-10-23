@@ -206,7 +206,7 @@ class _PurchasePoiTestable extends StatelessWidget {
                 title: Text('All premium places in city',
                     style: TextStyle(
                         color: theme.colorScheme.onPrimaryContainer)),
-                subtitle: Text('Best value \u2014 unlock everything'),
+                subtitle: const Text('Best value \u2014 unlock everything'),
               ),
             ),
             const Spacer(),
@@ -238,7 +238,7 @@ void main() {
         home: _PaywallTestable(
           city: _makeCity(),
           config: _makeConfig(),
-          availableMethods: [
+          availableMethods: const [
             PaymentMethod.googlePay,
             PaymentMethod.revolut,
           ],

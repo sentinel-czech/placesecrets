@@ -7,12 +7,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 class _SettingsTestable extends StatelessWidget {
   final bool isAuthenticated;
-  final String? email;
   final int? userNumber;
 
   const _SettingsTestable({
     this.isAuthenticated = false,
-    this.email,
     this.userNumber,
   });
 
@@ -25,16 +23,16 @@ class _SettingsTestable extends StatelessWidget {
       body: ListView(
         children: [
           // Audio & Location
-          _SectionHeader(title: 'Audio & Location'),
-          ListTile(
-            leading: const Icon(Icons.language),
-            title: const Text('Audio Language'),
-            subtitle: const Text('English'),
+          const _SectionHeader(title: 'Audio & Location'),
+          const ListTile(
+            leading: Icon(Icons.language),
+            title: Text('Audio Language'),
+            subtitle: Text('English'),
           ),
-          ListTile(
-            leading: const Icon(Icons.radar),
-            title: const Text('Geofence radius'),
-            subtitle: const Text('100 meters'),
+          const ListTile(
+            leading: Icon(Icons.radar),
+            title: Text('Geofence radius'),
+            subtitle: Text('100 meters'),
           ),
           SwitchListTile(
             secondary: const Icon(Icons.notifications),
@@ -47,15 +45,12 @@ class _SettingsTestable extends StatelessWidget {
           const Divider(),
 
           // Account
-          _SectionHeader(title: 'Account'),
+          const _SectionHeader(title: 'Account'),
           ListTile(
             leading: const Icon(Icons.person),
             title: Text(
                 isAuthenticated ? 'Signed in' : 'Anonymous'),
-            subtitle: Text(
-              email ??
-                  'Sign in to sync your data across devices',
-            ),
+            subtitle: const Text('Sign in to sync your data across devices'),
           ),
           if (isAuthenticated && userNumber != null)
             ListTile(
@@ -64,10 +59,10 @@ class _SettingsTestable extends StatelessWidget {
               subtitle: Text('#$userNumber'),
             ),
           if (isAuthenticated)
-            ListTile(
-              leading: const Icon(Icons.alternate_email),
-              title: const Text('Handle'),
-              subtitle: const TextField(
+            const ListTile(
+              leading: Icon(Icons.alternate_email),
+              title: Text('Handle'),
+              subtitle: TextField(
                 decoration: InputDecoration(
                   hintText: 'your_handle',
                   prefixText: '@',
@@ -76,25 +71,25 @@ class _SettingsTestable extends StatelessWidget {
               ),
             ),
           if (isAuthenticated)
-            ListTile(
-              leading: const Icon(Icons.email_outlined),
-              title: const Text('Backup Email'),
+            const ListTile(
+              leading: Icon(Icons.email_outlined),
+              title: Text('Backup Email'),
             ),
-          ListTile(
-            leading: const Icon(Icons.receipt_long),
-            title: const Text('Payment history'),
-            trailing: const Icon(Icons.chevron_right),
+          const ListTile(
+            leading: Icon(Icons.receipt_long),
+            title: Text('Payment history'),
+            trailing: Icon(Icons.chevron_right),
           ),
 
           const Divider(),
 
           // Community
-          _SectionHeader(title: 'Community'),
-          ListTile(
-            leading: const Icon(Icons.edit_note),
-            title: const Text('Become a guide'),
+          const _SectionHeader(title: 'Community'),
+          const ListTile(
+            leading: Icon(Icons.edit_note),
+            title: Text('Become a guide'),
             subtitle:
-                const Text('Write POI content and get recognized'),
+                Text('Write POI content and get recognized'),
           ),
 
           const Divider(),

@@ -20,7 +20,7 @@ Widget _wrap(Widget child) => MaterialApp(home: Scaffold(body: SingleChildScroll
 void main() {
   group('PremiumPoiContent', () {
     testWidgets('renders premium badge with workspace_premium icon', (tester) async {
-      final content = PoiPremiumContent(id: 'c1', poiId: 'poi-1');
+      const content = PoiPremiumContent(id: 'c1', poiId: 'poi-1');
 
       await tester.pumpWidget(_wrap(PremiumPoiContent(content: content, poi: _makePoi())));
 
@@ -29,7 +29,7 @@ void main() {
     });
 
     testWidgets('displays text content when present', (tester) async {
-      final content = PoiPremiumContent(
+      const content = PoiPremiumContent(
         id: 'c1',
         poiId: 'poi-1',
         textContent: 'This is premium text about the place.',
@@ -41,7 +41,7 @@ void main() {
     });
 
     testWidgets('hides text content when null', (tester) async {
-      final content = PoiPremiumContent(id: 'c1', poiId: 'poi-1', textContent: null);
+      const content = PoiPremiumContent(id: 'c1', poiId: 'poi-1', textContent: null);
 
       await tester.pumpWidget(_wrap(PremiumPoiContent(content: content, poi: _makePoi())));
 
@@ -51,7 +51,7 @@ void main() {
     });
 
     testWidgets('hides text content when empty string', (tester) async {
-      final content = PoiPremiumContent(id: 'c1', poiId: 'poi-1', textContent: '');
+      const content = PoiPremiumContent(id: 'c1', poiId: 'poi-1', textContent: '');
 
       await tester.pumpWidget(_wrap(PremiumPoiContent(content: content, poi: _makePoi())));
 
@@ -63,7 +63,7 @@ void main() {
     });
 
     testWidgets('renders extra photos section with correct count', (tester) async {
-      final content = PoiPremiumContent(
+      const content = PoiPremiumContent(
         id: 'c1',
         poiId: 'poi-1',
         extraPhotos: [
@@ -82,7 +82,7 @@ void main() {
     });
 
     testWidgets('renders related POIs section', (tester) async {
-      final content = PoiPremiumContent(
+      const content = PoiPremiumContent(
         id: 'c1',
         poiId: 'poi-1',
         relatedPoiIds: ['poi-2', 'poi-3'],
@@ -98,7 +98,7 @@ void main() {
     });
 
     testWidgets('empty content shows only badge', (tester) async {
-      final content = PoiPremiumContent(
+      const content = PoiPremiumContent(
         id: 'c1',
         poiId: 'poi-1',
         textContent: null,

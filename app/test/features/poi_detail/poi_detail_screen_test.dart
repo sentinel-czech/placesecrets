@@ -51,7 +51,7 @@ class _PoiDetailTestable extends StatelessWidget {
       );
     }
 
-    final langCode = 'en';
+    const langCode = 'en';
     final theme = Theme.of(context);
     final accessLevel = poi.accessLevelEnum;
 
